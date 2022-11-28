@@ -1,83 +1,349 @@
 <!DOCTYPE html>
 <html>
-<style>
-body, html {
-  height: 100%;
-  margin: 0;
-}
 
-.bgimg {
-  background-image: url('https://sm.ign.com/t/ign_in/review/b/bumblebee-/bumblebee-review_7mhp.1200.jpg');
-  height: 100%;
-  background-position: center;
-  background-size: cover;
-  position: relative;
-  color: white;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 25px;
-}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Bumblebee</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
 
-.topleft {
-  position: absolute;
-  top: 0;
-  left: 16px;
-}
+	<!-- UIkit CSS -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.14/dist/css/uikit.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 
-.bottomleft {
-  position: absolute;
-  bottom: 0;
-  left: 16px;
-}
 
-.middle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
 
-.id {
-  color: red;
-  border-color: black;
-}
+	<!-- UIkit JS -->
+	<script src="https://cdn.jsdelivr.net/npm/uikit@3.15.14/dist/js/uikit.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/uikit@3.15.14/dist/js/uikit-icons.min.js"></script>
+</head>
 
-  /* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
+<body class="uk-background-fixed uk-background-center-center uk-background-norepeat"
+	style="background-color: black;background-image: url(/images/bee.jpg);height: 100%;width:100%;background-position: center;background-repeat: no-repeat;background-size: 100%;background-color: black;">
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888; 
-}
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
-hr {
-  margin: auto;
-  width: 40%;
-}
-</style>
-<body>
+	<!-- Alert Box -->
+	<div class="uk-alert-danger uk-animation-scale-up " uk-alert style="background-color: black;">
+		<a class="uk-alert-close" uk-close style="color: white;font-weight: 900;"></a>
+		<p>Please note, this site is under development</p>
+	</div>
+	<!-- Alert Box -->
+	<br><br><br>
+	<!-- NAME SPACE -->
+	<div class="uk-text-bolder uk-text-uppercase uk-text-center" style="color:white;font-size: 7em;">
+		Bumblebee
+		<hr class="uk-divider-icon uk-align-center" style="max-width: 7em;align:center;">
+		<a href="https://github.com/Bumblebee-3"><i class="fa-brands fa-github w3-hover-text-indigo"></i></a>
 
-<div class="bgimg">
-  <div class="topleft"><p>Bumblebee</p></div>
-  <div class="middle">
-    <h1>Bumblebee</h1>
-    <hr>
-    <p><b>Just another kid who <a class="id">❤</a> coding!</b></p>
-  </div>
+		<a href="https://forum.arduino.cc/u/bumblebee3">
+			<iconify-icon icon="simple-icons:arduino" class=" w3-hover-text-indigo"></iconify-icon>
+		</a>
 
-</div>
-<div align="center">
-UNDER CONSTRUCTION</div>
+	</div>
+	<!-- NAME SPACE -->
+
+	<script src="script.js"></script>
+
+	<div class="uk-container w3-card-4 w3-black w3-round-xxlarge w3-border-indigo w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-indigo"
+		id="aboutme" style="color:white;font-size: 2em;background-color: #000000;">
+
+	</div>
+	<!-- Languages -->
+	<div style="color:white;font-size: 4em;background-color: #000000;" id="langs"><br>
+		Languages I Know:
+	</div>
+
+	<div class="uk-child-width-1-4@m" uk-grid
+		uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 500; repeat: true"
+		style="background-color: black;">
+
+		<br><br>
+		<!-- Javascript -->
+		<div uk-scrollspy-class="uk-animation-slide-top"><a href="https://www.javascript.com/">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-yellow w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-yellow uk-align-center">
+					<h1 style="color:white;text-align:center;">Javascript</h3>
+						<img src="/images/js.png"></img>
+				</div>
+			</a>
+		</div>
+		<!-- Python -->
+		<div uk-scrollspy-class="uk-animation-slide-bottom"><a href="https://www.python.org/">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-blue w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-blue uk-align-center">
+					<h1 style="color:white;text-align:center;">Python</h3>
+						<img src="/images/py.png" style="width: auto;height: 500;"></img>
+				</div>
+			</a>
+		</div>
+
+
+		<!-- HTML -->
+		<div uk-scrollspy-class="uk-animation-slide-left"><a href="https://www.w3schools.com/html/">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-orange w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-orange">
+					<h1 style="color:white;text-align:center;">HTML</h3>
+						<img src="/images/html.png" style="width: auto;height: 500;"></img>
+				</div>
+			</a>
+		</div>
+
+		<!-- CSS -->
+		<div uk-scrollspy-class="uk-animation-slide-left"><a href="https://www.w3schools.com/css/">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-blue w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-blue">
+					<h1 style="color:white;text-align:center;">CSS</h3>
+						<img src="/images/css.png" style="width: auto;height: 500;"></img>
+				</div>
+			</a>
+		</div>
+		<!-- ARDUINO -->
+		<div uk-scrollspy-class="uk-animation-slide-left" align="center"><a href="https://www.arduino.cc/en/">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-teal w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-teal">
+					<h1 style="color:white;text-align:center;">ARDUINO</h3>
+						<img src="/images/arduino.png" style="width: auto;height: 500;"></img>
+						<p></p>
+				</div>
+			</a>
+		</div>
+
+
+
+	</div>
+	<!-- Languages -->
+	<!-- timeline -->
+
+
+
+	
+
+	<!-- timeline -->
+	<!-- TOOLS -->
+	<div style="color:white;font-size: 4em;background-color: #000000;" id="tools"><br>
+		Tools I Use:
+	</div>
+
+	<div class="uk-child-width-1-4@m" uk-grid
+		uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 500; repeat: true"
+		style="background-color: black;">
+
+		<br><br>
+		<!-- NODE.JS -->
+		<div uk-scrollspy-class="uk-animation-slide-top"><a href="https://nodejs.org">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-green w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-green">
+					<h1 style="color:white;">NODE.JS</h3>
+						<br><img src="/images/nodejs.svg"></img><br><br><br><br>
+				</div>
+			</a>
+		</div>
+		<!-- VS CODE -->
+		<div uk-scrollspy-class="uk-animation-slide-bottom"><a href="https://code.visualstudio.com/">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-blue w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-blue">
+					<h1 style="color:white;">VS CODE</h3>
+						<img src="/images/vscode.png" style="width: auto;height: 500;"></img>
+						<p></p>
+				</div>
+			</a>
+		</div>
+
+
+		<!-- ARDUINO IDE -->
+		<div uk-scrollspy-class="uk-animation-slide-left"><a href="https://www.arduino.cc/en/software">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-teal w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-teal">
+					<h1 style="color:white;">ARDUINO IDE</h3>
+						<img src="/images/arduino.png" style="width: auto;height: 500;"></img>
+						<p></p>
+				</div>
+			</a>
+		</div>
+
+		<!-- GITHUB -->
+		<div uk-scrollspy-class="uk-animation-slide-left"><a href="https://www.arduino.cc/en/software">
+				<div
+					class="uk-card uk-card-default uk-card-body w3-card-4 w3-black w3-round-xxlarge w3-border-white w3-hover-border-indigo w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-indigo">
+					<h1 style="color:white;">GITHUB</h3>
+						<img src="https://www.pngkey.com/png/full/178-1787508_github-icon-download-at-icons8-white-github-icon.png"
+							style="width: auto;height: 500;"></img>
+						<p></p>
+				</div>
+			</a>
+		</div>
+
+	</div>
+	<!-- Tools -->
+
+
+	<div style="background-color: black;">
+		<div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-left; repeat: true"
+			style="background-color: black;color:white;">
+			<h3 class="uk-card-title " style="color:white;font-size: 4em;">Contact Me!</h3>
+			<div class="uk-form-horizontal uk-margin-large">
+
+				<div class="uk-margin">
+					<label class="uk-form-label" for="name" style="color:white;font-size: 2em;">Name</label>
+					<div class="uk-form-controls">
+						<input class="uk-input" id="name" name="name" type="text" placeholder="Enter your name..."
+							required>
+					</div>
+				</div><br>
+				<div class="uk-margin">
+					<label class="uk-form-label" for="email" name="email" style="color:white;font-size: 2em;">Email
+						ID</label>
+					<div class="uk-form-controls">
+						<input class="uk-input" id="email" type="email" placeholder="Enter your Email Address..."
+							name="email" required>
+					</div>
+				</div><br>
+				<div class="uk-margin">
+					<label class="uk-form-label" for="msg" style="color:white;font-size: 2em;">Message</label>
+					<div class="uk-form-controls">
+						<textarea class="uk-textarea" id="msg" name="msg"
+							placeholder="Enter your message for me..."></textarea>
+					</div>
+				</div>
+				<button class="uk-button uk-button-default" onclick="submit()" style="color:white;font-size: 1em;">Submit Form</button>
+
+
+
+			</div>
+
+		</div>
+	</div>
+
+
+
 </body>
+<script>
+	var sm = false;
+	function submit() {
+
+		var msg = document.getElementById("msg").value;
+		var name = document.getElementById("name").value;
+		var email = document.getElementById("email").value;
+		if (sm == true) {
+			UIkit.notification({
+				message: `<span uk-icon='icon: close'></span> You have already submitted the form!`,
+				status: 'danger',
+				pos: 'top-center',
+				timeout: 5000
+			});
+		}
+		else if (!name) {
+			UIkit.notification({
+				message: `<span uk-icon='icon: close'></span> Name was not provided.`,
+				status: 'danger',
+				pos: 'top-center',
+				timeout: 5000
+			});
+		}
+		else if (!email) {
+			UIkit.notification({
+				message: `<span uk-icon='icon: close'></span> Email was not provided.`,
+				status: 'danger',
+				pos: 'top-center',
+				timeout: 5000
+			});
+		}
+		else if (!msg) {
+			UIkit.notification({
+				message: `<span uk-icon='icon: close'></span> Message was not provided.`,
+				status: 'danger',
+				pos: 'top-center',
+				timeout: 5000
+			});
+		}
+		else {
+			sm = true;
+			fetch(`https://send.blurr1447.repl.co/send?name=${name}&email=${email}&msg=${msg.replace(" ","+")}`,{mode:"no-cors"})
+		console.log(name + "\n" + email + "\n" + msg)
+			UIkit.notification({
+				message: `<span uk-icon='icon: check'></span> Message Sent!`,
+				status: 'success',
+				pos: 'top-center',
+				timeout: 5000
+			});
+
+		}
+
+
+
+	}
+	var i = 0;
+	var txt = `Hello, I'm Bumblebee.~~~~~~~~ I'm a 14 year old full-stack error maker,~~~ car enthusiast,~~~ and a music lover.~~~~~~~~ In my free time I cycle and code.`;
+	var speed = 100;
+
+	function typeWriter() {
+		if (i < txt.length) {
+			if (txt.charAt(i) != '~') {
+				document.getElementById("aboutme").innerHTML += txt.charAt(i);
+				i++;
+				setTimeout(typeWriter, speed);
+			}
+			else {
+				i++;
+				setTimeout(typeWriter, speed);
+			}
+		}
+	}
+	typeWriter()
+</script>
+<style>
+	html,
+	body {
+		height: 100%;
+		width: 100%;
+	}
+
+	.anim-typewriter {
+		animation: typewriter 4s steps(44) 1s 1 normal both,
+			blinkTextCursor 500ms steps(44) infinite normal;
+	}
+
+	@keyframes typewriter {
+		from {
+			width: 0;
+		}
+
+		to {
+			width: 24em;
+		}
+	}
+
+	@keyframes blinkTextCursor {
+		from {
+			border-right-color: rgba(255, 255, 255, .75);
+		}
+
+		to {
+			border-right-color: transparent;
+		}
+	}
+
+	/* width */
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: #f1f1f1;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: #888;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: #555;
+	}
+</style>
+
 </html>

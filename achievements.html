@@ -1,0 +1,315 @@
+<section class="timeline">
+	<ul>
+		<li>
+			<div>
+				<time>Nov '22</time>
+				<div class="for">
+					<h1>For:</h1>
+					<p>
+						Inter-School Innovation Competition.
+					</p>
+				</div>
+				<div class="prize">
+					<h1>Prize:</h1>
+					<span>1st</span>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div>
+				<time>Sep '22</time>
+				<div class="for">
+					<h1>For:</h1>
+					<p>
+						Inter-School "Shark Tank" Competition
+					</p>
+				</div>
+				<div class="prize">
+					<h1>Prize:</h1>
+					<span>2nd</span>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div>
+				<time>June '21</time>
+				<div class="for">
+					<h1>Milestone</h1>
+
+				</div>
+				<div class="prize">
+					<span>Joined <a href="https://github.com/AkaruiDevelopment">AkaruiDevelopment</a> & started working on <a href="https://github.com/AkaruiDevelopment/panel">@akarui/panel</a>..</span>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div>
+				<time>Apr '22</time>
+				<div class="for">
+					<h1>For:</h1>
+					<p>
+						Inter School Innovation Competition.
+					</p>
+				</div>
+				<div class="prize">
+					<h1>Prize:</h1>
+					<span>2nd</span>
+				</div>
+			</div>
+		</li>
+
+		<li>
+			<div>
+				<time>Feb '22</time>
+				<div class="for">
+					<h1>For:</h1>
+					<p>
+						State Level Innovation Competition.
+					</p>
+				</div>
+				<div class="prize">
+					<h1>Prize:</h1>
+					<span>2nd</span>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div>
+				<time>Nov '21</time>
+				<div class="for">
+					<h1>Milestone</h1>
+
+				</div>
+				<div class="prize">
+					<span>Created my first NPM package..</span>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div>
+				<time>Jun '21</time>
+				<div class="for">
+					<h1>Milestone</h1>
+
+				</div>
+				<div class="prize">
+					<span>Joined Github..</span>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div>
+				<time>Mar '22</time>
+				<div class="for">
+					<h1>Milestone</h1>
+
+				</div>
+				<div class="prize">
+					<span>Joined Discord & created my first discord bot..</span>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div>
+				<time>June '20</time>
+				<div class="for">
+					<h1>Milestone</h1>
+
+				</div>
+				<div class="prize">
+					<h1></h1>
+					<span>
+						Started learning python.
+					</span>
+				</div>
+			</div>
+		</li>
+		<li>
+			<div>
+				<time>Feb '18</time>
+				<div class="for">
+					<h1>Milestone</h1>
+
+				</div>
+				<div class="prize">
+					<h1></h1>
+					<span>Started learning HTML & CSS.</span>
+				</div>
+			</div>
+		</li>
+
+	</ul>
+</section>
+
+<script>
+	var items = document.querySelectorAll(".timeline li");
+
+	function isElementInViewport(el) {
+		var rect = el.getBoundingClientRect();
+		return (
+			rect.top >= 0 &&
+			rect.left >= 0 &&
+			rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+			rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+		);
+	}
+
+	function callbackFunc() {
+		for (var i = 0; i < items.length; i++) {
+			if (isElementInViewport(items[i])) {
+				if (!items[i].classList.contains("in-view")) {
+					items[i].classList.add("in-view");
+				}
+			} else if (items[i].classList.contains("in-view")) {
+				items[i].classList.remove("in-view");
+			}
+		}
+	}
+
+	window.addEventListener("load", callbackFunc);
+	window.addEventListener("scroll", callbackFunc);
+
+</script>
+<style>
+	*,
+	*::before,
+	*::after {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font: normal 16px/1.5 "Titillium Web", sans-serif;
+		background: linear-gradient(359deg, #000000, #ffb100);
+		color: #3c3f64;
+		overflow-x: hidden;
+		padding-bottom: 50px;
+	}
+
+	.timeline ul li {
+		list-style-type: none;
+		position: relative;
+		width: 6px;
+		margin: 0 auto;
+		padding-top: 50px;
+		background: #fff;
+	}
+
+	.timeline ul li::after {
+		content: "";
+		position: absolute;
+		left: 50%;
+		bottom: 0;
+		transform: translateX(-50%) rotate(45deg);
+		width: 20px;
+		height: 20px;
+		z-index: 2;
+		background: #eee;
+	}
+
+	.timeline ul li div {
+		position: relative;
+		bottom: 0;
+		width: 400px;
+		padding: 20px;
+		background: #fff;
+		box-shadow: 4px 13px 30px 1px rgba(252, 56, 56, 0.2);
+		border-radius: 5px;
+		display: flex;
+		align-items: center;
+	}
+
+	.timeline ul li div time {
+		position: absolute;
+		background: #f5af19;
+		width: 80px;
+		height: 30px;
+		top: -15px;
+		border-radius: 5px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		letter-spacing: 2px;
+	}
+
+	.timeline ul li div div {
+		height: 100px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.timeline ul li div div p {
+		text-align: center;
+	}
+
+	.timeline ul li div .for {
+		margin-right: 10px;
+	}
+
+	.timeline ul li:nth-of-type(odd)>div {
+		left: 45px;
+	}
+
+	.timeline ul li:nth-of-type(even)>div {
+		left: -439px;
+	}
+
+	.timeline ul li div {
+		visibility: hidden;
+		opacity: 0;
+		transition: all 0.5s ease-in-out;
+	}
+
+	.timeline ul li:nth-of-type(odd) div {
+		transform: translate3d(100px, -10px, 0) rotate(10deg);
+	}
+
+	.timeline ul li:nth-of-type(even) div {
+		transform: translate3d(-100px, -10px, 0) rotate(10deg);
+	}
+
+	.timeline ul li.in-view div {
+		transform: none;
+		visibility: visible;
+		opacity: 1;
+	}
+
+	@media screen and (max-width: 900px) {
+		.timeline ul li div {
+			width: 250px;
+			flex-direction: column;
+		}
+
+		.timeline ul li div div {
+			width: 80%;
+			margin: 10px;
+		}
+
+		.timeline ul li:nth-of-type(even)>div {
+			left: -289px;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		body {
+			background: #8bfff4;
+		}
+
+		.timeline ul li {
+			margin-left: 20px;
+		}
+
+		.timeline ul li div {
+			width: calc(100vw - 91px);
+		}
+
+		.timeline ul li:nth-of-type(even)>div {
+			left: 45px;
+		}
+	}
+
+	/*# sourceMappingURL=output.css.map */
+</style>

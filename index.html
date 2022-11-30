@@ -37,7 +37,8 @@
 		</span>
 		<a href="/achievements.html"><button class="w3-hover-yellow w3-round-xxlarge uk-button uk-button-default"
 				style="color:white;font-size: 2em;background: linear-gradient(359deg, #000000, #ffb100);">Achievements</button></a>
-		<span style="color:white;font-size: 7em;"><a href="https://github.com/Bumblebee-3"><i class="fa-brands fa-github w3-hover-text-indigo"></i></a>
+		<span style="color:white;font-size: 7em;"><a href="https://github.com/Bumblebee-3"><i
+					class="fa-brands fa-github w3-hover-text-indigo"></i></a>
 			<a href="https://forum.arduino.cc/u/bumblebee3">
 				<iconify-icon icon="simple-icons:arduino" class=" w3-hover-text-indigo"></iconify-icon>
 			</a></span>
@@ -48,10 +49,21 @@
 
 	<script src="script.js"></script>
 	<div style="background: linear-gradient(359deg, #000000, #ffb100);color:FFFFFF;">
-		<div class="uk-container w3-card-4 w3-black w3-round-xxlarge w3-border-indigo w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-indigo"
+		<!--<div class="uk-container w3-card-4 w3-black w3-round-xxlarge w3-border-indigo w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-hover-text-indigo"
 			id="aboutme" style="font-size: 2em;">
 
+		</div>-->
+		<div>
+			<!--style="background-color:#000000;"-->
+			<div class="uk-card uk-card-default uk-card-body"
+				uk-scrollspy="cls: uk-animation-slide-left; repeat: true;delay: 500;"
+				style="background-color:transparent;">
+				<h3 class="uk-card-title " style="color:white;font-size: 4em;">About Me.</h3>
+				<p id="aboutme" style="font-size: 2em;"></p>
+
+			</div>
 		</div>
+
 		<!-- Languages -->
 		<div style="font-size: 4em;" id="langs"><br>
 			Languages I Know:
@@ -181,7 +193,8 @@
 
 		<div>
 			<!--style="background-color:#000000;"-->
-			<div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-left; repeat: true;delay: 500;"
+			<div class="uk-card uk-card-default uk-card-body"
+				uk-scrollspy="cls: uk-animation-slide-left; repeat: true;delay: 500;"
 				style="background-color:transparent;">
 				<h3 class="uk-card-title " style="color:white;font-size: 4em;">Contact Me!</h3>
 				<div class="uk-form-horizontal uk-margin-large">
@@ -276,7 +289,7 @@
 
 	}
 	var i = 0;
-	var txt = `Hello, I'm Bumblebee.~~~~~~~~ I'm a 14 year old full-stack error maker,~~~ car enthusiast,~~~ and a music lover.~~~~~~~~ In my free time I cycle and code.`;
+	var txt = `Hello, I'm Bumblebee.~~~~~~~~ I'm a 14 year old full-stack error maker,~~~ car enthusiast,~~~ and a music lover.~~~~~~~~ In my free time I cycle and code.~~~~~~~~ I also love making working models from Arduino and I ❤ Electronics too. I started coding in 6th grade, and during the pandemic i discovered my passion for electronics.`;
 	var speed = 100;
 
 	function typeWriter() {

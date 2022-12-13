@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      html,
+      body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Raleway", sans-serif;
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body class="w3-black">
+    <!-- Top container -->
+    <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+      <span class="w3-bar-item w3-left">Smart Air Purifier</span>
+      <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
+        <i class="fa fa-bars"></i>  Menu </button>
+      <span class="w3-bar-item w3-right">
+        <i class="fa fa-dashboard"></i>
+      </span>
+    </div>
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <div class="w3-sidebar w3-animate-left w3-black w3-bar-block w3-hide-small w3-hide-medium" style="width:275px" >
+      <br>
+      <div class="w3-card-4 w3-hover-shadow w3-hover-opacity">
+        <img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Alps" height="250px" width="250px">
+        <div class="w3-container w3-center">
+          <h3>
+            <b>User's </b>
+          </h3>
+          <p>Smart Air Purifier</p>
+			<h4><b> Status :</b> <span id="d1">offline</span></h4>
+        </div>
+      </div>
+    </div>
+	  <div class="w3-sidebar w3-black w3-bar-block w3-hide-large 
+ " style="width:275px;display:none;" id="mySidebar">
+      <br>
+      <div class="w3-card-4 w3-hover-shadow w3-hover-opacity">
+        <img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Alps" height="250px" width="250px">
+        <div class="w3-container w3-center">
+          <h3>
+            <b>User's </b>
+          </h3>
+          <p>Smart Air Purifier</p>
+			<h4><b> Status :</b> <span id="d2">offline</span></h4>
+        </div>
+      </div>
+    </div>
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+      <!-- Header -->
+      <header class="w3-container" style="padding-top:22px">
+        <h5>
+          <b>
+            <i class="fa fa-dashboard"></i> My Dashboard </b>
+        </h5>
+      </header>
+      <div class="w3-row-padding w3-margin-bottom w3-align-left">
+        <div class="w3-quarter">
+          <div class="w3-container w3-padding-16 w3-hover-opacity" id="co2box" onclick="window.location.href='#data'">
+            <div class="w3-left">
+              <img src="https://cdn3.iconfinder.com/data/icons/sirius-ecobio/48/003_031_exhaust_carbon_dioxide_cloud-256.png" height="100" width="100">
+            </div>
+            <div class="w3-right">
+              <h3 id="co2"></h3>
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Carbon Dioxide</h4>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <div class="w3-container w3-padding-16 w3-hover-opacity" id="coBox" onclick="window.location.href='#data'">
+            <div class="w3-left">
+              <img src="https://cdn4.iconfinder.com/data/icons/energy-and-power-17/140/cloud__pollution__Carbonmonoxide__Co__science-256.png" height="100" width="100">
+            </div>
+            <div class="w3-right">
+              <h3 id="co"></h3>
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Carbon Monoxide</h4>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <div class="w3-container w3-hover-opacity w3-padding-16" id="smokeBox" onclick="window.location.href='#data'">
+            <div class="w3-left">
+              <img src="https://cdn2.iconfinder.com/data/icons/air-pollution/512/air-pollution-contamination_-13-256.png" height="100" width="100">
+            </div>
+            <div class="w3-right">
+              <h3 id="smoke"></h3>
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Smoke</h4>
+          </div>
+        </div>
+        <div class="w3-quarter">
+          <div class="w3-container w3-hover-opacity  w3-padding-16" id="lpgBox" onclick="window.location.href='#data'">
+            <div class="w3-left">
+              <img src="https://cdn0.iconfinder.com/data/icons/kitchen-300/512/kitchen-04-256.png" height="100" width="100">
+            </div>
+            <div class="w3-right">
+              <h3 id="lpg"></h3>
+            </div>
+            <div class="w3-clear"></div>
+            <h4>LPG</h4>
+          </div>
+        </div>
+      </div>
+      <!--<hr>
+      <div class="w3-container">
+        <h5>General Stats</h5>
+        <p>New Visitors</p>
+        <div class="w3-grey">
+          <div class="w3-container w3-center w3-padding w3-green" style="width:25%">+25%</div>
+        </div>
+        <p>New Users</p>
+        <div class="w3-grey">
+          <div class="w3-container w3-center w3-padding w3-orange" style="width:50%">50%</div>
+        </div>
+        <p>Bounce Rate</p>
+        <div class="w3-grey">
+          <div class="w3-container w3-center w3-padding w3-red" style="width:75%">75%</div>
+        </div>
+      </div>-->
+      <hr>
+      <div class="w3-container" id="data">
+        <h5>Normal Levels</h5>
+        <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+          <tr>
+            <strong>
+              <td>
+                <b>GAS</b>
+              </td>
+              <td>
+                <b>INDOOR</b>
+              </td>
+              <td>
+                <b>OUTDOOR</b>
+              </td>
+            </strong>
+          </tr>
+          <tr>
+            <td>Carbon Dioxide</td>
+            <td>300 - 600 ppm</td>
+            <td>1,000 - 5,000 ppm</td>
+          </tr>
+          <tr>
+            <td>Carbon Monoxide</td>
+            <td>0.5 - 5 ppm</td>
+            <td>9 - 25 ppm</td>
+          </tr>
+          <tr>
+            <td>Smoke</td>
+            <td>0.1 - 0.2</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>LPG</td>
+            <td>0.1 - 0.4</td>
+            <td>-</td>
+          </tr>
+        </table>
+        <br>
+      </div>
+      <hr>
+		<h5>Carbon Dioxide, Carbon Monoxide & VOC Exposure To Humans Data <a href="https://www.breeze-technologies.de/blog/what-is-an-air-quality-index-how-is-it-calculated/" target="_blank">Referrences</a></h5>
+      <div class="dataTables_scroll">
+        <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+          <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 898px; padding-right: 17px;">
+            <table class="tablepress w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white tablepress-id-aqi dataTable no-footer" role="grid" style="margin-left: 0px; width: 898px;">
+              <thead>
+                <tr class="row-1 odd" role="row">
+                  <th class="column-1 sorting_disabled" rowspan="1" colspan="1" style="width: 81.4688px;">Rating</th>
+                  
+                  <th class="column-9 sorting_disabled" rowspan="1" colspan="1" style="width: 75.1094px;">CO (mg/m³) </th>
+                  <th class="column-10 sorting_disabled" rowspan="1" colspan="1" style="width: 75.1094px;">CO₂ (ppm) </th>
+                  
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+        <div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%;">
+          <table id="tablepress-aqi" class="tablepress tablepress-id-aqi dataTable no-footer w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white" role="grid" style="width: 898px;">
+            <thead>
+              <tr class="row-1 odd" role="row" style="height: 0px;">
+                <th class="column-1 sorting_disabled" rowspan="1" colspan="1" style="width: 81.4688px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                  <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Rating</div>
+                </th>
+                
+                <th class="column-9 sorting_disabled" rowspan="1" colspan="1" style="width: 75.1094px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                  <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">CO (mg/m³) </div>
+                </th>
+                <th class="column-10 sorting_disabled" rowspan="1" colspan="1" style="width: 75.1094px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
+                  <div class="dataTables_sizing" style="height: 0px; overflow: hidden;">CO₂ (ppm) </div>
+                </th>
+                
+                
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr class="row-4 even">
+                <td class="column-1">Excellent</td>
+                
+                <td class="column-9">0 - 2</td>
+                <td class="column-10">0 - 400</td>
+              </tr>
+              <tr class="row-5 odd">
+                <td class="column-1">Fine</td>
+                
+                <td class="column-9">2 - 4</td>
+                <td class="column-10">400 - 1000</td>
+              </tr>
+              <tr class="row-6 even">
+                <td class="column-1">Moderate</td>
+                
+                <td class="column-9">4 - 8</td>
+                <td class="column-10">1000 - 1500</td>
+              </tr>
+              <tr class="row-7 odd">
+                <td class="column-1">Poor</td>
+                <td class="column-9">8 - 30</td>
+                <td class="column-10">1500 - 2000</td>
+              </tr>
+              <tr class="row-8 even">
+                <td class="column-1">Very Poor</td>
+                
+                <td class="column-9">30 - 100</td>
+                <td class="column-10">2000 - 5000</td>
+              </tr>
+              <tr class="row-9 odd">
+                <td class="column-1">Severe</td>
+                
+                <td class="column-9">from 100</td>
+                <td class="column-10">from 5000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <hr>
+      <!-- Footer -->
+      <footer class="w3-container w3-padding-16 w3-light-grey">
+        <h4></h4>
+        <p>Made By <a href="" target="_blank">Bumblebee</a>
+        </p>
+      </footer>
+      <!-- End page content -->
+    </div>
+    <script>
+      // Get the Sidebar
+      var mySidebar = document.getElementById("mySidebar");
+      // Get the DIV with overlay effect
+      var overlayBg = document.getElementById("myOverlay");
+      // Toggle between showing and hiding the sidebar, and add overlay effect
+      function w3_open() {
+        if (mySidebar.style.display === 'block') {
+          mySidebar.style.display = 'none';
+          overlayBg.style.display = "none";
+        } else {
+          mySidebar.style.display = 'block';
+          overlayBg.style.display = "block";
+        }
+      }
+      // Close the sidebar with the close button
+      function w3_close() {
+        mySidebar.style.display = "none";
+        overlayBg.style.display = "none";
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

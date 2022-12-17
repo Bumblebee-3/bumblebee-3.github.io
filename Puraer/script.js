@@ -78,6 +78,7 @@ if(link.includes("?sec=")){
 	var sec = getParameterByName('sec'); 
 	console.log(sec)
 	localStorage.setItem('sec',sec);
+	window.location.href = window.location.href.replace("?sec="+sec,"")
 }
 else if(!localStorage.getItem('sec')){
 	window.location.href = window.location.href+"/login.html";

@@ -31,7 +31,7 @@
       </span>
     </div>
     <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <div class="w3-overlay w3-hide-large w3-animate-opacity"  style="cursor:pointer" title="close side menu" id="myOverlay"></div>
     <div class="w3-sidebar w3-animate-left w3-black w3-bar-block w3-hide-small w3-hide-medium" style="width:275px" >
       <br>
       <div class="w3-card-4 w3-hover-shadow w3-hover-opacity">
@@ -41,7 +41,7 @@
             <b>User's </b>
           </h3>
           <p>Smart Air Purifier</p>
-			<h4><b> Status :</b> <span id="d1">offline</span></h4>
+			<h4><b> Status :</b> <span id="d1">offline</span></h4><a onclick="logout()"><button class="w3-button w3-hover-red w3-grey w3-round">Logout</button></a>
         </div>
       </div>
     </div>
@@ -55,8 +55,10 @@
             <b>User's </b>
           </h3>
           <p>Smart Air Purifier</p>
-			<h4><b> Status :</b> <span id="d2">offline</span></h4>
+			<h4><b> Status :</b> <span id="d2">offline</span></h4> <a onclick="logout()"><button class="w3-button w3-hover-red w3-grey w3-round">Logout</button></a>
+			
         </div>
+		  
       </div>
     </div>
     <!-- !PAGE CONTENT! -->
@@ -255,7 +257,7 @@
       <!-- Footer -->
       <footer class="w3-container w3-padding-16 w3-light-grey">
         <h4></h4>
-        <p>Made By <a href="" target="_blank">Bumblebee</a>
+        <p>Made By <a href="/" target="_blank">Bumblebee</a>
         </p>
       </footer>
       <!-- End page content -->
@@ -280,7 +282,11 @@
         mySidebar.style.display = "none";
         overlayBg.style.display = "none";
       }
+		function logout() {
+			localStorage.clear();
+			window.location.href = "/Puraer/login.html";
+		}
     </script>
-    <script src="script.js"></script>
+    <script src="/Puraer/script.js"></script>
   </body>
 </html>

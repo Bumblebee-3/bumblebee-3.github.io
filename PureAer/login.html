@@ -51,11 +51,12 @@
 				<form class="w3-container" action="#">
 					<div class="w3-section w3-round-xlarge">
 						<label><b>SecretKey </b></label>
-						<input class="w3-input w3-border w3-round-xlarge w3-hover-grey" type="SecretKey"
+						<input class="w3-input w3-border w3-round-xlarge w3-hover-grey" type="password"
 							placeholder="Enter Secret  " name="pswd" id="pswd" required>
-						<div onmouseover="a()" onmouseout="a()" class=" w3-round-xxlarge w3-center" id="sp"
+						<div onmouseover="javascript:a()" onmouseout="javascript:a()" class=" w3-round-xxlarge w3-center" id="sp"
 							width="20px"><i class='fa fa-eye-slash'></i> Show SecretKey</div>
-						<br><hr>
+						<br>
+						<hr>
 						<div class="w3-button w3-block w3-blue w3-section w3-padding w3-round-xlarge"
 							onclick="validate()">Login</div>
 						<!--<input class="w3-check w3-margin-top" type="checkbox" checked="checked"> Remember me-->
@@ -80,12 +81,13 @@
 
 		const input = document.getElementById("pswd")
 		function a() {
-
-			if (input.getAttribute("type") === "SecretKey") {
+			console.log("T")
+			const input = document.getElementById("pswd")
+			if (input.getAttribute("type") === "password") {
 				input.setAttribute("type", "text");
 				document.getElementById("sp").innerHTML = "<i class='fa fa-eye-slash'></i> Hide SecretKey"
 			} else {
-				input.setAttribute("type", "SecretKey");
+				input.setAttribute("type", "password");
 				document.getElementById("sp").innerHTML = "<i class='fa fa-eye'></i> Show SecretKey"
 			}
 		}

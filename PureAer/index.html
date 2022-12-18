@@ -40,7 +40,7 @@
 	<div class="w3-sidebar w3-animate-left w3-black w3-bar-block w3-hide-small w3-hide-medium" style="width:275px">
 		<br>
 		<div class="w3-card-4 w3-hover-shadow w3-hover-opacity">
-			<img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Alps" height="250px" width="250px">
+			<img src="/PureAer/PureAer.png" alt="PureAer Logo" height="250px" width="250px">
 			<div class="w3-container w3-center">
 				<h3>
 					<b>User's </b>
@@ -55,7 +55,7 @@
  " style="width:275px;display:none;" id="mySidebar">
 		<br>
 		<div class="w3-card-4 w3-hover-shadow w3-hover-opacity">
-			<img src="https://www.w3schools.com/w3css/img_avatar3.png" alt="Alps" height="250px" width="250px">
+			<img src="/PureAer/PureAer.png" alt="PureAer Logo" height="250px" width="250px">
 			<div class="w3-container w3-center">
 				<h3>
 					<b>User's </b>
@@ -135,6 +135,131 @@
 				</div>
 			</div>
 		</div>
+		<hr>
+		<div class="w3-container" id="aqi">
+			<h5>Air Quality Index</h5>
+			<div class="gauge">
+				<div role="meter" aria-valuemin="0" aria-valuemax="500" aria-labelledby="meter-label">
+					<div class="dial"><span class="aqi-num"></span><span>AQI</span>
+						<div class="arrow"></div>
+					</div>
+				</div>
+				<label class="label" id="meter-label">10 Minute Average US EPA PM2.5 AQI</label>
+			</div>
+			
+			<style>
+				
+
+				.gauge {
+					display: inline-block;
+				}
+
+				.gauge>div[role=meter] {
+					border-radius: 8rem 8rem 0 0;
+					border: 1px solid black;
+					width: 16rem;
+					height: 8rem;
+					background-color: black;
+					position: relative;
+					overflow: hidden;
+					background: conic-gradient(from 0deg at 50% 100%,
+							red 30deg, #8f3f97 30deg 60deg,
+							#7e0023 60deg 91deg, transparent 91deg 269deg,
+							#00e400 269deg 300deg, #ffff00 300deg 330deg,
+							#ff7e00 330deg 360deg);
+				}
+
+				.gauge>label {
+					font-size: 14px;
+					text-align: center;
+					background-color: black;
+					padding: .2rem 0;
+					display: block;
+				}
+
+				.dial {
+					background-color: #00ff00;
+					transition: background-color 1s, color .25s;
+					border-radius: 10rem 10rem 0 0;
+					width: 70%;
+					height: 70%;
+					display: flex;
+					flex-direction: column;
+					align-content: center;
+					justify-content: center;
+					position: absolute;
+					bottom: 0;
+					left: 15%;
+					z-index: 2;
+					overflow: hidden;
+					box-shadow: 0px 0px 0px 1rem #000;
+					border-bottom: none;
+					box-sizing: border-box;
+					color: #000;
+				}
+
+				.dial.white {
+					color: #fff;
+				}
+
+				.dial>span {
+					text-align: center;
+					font-family: sans-serif;
+				}
+
+				.dial>.arrow {
+					position: absolute;
+					left: calc(50% - .25rem);
+					bottom: 0;
+					width: .5rem;
+					height: calc(100% + 1px);
+					background-color: transparent;
+					transform-origin: bottom center;
+					transform: rotate(-90deg);
+					transition: transform 1s;
+				}
+
+				.dial>.arrow:after {
+					content: "";
+					border-left: .5rem solid transparent;
+					border-right: .5rem solid transparent;
+					border-top: .5rem solid #000;
+					position: absolute;
+					left: calc(50% - .5rem);
+					top: 0;
+					width: 0;
+					height: 0;
+					transition: border-color .25s;
+				}
+
+				.dial.white>.arrow:after {
+					border-top-color: #fff;
+				}
+
+				.aqi-num {
+					font-weight: bold;
+					font-size: 120%;
+					margin-top: 1.25rem;
+				}
+
+				@media (forced-colors: active) {
+					.dial {
+						border: 2px solid black;
+						border-bottom: none;
+					}
+
+					.gauge>div[role=meter] {
+						border-width: 2px;
+						border-bottom: none;
+					}
+
+					.gauge>label {
+						border: 2px solid black;
+					}
+				}
+			</style>
+		</div>
+
 		<!--<hr>
       <div class="w3-container">
         <h5>General Stats</h5>
@@ -152,9 +277,9 @@
         </div>
       </div>-->
 		<hr>
-		<div class="w3-container" id="data">
+		<div class="w3-container w3-mobile" id="data">
 			<h5>Normal Levels</h5>
-			<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+			<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white w3-mobile">
 				<tr>
 					<strong>
 						<td>
@@ -192,94 +317,56 @@
 			<br>
 		</div>
 		<hr>
-		<h5>Carbon Dioxide, Carbon Monoxide & VOC Exposure To Humans Data <a
+		<div class="w3-container w3-mobile" id="data">
+			<h5>Carbon Dioxide, Carbon Monoxide & VOC Exposure To Humans Data <a
 				href="https://www.breeze-technologies.de/blog/what-is-an-air-quality-index-how-is-it-calculated/"
 				target="_blank">Referrences</a></h5>
-		<div class="dataTables_scroll">
-			<div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
-				<div class="dataTables_scrollHeadInner"
-					style="box-sizing: content-box; width: 898px; padding-right: 17px;">
-					<table
-						class="tablepress w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white tablepress-id-aqi dataTable no-footer"
-						role="grid" style="margin-left: 0px; width: 898px;">
-						<thead>
-							<tr class="row-1 odd" role="row">
-								<th class="column-1 sorting_disabled" rowspan="1" colspan="1" style="width: 81.4688px;">
-									Rating</th>
-
-								<th class="column-9 sorting_disabled" rowspan="1" colspan="1" style="width: 75.1094px;">
-									CO (mg/m³) </th>
-								<th class="column-10 sorting_disabled" rowspan="1" colspan="1"
-									style="width: 75.1094px;">CO₂ (ppm) </th>
-
-							</tr>
-						</thead>
-					</table>
-				</div>
-			</div>
-			<div class="dataTables_scrollBody" style="position: relative; overflow: auto; width: 100%;">
-				<table id="tablepress-aqi"
-					class="tablepress tablepress-id-aqi dataTable no-footer w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white"
-					role="grid" style="width: 898px;">
-					<thead>
-						<tr class="row-1 odd" role="row" style="height: 0px;">
-							<th class="column-1 sorting_disabled" rowspan="1" colspan="1"
-								style="width: 81.4688px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-								<div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Rating</div>
-							</th>
-
-							<th class="column-9 sorting_disabled" rowspan="1" colspan="1"
-								style="width: 75.1094px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-								<div class="dataTables_sizing" style="height: 0px; overflow: hidden;">CO (mg/m³) </div>
-							</th>
-							<th class="column-10 sorting_disabled" rowspan="1" colspan="1"
-								style="width: 75.1094px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;">
-								<div class="dataTables_sizing" style="height: 0px; overflow: hidden;">CO₂ (ppm) </div>
-							</th>
-
-
-						</tr>
-					</thead>
-					<tbody>
-
-						<tr class="row-4 even">
-							<td class="column-1">Excellent</td>
-
-							<td class="column-9">0 - 2</td>
-							<td class="column-10">0 - 400</td>
-						</tr>
-						<tr class="row-5 odd">
-							<td class="column-1">Fine</td>
-
-							<td class="column-9">2 - 4</td>
-							<td class="column-10">400 - 1000</td>
-						</tr>
-						<tr class="row-6 even">
-							<td class="column-1">Moderate</td>
-
-							<td class="column-9">4 - 8</td>
-							<td class="column-10">1000 - 1500</td>
-						</tr>
-						<tr class="row-7 odd">
-							<td class="column-1">Poor</td>
-							<td class="column-9">8 - 30</td>
-							<td class="column-10">1500 - 2000</td>
-						</tr>
-						<tr class="row-8 even">
-							<td class="column-1">Very Poor</td>
-
-							<td class="column-9">30 - 100</td>
-							<td class="column-10">2000 - 5000</td>
-						</tr>
-						<tr class="row-9 odd">
-							<td class="column-1">Severe</td>
-
-							<td class="column-9">from 100</td>
-							<td class="column-10">from 5000</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white w3-mobile">
+				<tr>
+					<strong>
+						<td>
+							<b>RATING</b>
+						</td>
+						<td>
+							<b>CO (mg/m³)</b>
+						</td>
+						<td>
+							<b>CO₂ (ppm)</b>
+						</td>
+					</strong>
+				</tr>
+				<tr>
+					<td>Excellent</td>
+					<td>0 - 2</td>
+					<td>0 - 400</td>
+				</tr>
+				<tr>
+					<td>Fine</td>
+					<td>2 - 4</td>
+					<td>400 - 1000</td>
+				</tr>
+				<tr>
+					<td>Moderate</td>
+					<td>4 - 8</td>
+					<td>1000 - 1500</td>
+				</tr>
+				<tr>
+					<td>Poor</td>
+					<td>8 - 30</td>
+					<td>1500 - 2000</td>
+				</tr>
+				<tr>
+					<td>Very Poor</td>
+					<td>30 - 100</td>
+					<td>2000 - 5000</td>
+				</tr>
+				<tr>
+					<td>Severe</td>
+					<td>from 100</td>
+					<td>from 5000</td>
+				</tr>
+			</table>
+			<br>
 		</div>
 		<hr>
 		<!-- Footer -->

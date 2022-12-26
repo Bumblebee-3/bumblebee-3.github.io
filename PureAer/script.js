@@ -81,48 +81,48 @@ async function doDo() {
 			document.getElementById("co").innerHTML = data.co;
 			document.getElementById("smoke").innerHTML = data.smoke;
 			if (parseFloat(data.co2) < 500) {
-				document.getElementById("co2box").style.backgroundColor = "#00e400";
+				document.getElementById("co2box").style.backgroundColor = "#0B9444";
 			}
 			else if (parseFloat(data.co2) < 700) {
-				document.getElementById("co2box").style.backgroundColor = "#ffff00";
+				document.getElementById("co2box").style.backgroundColor = "#FFDE16";
 			}
 			else {
-				document.getElementById("co2box").style.backgroundColor = "#ff0000";
+				document.getElementById("co2box").style.backgroundColor = "#BF1E2E";
 			}
 			if (parseFloat(data.co) < 2) {
-				document.getElementById("coBox").style.backgroundColor = "#00e400";
+				document.getElementById("coBox").style.backgroundColor = "#0B9444";
 			}
 			else if (parseFloat(data.co) < 4) {
-				document.getElementById("coBox").style.backgroundColor = "#ffff00";
+				document.getElementById("coBox").style.backgroundColor = "#FFDE16";
 			}
 			else {
-				document.getElementById("coBox").style.backgroundColor = "#ff0000";
+				document.getElementById("coBox").style.backgroundColor = "#BF1E2E";
 			}
 			if (parseFloat(data.lpg) < 0.2) {
-				document.getElementById("lpgBox").style.backgroundColor = "#00e400";
-				document.getElementById("smokeBox").style.backgroundColor = "#00e400";
+				document.getElementById("lpgBox").style.backgroundColor = "#0B9444";
+				document.getElementById("smokeBox").style.backgroundColor = "#0B9444";
 			}
 			else if (parseFloat(data.lpg) < 0.4) {
-				document.getElementById("lpgBox").style.backgroundColor = "#ffff00";
-				document.getElementById("smokeBox").style.backgroundColor = "#ffff00";
+				document.getElementById("lpgBox").style.backgroundColor = "#FFDE16";
+				document.getElementById("smokeBox").style.backgroundColor = "#FFDE16";
 			}
 			else {
-				document.getElementById("lpgBox").style.backgroundColor = "#ff0000";
-				document.getElementById("smokeBox").style.backgroundColor = "#ff0000";
+				document.getElementById("lpgBox").style.backgroundColor = "#BF1E2E";
+				document.getElementById("smokeBox").style.backgroundColor = "#BF1E2E";
 			}
 			return data;
 		});
 	if (a.status == "online") {
 		document.getElementById("d1").innerHTML = "online";
-		document.getElementById("d1").style.color = "#00e400";
+		document.getElementById("d1").style.color = "#0B9444";
 		document.getElementById("d2").innerHTML = "online";
-		document.getElementById("d2").style.color = "#00e400";
+		document.getElementById("d2").style.color = "#0B9444";
 	}
 	else {
 		document.getElementById("d2").innerHTML = "offline";
-		document.getElementById("d2").style.color = "#ff0000";
+		document.getElementById("d2").style.color = "#BF1E2E";
 		document.getElementById("d1").innerHTML = "offline";
-		document.getElementById("d1").style.color = "#ff0000";
+		document.getElementById("d1").style.color = "#BF1E2E";
 	}
 	setDial(a.aqi);
 

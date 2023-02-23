@@ -48,3 +48,27 @@ MAIN PANEL PAGE
 
 GUILDS PAGE
 ![image](https://user-images.githubusercontent.com/85351846/204000224-d1ff27f2-ed6d-4da4-8f93-27ece09d09a4.png)
+
+
+### Changelog:
+#### v0.0.3
+##### Changes Made:
+```
+[+] Improved CSS
+[+] Added Interactions Support [MAJOR]
+[+] Added Multiple Users Login Support [MAJOR]
+[+] Added Custom Page Creator [MAJOR]
+[+] Added Logged In checker for Custom Pages
+```
+#### v0.0.4
+##### Changes Made:
+```
+[+] Improved CSS
+[+] Discord.js v13 Support [MAJOR]
+[+] Aoi.js V7 dev support [MAJOR]
+[+] Latest Version checker
+[+] Authenticity checker 
+[+] Fixed V0.0.3 file not found error
+[+] Colour Themes For Panel
+[+] Code Editor Themes 
+```

@@ -22,7 +22,6 @@ If is used when there are two or more variables. There can be multiple cases to 
 
 Ex with basic `if ... else` :
 
-{% code title="example method" %}
 ```java
 void checkSame(int a, int b){
     if(a==b){
@@ -33,7 +32,6 @@ void checkSame(int a, int b){
     }
 }//if the two inputs are same it will print "equal to".
 ```
-{% endcode %}
 
 Example with `if ... else if ... else` :
 

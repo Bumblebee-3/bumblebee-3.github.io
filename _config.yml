@@ -1,2 +1,2 @@
 theme: jekyll-theme-hacker
-exclude:["./java","java","/java"]
+exclude: ["./java","java","/java"]

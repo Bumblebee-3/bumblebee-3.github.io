@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./images/aoipanel.png" type="image/png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./assets/panel.css" />
+    <link rel="stylesheet" href="./assets/editor.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/css/shepherd.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/jcubic/static/js/wcwidth.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/js/shepherd.min.js"></script>
+    <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+
+    
+    <title>Aoi.Panel - Editor</title>
+  </head>
+
+  <body class="dark">
+    <!-- Sidebar -->
+
+    <div class="sidebar close">
+      <a href="#" class="logo">
+        <img src="./images/aoi-bird.png" height="50px" style="margin: 5px;max-width: 50px;max-height: 50px;" />
+        <div class="logo-name"><span>AOI.</span>PANEL</div>
+      </a>
+      <ul class="side-menu">
+        <li >
+          <a href="panel.html"><i class="bx bxs-dashboard"></i>Dashboard</a>
+        </li>
+        <li class="active">
+          <a href="editor.html"><i class="bx bx-code active"></i>Code Editor</a>
+        </li>
+        <li>
+          <a href="panel.html?term=true"><i class="bx bx-terminal"></i>Terminal</a>
+        </li>
+        <li>
+          <a href="eval.html"><i class="bx bx-code-block"></i>Evaluate Code</a>
+        </li>
+        <li id="logbutton">
+          <a onclick="javascript:openLogs()" ><i class="bx bx-cog"></i>Logs</a>
+        </li>
+        
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="index.html?loggedout=true" class="logout">
+            <i class="bx bx-log-out-circle"></i>
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- End of Sidebar -->
+    <nav class="mobile-bottom-nav">
+      
+      <div class="mobile-bottom-nav__item">
+        <a href="panel.html?term=true" class="mobile-bottom-nav__item-content">
+          <i class="bx bx-terminal"></i>
+          <div class="bottom-text">Terminal</div>
+        </a>
+      </div>
+      <div class="mobile-bottom-nav__item">
+        <a onclick="javascript:openLogs()" class="mobile-bottom-nav__item-content">
+          <i class="bx bx-cog"></i>
+          <div class="bottom-text">Logs</div>
+        </a>
+      </div>
+      <div class="mobile-bottom-nav__item">
+        <div class="mobile-bottom-nav__item-content">
+          <a href="panel.html" >
+            <i class="bx bxs-dashboard"></i>
+            <div class="bottom-text">Dashboard</div>
+          </a>
+        </div>
+      </div>
+      <div class="mobile-bottom-nav__item">
+        <a href="eval.html" class="mobile-bottom-nav__item-content">
+          <i class="bx bx-code-block"></i>
+          <div class="bottom-text">Eval</div>
+        </a>
+      </div>
+      
+
+      <div class="mobile-bottom-nav__item">
+        <a href="index.html?loggedout=true" class="mobile-bottom-nav__item-content">
+          <i class="bx bx-log-out-circle"></i>
+          <div class="bottom-text">Logout</div>
+        </a>
+      </div>
+      
+    </nav>
+    <!-- Main Content -->
+    <div class="content">
+      <!-- Navbar -->
+      <nav>
+        <img src="./images/aoi-bird.png" class="imgp h-8" style="margin: 12px" />
+        <i class="bx bx-menu"></i>
+        <form action="#"></form>
+        
+      </nav>
+
+      <!-- End of Navbar -->
+
+      
+        <main >
+        <div class="header">
+          <div class="left">
+            <h1>Editor</h1>
+            <ul class="breadcrumb hide-smallsc">
+              <li><a href="#"> Home </a></li>
+              /
+              <li><a href="#" class="active">Code Editor</a></li>
+            </ul>
+          </div>
+        </div>
+            <div class="flex align-right justify-end mx-4 "><div id="inputf" class="mr-4 w-full md:w-2/3"></div><a onclick="javascript:newf()"><button id="fileb" class="bg-blue-800 md:w-32 text-white hover:shadow-xl hover:bg-blue-900 rounded-lg m-2 p-2 flex"><p class="fa fa-plus text-white mr-2 pt-1"></p><p class="hide-smallsc"> New File</p></button></a><span id="otherbuttons" class="flex flex-row"><a onclick="javascript:pret()"><button class="bg-purple-800 text-white hover:shadow-xl hover:bg-purple-900 rounded-lg m-2 p-2 flex"><p class="fa fa-magic text-white mr-2 pt-1"></p><p class="hide-smallsc"> Prettify</p></button></a><a onclick="javascript:save2()" id="save"><button id="save-btn" class="bg-green-800 text-white hover:shadow-xl hover:bg-green-900 rounded-lg m-2 p-2 flex"><p class="fa fa-save text-white mr-2 pt-1"></p><p class="hide-smallsc"> Save</p></button></a><a onclick="javascript:del()"><button class="bg-red-800 text-white hover:shadow-xl hover:bg-red-900 rounded-lg m-2 p-2 md:w-32 flex"><p class="fa fa-trash text-white mr-2 pt-1"></p><p class="hide-smallsc"> Delete File</p></button></a></span></div>
+            <div class="mx-6 mt-1 mb-2 text-sm" id="save-status"></div>
+            <div class="md:flex items-center sm:flex-row" style="overflow: hidden;">
+              <div id="filelist" class = "pb-8 md:w-1/4 rounded-lg" style="background-color: #181a1e;">
+                  <div class="flex p-4 w-full"><div id="backbutton"><a onclick="javascript:back()"><i class="fa hover:shadow-xl hover:text-gray-400 text-3xl text-white pt-3 cursor-pointer">&#xf0a8;</i></a></div><div id="target" class="text-white p-4 font-bold">Files</div></div>
+                  <div id="filelistsjs" class="mx-4">
+
+                  </div>
+              </div>
+              <div id="editor" class="md:w-3/4 w-12/12 m-2 md:m-4 rounded-lg h-screen sm:flex-row" style="background-color: #181a1e;">
+                  <div id="container" class="w-4/6 md:w-2/3  align-center p-4 m-5 rounded-xl"></div>
+                  
+              </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+      </main>
+    </div>
+
+  <script src="./assets/mock-api.js"></script>
+  <script src="./assets/panel.js"></script>
+      <style>
+          @media (max-width:600px){.hide-smallsc{display:none!important}}
+          /*@media (max-width:992px){.badge{display:none!important;}.badge1{display:none!important;}}*/
+          #start-tour {
+            position: fixed;
+            right: 16px;
+            bottom: 88px;
+            z-index: 99999;
+            border: 0;
+            border-radius: 999px;
+            padding: 10px 14px;
+            background: #2563eb;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+            display: none;
+          }
+      </style>
+      <button id="start-tour" type="button">Start Tour</button>
+      <script>
+        var auth = window.PANEL_STATIC.getAuth();
+        async function openLogs() {
+      const res = await fetch("/api/getAllLogs", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ auth: auth })
+      });
+      const json = await res.json();
+      console.log(json)
+      if (json.error) {
+        alert("You don't have ADMIN access! Request an Admin to give you access...")
+        resetHL();
+      }
+      else {
+        window.location.href="logs.html";
+      }
+    }
+    function resetHL() {window.location.reload()}
+
+
+      </script>
+      <script src="./assets/editor.js"></script>
+      <script>
+        (function () {
+          const tourKey = "aoi.panel.tour.editor.v3";
+          const params = new URLSearchParams(window.location.search);
+          const forceTour = params.get("tour") === "1";
+          let started = false;
+          let startBtn = null;
+
+          function showStartButton(runTour) {
+            if (!startBtn) {
+              startBtn = document.getElementById("start-tour");
+            }
+            if (!startBtn) {
+              return;
+            }
+            startBtn.style.display = "inline-block";
+            startBtn.onclick = function () {
+              runTour(true);
+            };
+          }
+
+          function hideStartButton() {
+            if (!startBtn) {
+              startBtn = document.getElementById("start-tour");
+            }
+            if (!startBtn) {
+              return;
+            }
+            startBtn.style.display = "none";
+          }
+
+          function loadShepherdFallback() {
+            return new Promise(function (resolve) {
+              if (window.Shepherd) {
+                resolve(true);
+                return;
+              }
+              const existing = document.getElementById("shepherd-fallback-js");
+              if (existing) {
+                existing.addEventListener("load", function () { resolve(Boolean(window.Shepherd)); }, { once: true });
+                existing.addEventListener("error", function () { resolve(false); }, { once: true });
+                return;
+              }
+              const script = document.createElement("script");
+              script.id = "shepherd-fallback-js";
+              script.src = "https://unpkg.com/shepherd.js@8.4.1/dist/js/shepherd.min.js";
+              script.onload = function () { resolve(Boolean(window.Shepherd)); };
+              script.onerror = function () { resolve(false); };
+              document.head.appendChild(script);
+            });
+          }
+
+          function hasTargets() {
+            return Boolean(
+              document.querySelector("#filelist") &&
+              document.querySelector("#container") &&
+              document.querySelector("#editor")
+            );
+          }
+
+          function runTour(forceManual) {
+            if (started) {
+              return true;
+            }
+            if (!window.Shepherd || !hasTargets()) {
+              return false;
+            }
+            if (!forceTour && !forceManual && localStorage.getItem(tourKey)) {
+              showStartButton(runTour);
+              return true;
+            }
+
+            started = true;
+            hideStartButton();
+
+            function settleStepTarget(selector) {
+              return new Promise(function (resolve) {
+                const el = document.querySelector(selector);
+                if (!el) {
+                  resolve();
+                  return;
+                }
+                el.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+                requestAnimationFrame(function () {
+                  requestAnimationFrame(resolve);
+                });
+              });
+            }
+
+            const tour = new Shepherd.Tour({
+              useModalOverlay: true,
+              defaultStepOptions: {
+                cancelIcon: { enabled: true },
+                scrollTo: false
+              }
+            });
+
+            const finishTour = function () {
+              localStorage.setItem(tourKey, "seen");
+            };
+
+            tour.on("complete", finishTour);
+            tour.on("cancel", finishTour);
+
+            tour.addStep({
+              title: "File Explorer",
+              text: "Browse folders and files from the synthetic workspace here.",
+              attachTo: { element: "#filelistsjs", on: "right" },
+              beforeShowPromise: function () {
+                return settleStepTarget("#filelistsjs");
+              },
+              buttons: [{ text: "Next", action: tour.next }]
+            });
+
+            tour.addStep({
+              title: "Code Editor",
+              text: "Edit your selected file in this Monaco editor area.",
+              attachTo: { element: "#container", on: "left" },
+              beforeShowPromise: function () {
+                return settleStepTarget("#container");
+              },
+              buttons: [
+                { text: "Back", action: tour.back },
+                { text: "Next", action: tour.next }
+              ]
+            });
+
+
+
+            tour.addStep({
+              title: "Done",
+              text: "You are ready to navigate and edit the project files.",
+              attachTo: { element: "#filelist", on: "right" },
+              beforeShowPromise: function () {
+                return settleStepTarget("#filelist");
+              },
+              buttons: [
+                { text: "Back", action: tour.back },
+                {
+                  text: "Done",
+                  action: function () {
+                    finishTour();
+                    return tour.complete();
+                  }
+                }
+              ]
+            });
+
+            setTimeout(function () {
+              tour.start();
+            }, 250);
+            return true;
+          }
+
+          function bootTour() {
+            loadShepherdFallback().then(function () {
+              let retries = 0;
+              const maxRetries = 16;
+              const timer = setInterval(function () {
+                retries += 1;
+                if (runTour(false)) {
+                  clearInterval(timer);
+                  return;
+                }
+                if (retries >= maxRetries) {
+                  clearInterval(timer);
+                  showStartButton(runTour);
+                }
+              }, 250);
+            });
+          }
+
+          if (document.readyState === "complete" || document.readyState === "interactive") {
+            bootTour();
+          }
+          window.addEventListener("load", bootTour);
+        })();
+      </script>
+
+  </body>
+</html>

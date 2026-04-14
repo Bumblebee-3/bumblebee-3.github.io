@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hridhuun // Photography Album</title>
+    <meta
+      name="description"
+      content="Photography album by Hridhuun Savant with a mechanical cyber-style gallery interface."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./gallery.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-left"></div>
+    <div class="ambient ambient-right"></div>
+
+    <header class="topbar">
+      <div class="brand-lockup">
+        <span class="brand-badge">HS</span>
+        <span class="brand-name">HRIDHUUN SAVANT</span>
+      </div>
+      <a class="return-link" href="/">Return To Main System</a>
+    </header>
+
+    <main class="page-container">
+      <section class="section-cut hero-shell">
+        <div class="section-label">PHOTOGRAPHY ARCHIVE // VISUAL LOGS</div>
+        <div class="hero-panel" data-float>
+          <p class="hero-kicker">FROZEN SIGNALS / DYNAMIC MEMORY</p>
+          <h1 class="hero-title">FRAME / LIGHT / MOTION</h1>
+          <p class="hero-copy">
+            A curated archive of field captures. Every frame is a timing experiment: atmosphere, pressure,
+            geometry, and instinct.
+          </p>
+          <div class="hero-meta">
+            <span><strong id="shot-count">0</strong> SHOTS</span>
+            <span><strong>1</strong> FORMAT (AVIF)</span>
+            <span><strong>LIVE</strong> WALL</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-cut" id="album">
+        <div class="section-label">ALBUM GRID // FULL RESOLUTION</div>
+        <div id="gallery-grid" class="gallery-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="section-cut noise-section" aria-hidden="true">
+        <div class="section-label">SYSTEM NOISE // AUX</div>
+        <div class="noise-grid">
+          <p class="noise-line">exposure spikes compensated in post</p>
+          <p class="noise-line">subject tracking: instinct over presets</p>
+          <p class="noise-line">each frame tagged by motion memory</p>
+        </div>
+      </section>
+    </main>
+
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+      <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Close viewer">close</button>
+      <button type="button" id="lightbox-prev" class="lightbox-nav prev" aria-label="Previous photo">prev</button>
+      <figure class="lightbox-figure">
+        <img id="lightbox-image" src="" alt="Selected gallery image" />
+        <figcaption id="lightbox-caption"></figcaption>
+      </figure>
+      <button type="button" id="lightbox-next" class="lightbox-nav next" aria-label="Next photo">next</button>
+    </div>
+
+    <script src="./gallery.js"></script>
+  </body>
+</html>

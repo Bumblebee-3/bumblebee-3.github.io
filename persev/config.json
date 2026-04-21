@@ -1,0 +1,247 @@
+{
+  "website": {
+    "events":[{
+        "name": "ADMETA",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/admeta.avif",
+        "eventHeadName": "Dia Jain",
+        "eventHeadPhoto": "/persev/assets/eventheads/admeta.avif",
+        "longDesc": "Admeta is not your conventional debate, it's a clash of originality, spontaneity, and truth. In an era where online opinions echo louder than facts, this event challenges participants to stay rooted in authenticity while confronting polarising perspectives.",
+        "ropLink": ""
+      },{
+        "name": "ARTEM",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/artem.avif",
+        "eventHeadName": "Nicole Lee",
+        "eventHeadPhoto": "/persev/assets/eventheads/artem.avif",
+        "longDesc": "This isn't just an art booth. It's a moment of presence— Where art isn't made to impress, but to express. Here, portraits are painted not by how you look, but by how you feel.There are no filters, no facades. Here at ARTEM, it's just you, the muse, and real, raw, human connection.",
+        "ropLink": ""
+      },{
+        "name": "CARMEN",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/carmen.avif",
+        "eventHeadName": "Joalene Kotian",
+        "eventHeadPhoto": "/persev/assets/eventheads/carmen.avif",
+        "longDesc": "Carmen is a stage where words don't just rhyme— they resonate. A celebration of voice, vulnerability, and vision, this event invites performers to take the mic and bring raw emotion to life. Whether it's poetry, personal narratives, or social commentary, each performance must reflect originality and purpose.",
+        "ropLink": ""
+      },{
+        "name": "FABULA",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/fabula.avif",
+        "eventHeadName": "Mira Bhimbat",
+        "eventHeadPhoto": "/persev/assets/eventheads/fabula.avif",
+        "longDesc": "In a world of over-edited content and curated moments, Fabula challenges participants to embrace the raw, unfiltered side of storytelling. Each team is given a stock video clip capturing an \"Offthentic\" moment, a subtle but powerful slice of real life. Their task is to craft a short film that weaves this moment into a meaningful, original narrative. With complete creative freedom, participants can use the given footage or recreate it with their own cast and crew. The event celebrates honest storytelling, visual creativity, and authentic expression, making Fabula a cinematic journey into what lies beneath the surface.",
+        "ropLink": ""
+      },{
+        "name": "FORTUNA",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/fortuna.avif",
+        "eventHeadName": "Rayhan Bhatia",
+        "eventHeadPhoto": "/persev/assets/eventheads/fortuna.avif",
+        "longDesc": " Fortuna is a high-stakes, fast-paced stock market simulation where students take on the roles of investors and traders in a fictional but volatile financial world. Using real-time market news, insider tips, and negotiation tactics, participants must buy, sell, and manage a diverse portfolio to maximize returns and navigate economic shocks.",
+        "ropLink": ""
+      },{
+        "name": "CODEFERNO",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/codeferno.avif",
+        "eventHeadName": "Avighna Chhatrapati",
+        "eventHeadPhoto": "/persev/assets/eventheads/codeferno.avif",
+        "longDesc": "Welcome to Codeferno, a high-speed, high-stakes coding tournament designed to give you a real taste of what authentic programming contests feel like. With problems hosted on CMS: the same platform used in olympiad-level contests worldwide, you'll experience the thrill of solving timed algorithmic challenges at the highest level.",
+        "ropLink": ""
+      },{
+        "name": "GUSTATIO",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/gustatio.avif",
+        "eventHeadName": "Prajna Raykathi",
+        "eventHeadPhoto": "/persev/assets/eventheads/gustatio.avif",
+        "longDesc": "Welcome to Gustatio, where culinary meets creativity and chaos meets cuisine. This is not your average cook-off; it's an unpredictable, high-stakes test of how well you can cook with your senses and think like the algorithm.From mystery wheels to viral desserts, you'll be challenged to create dishes that not only taste good but also think offthentic, real-world flavour with an online twist.",
+        "ropLink": ""
+      },{
+        "name": "MAHIM16",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/mahim-16.avif",
+        "eventHeadName": "Shreya Sangal",
+        "eventHeadPhoto": "/persev/assets/eventheads/mahim-16.avif",
+        "longDesc": "Mahim16— inspired by Brooklyn99— is a thrilling mystery-based crime event where teams step into the shoes of investigators to crack a complex case. Using a starter podcast and an evidence file, teams must analyse the crime, build an investigation board, and present a final podcast episode narrating their theory of the case. Judging is based on logic, creativity, accuracy, and presentation.",
+        "ropLink": ""
+      },{
+        "name": "‘Ad’venturium",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/adventurium.avif",
+        "eventHeadName": "Gaurika Aggarwal",
+        "eventHeadPhoto": "/persev/assets/eventheads/adventurium.avif",
+        "longDesc": "Welcome to ‘Ad’venturium, a pitch challenge where improv meets influence, and wit meets authenticity. In this offbeat, offthentic showdown, participants must persuade, sell, and perform under the most unexpected constraints.",
+        "ropLink": ""
+      },{
+        "name": "GRATIA",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/gratia.avif",
+        "eventHeadName": "Samaya Satyani",
+        "eventHeadPhoto": "/persev/assets/eventheads/gratia.avif",
+        "longDesc": "Step off the digital grid and onto the stage in Gratia—a dance competition where real-world cultural roots meet modern creativity. Your challenge is to reconnect with a traditional dance form and reimagine it with genuine emotion and flair. Embrace the raw, offthentic energy as you blend classic moves with contemporary twists.",
+        "ropLink": ""
+      },{
+        "name": "PANACHE",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/panache.avif",
+        "eventHeadName": "Ishita Agarwal",
+        "eventHeadPhoto": "/persev/assets/eventheads/panache.avif",
+        "longDesc": " In Panache, fashion meets history. Teams will design a runway-ready fashion line inspired by a pre-digital era or cultural movement, think '70s rebellion, vintage Bollywood, or grunge rock, and reimagine how it would be seen today. From mood board to showstopper, tell a powerful story through clothes. The runway is yours to command.",
+        "ropLink": ""
+      },{
+        "name": "SYMPHONIA",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/symphonia.avif",
+        "eventHeadName": "Jasleen Kaur",
+        "eventHeadPhoto": "/persev/assets/eventheads/symphonia.avif",
+        "longDesc": " Welcome to Symphonia, where melody meets meaning and rhythm becomes identity. This isn't just a musical event, it's a two-day celebration of authenticity, creativity, and sound that speaks from the soul. From indie vibes to folk roots, your band will tell a story, one beat at a time.",
+        "ropLink": ""
+      },{
+        "name": "MR AND MS PERSEVERANTIA",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/mr-mrs.avif",
+        "eventHeadName": "Ashriya Agarwal",
+        "eventHeadPhoto": "/persev/assets/eventheads/mr-ms.avif",
+        "longDesc": "Ready to own the spotlight and let your real self shine? Mr and Ms Perseverantia, is your stage to break the mould and celebrate what makes you you. If you have the confidence to speak your mind, the courage to stay authentic, and a spark that sets you apart, this is your chance to show it.Through a mix of exciting rounds, this contest will discover your personality, originality, presence, and talent, beyond just looks and labels. Step up, stand out, and show us what makes you truly offthentic!",
+        "ropLink": ""
+      },{
+        "name": "EXPLORARE",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/explorare.avif",
+        "eventHeadName": "Bhriti Khanna & Sharan Dhanu",
+        "eventHeadPhoto": "/persev/assets/eventheads/explorare.avif",
+        "longDesc": "Think fast. Run faster. Solve fastest. Welcome to EXPLORARE— an adrenaline-fueled, F1-style treasure hunt designed to test your wit, stamina, strategy, and team synergy. But here's the twist: you don't just race against time— you race without knowing it.",
+        "ropLink": ""
+      },{
+        "name": "MONOPOLIUM",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/monopolium.avif",
+        "eventHeadName": "Ved Chopde",
+        "eventHeadPhoto": "/persev/assets/eventheads/monopolium.avif",
+        "longDesc": "Monopolium is an life size immersive commerce and economics simulation where participants step into the shoes of investors, industrialists, and tycoons. Inspired by the board game Monopoly, this event is supercharged with real-world business scenarios, market fluctuations, policy shifts, and cut-throat negotiations.Participants must build, trade, invest, and strategize their way to market dominance!",
+        "ropLink": ""
+      },{
+        "name": "FOOTBALL",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/football.avif",
+        "eventHeadName": "Rehaan Bhat",
+        "eventHeadPhoto": "/persev/assets/eventheads/football.avif",
+        "longDesc": "Football at school isn't just a game, it's an event you don't want to miss! Get ready for fast moves, big goals, and serious team spirit as students hit the pitch to show what they've got. Whether you're playing or cheering from the sidelines, the energy will be off the charts!",
+        "ropLink": ""
+      },{
+        "name": "BASKETBALL",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/basketball.avif",
+        "eventHeadName": "Veda Sriranjan",
+        "eventHeadPhoto": "/persev/assets/eventheads/basketball.avif",
+        "longDesc": "Get ready for a high-octane basketball knockout where reflexes, teamwork, and strategy take centre court. Whether you're sinking threes or stealing passes, this is where hustle meets heart.",
+        "ropLink": ""
+      },{
+        "name": "GULLY CRICKET",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/cricket.avif",
+        "eventHeadName": "Arrmaan Anand",
+        "eventHeadPhoto": "/persev/assets/eventheads/gullycricket.avif",
+        "longDesc": "\"In India, every alley turns into a stadium and every kid dreams big with a bat in hand.\" Grab your bats and lace up! Welcome to the most iconic, unpredictable, and street-smart cricket showdown of the fest. It's time to bring your A-game, break the boundaries, and own the gully like never before! Sign up your team for Perseverantia and get ready to make your mark.",
+        "ropLink": ""
+      },{
+        "name": "TABLE TENNIS",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/table-tennis.avif",
+        "eventHeadName": "Anmol Kampani",
+        "eventHeadPhoto": "/persev/assets/eventheads/tt.avif",
+        "longDesc": "Whether you're a seasoned pro or a curious beginner, table tennis welcomes everyone! In this event, we celebrate the joy of the game, the camaraderie of competition, and the sheer fun of hitting that little white ball back and forth. Sign up for Perseverantia: Table Tennis with your own team and prepare for the first serve.",
+        "ropLink": ""
+      },{
+        "name": "TUG OF WAR",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/tug-of-war.avif",
+        "eventHeadName": "Agastya Katiyar",
+        "eventHeadPhoto": "/persev/assets/eventheads/tugofwar.avif",
+        "longDesc": "This isn't just muscle, it's mind over might. Strategy, strength, and synergy collide in the ultimate test of teamwork. In Tug of War: Pull with Purpose, every pull counts, every teammate matters, and every second is a battle for control. With high-stakes rounds and a twist of unpredictability, victory will go to the team that knows how to stay grounded— literally and figuratively.",
+        "ropLink": ""
+      },{
+        "name": "E SPORTS",
+        "shortDesc": "",
+        "subTheme": "",
+        "oneLiner": "",
+        "logo": "/persev/assets/eventlogos/esports.avif",
+        "eventHeadName": "Ruuhan Malde",
+        "eventHeadPhoto": "/persev/assets/eventheads/e-sports.avif",
+        "longDesc": " Are you a virtual mastermind? Do you dominate the gaming world from the comfort of your phone? Have you been itching for an E-Sports showdown but never had the chance? Well, here is your chance! Perseverantia presents the ultimate E-Sports Tournament, where you'll compete against the best and represent your school like a true champ! So, what are you waiting for? Sign up now to be a part of the ultimate showdown!",
+        "ropLink": ""
+      }],
+    "navbar": {
+      "title": "PERSEVERANTIA '25",
+      "links": [
+        { "name": "Leaderboard", "linkto": "/persev/leaderboard" },
+        {"name":"Events", "linkto": "/persev/events"},
+        {"name": "Organizing Committee", "linkto": "/persev/organizing-committee"},
+        {"name": "Food Menu", "linkto": "/persev/food-menu"}
+      ]
+    },
+    "mainLogo": "/persev/assets/persevnew.avif",
+    "main-video":"/persev/assets/bannerv2.mp4",
+    "countdown": { "year": 2025, "month": 10, "day": 3 },
+    "dateTime": "3rd October @ 7:00 a.m.",
+    "about": {
+      "tb1":"Perseverantia 2025 celebrates the spirit of resilience, creativity, and meaningful collaboration. As Bombay Scottish School's annual interschool fest, it brings together young minds from across the city to engage in dialogue, performance, and competition across a wide range of disciplines. Rooted in the values of excellence and integrity, Perseverantia is a platform where talent meets purpose and innovation meets community.",
+      "tbg":"The theme for Perseverantia's 4th edition is OFFTHENTIC.",
+      "tb2":"It calls upon participants to reflect on the importance of authenticity in an increasingly digital world. In a time shaped by social media filters, fast trends, and virtual personas, OFFTHENTIC is an invitation to go offline, to reconnect with one's roots, embrace originality, and express identity in its truest form. Each event has been carefully curated to inspire honest self-expression and thoughtful reflection, ensuring that this year's edition of Perseverantia is not just memorable, but deeply meaningful.",
+      "button1": { "name": "View Events", "link": "/persev/events" },
+      "button2": {
+        "name": "Organizing Committee",
+        "link": "/persev/organizing-committee"
+      },
+      "photo": "/persev/assets/bannernl.avif"
+    },
+    "register": {
+      "content": "Be part of Perseverantia '25 and showcase your talents across 21+ thrilling events. Don't miss your chance to compete, collaborate, and celebrate!",
+      "link": "/register"
+    },
+    "contact": {
+      "mobileNos": "📞 +91 84258 98552 / +91 77380 99474 / +91 70211 38415",
+      "email": "perseverantia@bombayscottish.in"
+    }
+  }
+}

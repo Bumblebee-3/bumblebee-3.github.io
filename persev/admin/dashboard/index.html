@@ -1,0 +1,899 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Website Admin Dashboard - Perseverantia Event Management">
+    <link rel="icon" type="image/png" href="/persev/assets/persev.png" />
+    <title>Website Admin Dashboard - Perseverantia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @font-face {
+            font-family: Mestizo;
+            src: url(/persev/assets/MestizoFont.ttf);
+        }
+        
+        /* Set default font for body */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0D122C 0%, #131D3F 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(90deg, #0D122C 0%, #131D3F 100%);
+        }
+        
+        .input-field {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #BE8E30;
+            outline: none;
+            box-shadow: 0 0 20px rgba(190, 142, 48, 0.3);
+        }
+        
+        .btn-primary {
+            background: #081032;
+            color: white;
+            border: 4px solid #BE8E30;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #BE8E30;
+            color: #081032;
+            box-shadow: 0 0 25px rgba(190, 142, 48, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .logo-glow {
+            filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.4));
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0D122C 0%, #131D3F 100%);
+            color: white;
+            padding: 20px 0;
+            border-bottom: 4px solid #BE8E30;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 600;
+            font-family: Mestizo;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .refresh-btn, .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .refresh-btn:hover, .logout-btn:hover {
+            background: rgba(190, 142, 48, 0.3);
+            box-shadow: 0 0 15px rgba(190, 142, 48, 0.3);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+        }
+
+        .stat-card {
+            background: linear-gradient(90deg, #0D122C 0%, #131D3F 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #BE8E30;
+            box-shadow: 0 0 25px rgba(190, 142, 48, 0.3);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #BE8E30;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .stat-description {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px 15px 0 0;
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            border-bottom: none;
+            overflow-x: auto;
+        }
+
+        .tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab.active {
+            background: #BE8E30;
+            color: #0D122C;
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(190, 142, 48, 0.2);
+        }
+
+        .tab-content {
+            background: linear-gradient(90deg, #0D122C 0%, #131D3F 100%);
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            min-height: 600px;
+            color: white;
+        }
+
+        .tab-pane {
+            display: none;
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #BE8E30;
+            font-size: 18px;
+        }
+
+        .loading::after {
+            content: '';
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            border-top: 2px solid #BE8E30;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        .loading::after {
+            display:none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .registration-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(190, 142, 48, 0.3);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .registration-item:hover {
+            border-color: #BE8E30;
+            box-shadow: 0 4px 20px rgba(190, 142, 48, 0.2);
+        }
+
+        .school-info {
+            background: rgba(190, 142, 48, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #BE8E30;
+        }
+
+        .school-info h4 {
+            color: #BE8E30;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-family: Mestizo;
+        }
+
+        .school-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .event-list {
+            margin-top: 15px;
+        }
+
+        .event-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(190, 142, 48, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .event-name {
+            font-weight: bold;
+            color: #BE8E30;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-family: Mestizo;
+        }
+
+        .participants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 8px;
+        }
+
+        .participant {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            border-left: 3px solid #BE8E30;
+        }
+
+        .participant-name {
+            font-weight: bold;
+            color: white;
+            margin-bottom: 3px;
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid rgba(190, 142, 48, 0.3);
+        }
+
+        .filter-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(190, 142, 48, 0.3);
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .filter-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .export-btn {
+            background: #BE8E30;
+            color: #0D122C;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover {
+            background: #D4A843;
+            box-shadow: 0 0 15px rgba(190, 142, 48, 0.4);
+        }
+
+        .error {
+            color: #ff6b6b;
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 15px;
+            color: #BE8E30;
+            font-family: Mestizo;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab {
+                border-radius: 0 !important;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-input {
+                min-width: auto;
+            }
+        }
+    </style>
+  <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="/persev/assets/persevlogo.png" alt="Perseverantia Logo" class="logo logo-glow" />
+                <div>
+                    <div class="header-title">Website Admin Dashboard</div>
+                    <div class="header-subtitle">Event Registration Management</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="refresh-btn" onclick="refreshAllData()">🔄 Refresh</button>
+                <a href="/persev/admin/logout" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Schools</div>
+                <div class="stat-number" id="totalSchools">-</div>
+                <div class="stat-description">Registered Schools</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Participants</div>
+                <div class="stat-number" id="totalParticipants">-</div>
+                <div class="stat-description">Across All Events</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Stage Events</div>
+                <div class="stat-number" id="stageRegistrations">-</div>
+                <div class="stat-description">Total Registrations</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Sports Events</div>
+                <div class="stat-number" id="sportsRegistrations">-</div>
+                <div class="stat-description">Total Registrations</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Classroom Events</div>
+                <div class="stat-number" id="classroomRegistrations">-</div>
+                <div class="stat-description">Total Registrations</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('stage')">Stage Events</button>
+            <button class="tab" onclick="switchTab('sports')">Sports Events</button>
+            <button class="tab" onclick="switchTab('classroom')">Classroom Events</button>
+            <button class="tab" onclick="switchTab('summary')">Summary</button>
+        </div>
+
+        <div class="tab-content">
+            <!-- Stage Events Tab -->
+            <div id="stage-tab" class="tab-pane active">
+                <div class="filter-section">
+                    <input type="text" id="stage-filter" class="filter-input" placeholder="Search by school name or event...">
+                    <button class="export-btn" onclick="exportData('stage')">📊 Export CSV</button>
+                </div>
+                <div id="stage-content" class="loading">Loading stage registrations...</div>
+            </div>
+
+            <!-- Sports Events Tab -->
+            <div id="sports-tab" class="tab-pane">
+                <div class="filter-section">
+                    <input type="text" id="sports-filter" class="filter-input" placeholder="Search by school name or event...">
+                    <button class="export-btn" onclick="exportData('sports')">📊 Export CSV</button>
+                </div>
+                <div id="sports-content" class="loading">Loading sports registrations...</div>
+            </div>
+
+            <!-- Classroom Events Tab -->
+            <div id="classroom-tab" class="tab-pane">
+                <div class="filter-section">
+                    <input type="text" id="classroom-filter" class="filter-input" placeholder="Search by school name or event...">
+                    <button class="export-btn" onclick="exportData('classroom')">📊 Export CSV</button>
+                </div>
+                <div id="classroom-content" class="loading">Loading classroom registrations...</div>
+            </div>
+
+            <!-- Summary Tab -->
+            <div id="summary-tab" class="tab-pane">
+                <div id="summary-content" class="loading">Loading summary...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allData = {
+            stage: [],
+            sports: [],
+            classroom: []
+        };
+
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('/persev/admin/check-auth');
+                if (!response.ok) {
+                    window.location.href = '/persev/admin/login';
+                    return;
+                }
+                const result = await response.json();
+                if (!result.authenticated) {
+                    window.location.href = '/persev/admin/login';
+                    return;
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = '/persev/admin/login';
+                return;
+            }
+
+            // Load data if authenticated
+            loadStatistics();
+            loadAllRegistrations();
+        });
+
+        async function loadStatistics() {
+            try {
+                const response = await fetch('/persev/api/stats/registrations');
+                const stats = await response.json();
+                
+                document.getElementById('totalSchools').textContent = stats.totalSchools || 0;
+                document.getElementById('stageRegistrations').textContent = stats.totalStageRegistrations || 0;
+                document.getElementById('sportsRegistrations').textContent = stats.totalSportsRegistrations || 0;
+                document.getElementById('classroomRegistrations').textContent = stats.totalClassroomRegistrations || 0;
+                
+                // Don't set totalParticipants here - it will be calculated from loaded data
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+            }
+        }
+
+        async function loadAllRegistrations() {
+            await Promise.all([
+                loadStageRegistrations(),
+                loadSportsRegistrations(),
+                loadClassroomRegistrations(),
+                loadSummary()
+            ]);
+            
+            // Calculate and update total participants after all data is loaded
+            updateTotalParticipants();
+        }
+
+        function updateTotalParticipants() {
+            let totalParticipants = 0;
+            
+            // Count stage participants
+            if (allData.stage && Array.isArray(allData.stage)) {
+                allData.stage.forEach(registration => {
+                    if (registration.events && Array.isArray(registration.events)) {
+                        registration.events.forEach(event => {
+                            if (event.participants && Array.isArray(event.participants)) {
+                                totalParticipants += event.participants.length;
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // Count sports participants  
+            if (allData.sports && Array.isArray(allData.sports)) {
+                allData.sports.forEach(registration => {
+                    if (registration.events && Array.isArray(registration.events)) {
+                        registration.events.forEach(event => {
+                            if (event.participants && Array.isArray(event.participants)) {
+                                totalParticipants += event.participants.length;
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // Count classroom participants
+            if (allData.classroom && Array.isArray(allData.classroom)) {
+                allData.classroom.forEach(registration => {
+                    if (registration.events && Array.isArray(registration.events)) {
+                        registration.events.forEach(event => {
+                            if (event.participants && Array.isArray(event.participants)) {
+                                totalParticipants += event.participants.length;
+                            }
+                        });
+                    }
+                });
+            }
+            
+            console.log('Total participants calculated:', totalParticipants);
+            document.getElementById('totalParticipants').textContent = totalParticipants;
+        }
+
+        async function loadStageRegistrations() {
+            try {
+                const response = await fetch('/persev/admin/api/registrations/stage');
+                const data = await response.json();
+                allData.stage = data;
+                displayStageRegistrations(data);
+            } catch (error) {
+                console.error('Error loading stage registrations:', error);
+                document.getElementById('stage-content').innerHTML = '<div class="error">Error loading stage registrations</div>';
+            }
+        }
+
+        async function loadSportsRegistrations() {
+            try {
+                const response = await fetch('/persev/admin/api/registrations/sports');
+                const data = await response.json();
+                allData.sports = data;
+                displaySportsRegistrations(data);
+            } catch (error) {
+                console.error('Error loading sports registrations:', error);
+                document.getElementById('sports-content').innerHTML = '<div class="error">Error loading sports registrations</div>';
+            }
+        }
+
+        async function loadClassroomRegistrations() {
+            try {
+                const response = await fetch('/persev/admin/api/registrations/classroom');
+                const data = await response.json();
+                allData.classroom = data;
+                displayClassroomRegistrations(data);
+            } catch (error) {
+                console.error('Error loading classroom registrations:', error);
+                document.getElementById('classroom-content').innerHTML = '<div class="error">Error loading classroom registrations</div>';
+            }
+        }
+
+        async function loadSummary() {
+            try {
+                const response = await fetch('/persev/admin/api/summary');
+                const data = await response.json();
+                displaySummary(data);
+            } catch (error) {
+                console.error('Error loading summary:', error);
+                document.getElementById('summary-content').innerHTML = '<div class="error">Error loading summary</div>';
+            }
+        }
+
+        function displayStageRegistrations(registrations) {
+            const content = document.getElementById('stage-content');
+            if (!registrations || registrations.length === 0) {
+                content.innerHTML = '<div class="empty-state"><h3>No stage registrations found</h3><p>No schools have registered for stage events yet.</p></div>';
+                return;
+            }
+
+            const html = registrations.map(reg => `
+                <div class="registration-item">
+                    <div class="school-info">
+                        <h4>${reg.school.name}</h4>
+                        <div class="school-details">
+                            <div><strong>Code:</strong> ${reg.school.contingentCode}</div>
+                            <div><strong>Teacher:</strong> ${reg.school.teacherName}</div>
+                            <div><strong>Email:</strong> ${reg.school.teacherEmail}</div>
+                            <div><strong>Mobile:</strong> ${reg.school.teacherMobile}</div>
+                        </div>
+                    </div>
+                    <div class="event-list">
+                        ${reg.events.map(event => `
+                            <div class="event-item">
+                                <div class="event-name">${event.eventName}</div>
+                                <div class="participants">
+                                    ${event.participants.map(p => `
+                                        <div class="participant">
+                                            <div class="participant-name">${p.name}</div>
+                                            <div>Grade: ${p.grade}${p.gender ? `, Gender: ${p.gender}` : ''}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            content.innerHTML = html;
+        }
+
+        function displaySportsRegistrations(registrations) {
+            const content = document.getElementById('sports-content');
+            if (!registrations || registrations.length === 0) {
+                content.innerHTML = '<div class="empty-state"><h3>No sports registrations found</h3><p>No schools have registered for sports events yet.</p></div>';
+                return;
+            }
+
+            const html = registrations.map(reg => `
+                <div class="registration-item">
+                    <div class="school-info">
+                        <h4>${reg.school.name}</h4>
+                        <div class="school-details">
+                            <div><strong>Code:</strong> ${reg.school.contingentCode}</div>
+                            <div><strong>Teacher:</strong> ${reg.school.teacherName}</div>
+                            <div><strong>Email:</strong> ${reg.school.teacherEmail}</div>
+                            <div><strong>Mobile:</strong> ${reg.school.teacherMobile}</div>
+                        </div>
+                    </div>
+                    <div class="event-list">
+                        ${reg.events.map(event => `
+                            <div class="event-item">
+                                <div class="event-name">${event.eventName}</div>
+                                <div class="participants">
+                                    ${event.participants.map(p => `
+                                        <div class="participant">
+                                            <div class="participant-name">${p.name}</div>
+                                            <div>Grade: ${p.grade}, Gender: ${p.gender}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            content.innerHTML = html;
+        }
+
+        function displayClassroomRegistrations(registrations) {
+            const content = document.getElementById('classroom-content');
+            if (!registrations || registrations.length === 0) {
+                content.innerHTML = '<div class="empty-state"><h3>No classroom registrations found</h3><p>No schools have registered for classroom events yet.</p></div>';
+                return;
+            }
+
+            const html = registrations.map(reg => `
+                <div class="registration-item">
+                    <div class="school-info">
+                        <h4>${reg.school.name}</h4>
+                        <div class="school-details">
+                            <div><strong>Code:</strong> ${reg.school.contingentCode}</div>
+                            <div><strong>Teacher:</strong> ${reg.school.teacherName}</div>
+                            <div><strong>Email:</strong> ${reg.school.teacherEmail}</div>
+                            <div><strong>Mobile:</strong> ${reg.school.teacherMobile}</div>
+                        </div>
+                    </div>
+                    <div class="event-list">
+                        ${reg.events.map(event => `
+                            <div class="event-item">
+                                <div class="event-name">${event.eventName}</div>
+                                <div class="participants">
+                                    ${event.participants.map(p => `
+                                        <div class="participant">
+                                            <div class="participant-name">${p.name}</div>
+                                            <div>Grade: ${p.grade}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            content.innerHTML = html;
+        }
+
+        function displaySummary(summaryData) {
+            const content = document.getElementById('summary-content');
+            
+            const html = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div class="registration-item">
+                        <h3 style="color: #1e3c72; margin-bottom: 1rem;">📊 Event Participation Summary</h3>
+                        ${summaryData.eventSummary.map(event => `
+                            <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-radius: 3px;">
+                                <strong>${event.eventName}:</strong> ${event.participantCount} participants from ${event.schoolCount} schools
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="registration-item">
+                        <h3 style="color: #1e3c72; margin-bottom: 1rem;">🏫 School Participation</h3>
+                        ${summaryData.schoolSummary.map(school => `
+                            <div style="margin-bottom: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-radius: 3px;">
+                                <strong>${school.schoolName}:</strong> ${school.totalEvents} events, ${school.totalParticipants} participants
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            content.innerHTML = html;
+        }
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // Add search functionality
+        document.getElementById('stage-filter').addEventListener('input', function() {
+            filterRegistrations('stage', this.value);
+        });
+
+        document.getElementById('sports-filter').addEventListener('input', function() {
+            filterRegistrations('sports', this.value);
+        });
+
+        document.getElementById('classroom-filter').addEventListener('input', function() {
+            filterRegistrations('classroom', this.value);
+        });
+
+        function filterRegistrations(type, searchTerm) {
+            const filtered = allData[type].filter(reg => {
+                const schoolName = reg.school.name.toLowerCase();
+                const eventNames = reg.events.map(e => e.eventName.toLowerCase()).join(' ');
+                const search = searchTerm.toLowerCase();
+                return schoolName.includes(search) || eventNames.includes(search);
+            });
+
+            if (type === 'stage') {
+                displayStageRegistrations(filtered);
+            } else if (type === 'sports') {
+                displaySportsRegistrations(filtered);
+            } else if (type === 'classroom') {
+                displayClassroomRegistrations(filtered);
+            }
+        }
+
+        function exportData(type) {
+            const data = allData[type];
+            if (!data || data.length === 0) {
+                alert('No data to export');
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "School Name,Contingent Code,Teacher Name,Teacher Email,Teacher Mobile,Event Name,Participant Name,Grade,Gender\n";
+
+            data.forEach(reg => {
+                reg.events.forEach(event => {
+                    event.participants.forEach(participant => {
+                        csvContent += `"${reg.school.name}","${reg.school.contingentCode}","${reg.school.teacherName}","${reg.school.teacherEmail}","${reg.school.teacherMobile}","${event.eventName}","${participant.name}","${participant.grade}","${participant.gender || ''}"\n`;
+                    });
+                });
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `${type}_registrations_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function refreshAllData() {
+            // Show loading states
+            document.getElementById('stage-content').innerHTML = '<div class="loading">Refreshing stage registrations...</div>';
+            document.getElementById('sports-content').innerHTML = '<div class="loading">Refreshing sports registrations...</div>';
+            document.getElementById('classroom-content').innerHTML = '<div class="loading">Refreshing classroom registrations...</div>';
+            document.getElementById('summary-content').innerHTML = '<div class="loading">Refreshing summary...</div>';
+            
+            // Reload all data
+            loadStatistics();
+            loadAllRegistrations();
+        }
+    </script>
+</body>
+</html>

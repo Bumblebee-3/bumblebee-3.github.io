@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Perseverantia 2025 Leaderboard</title>
+    <meta name="description" content="Perseverantia 2025 School Leaderboard.">
+    <style>
+        @font-face {
+          font-family: Mestizo;
+          src: url(/persev/assets/MestizoFont.ttf);
+          font-display: swap;
+        }
+
+        /* Enhanced Background and Animations */
+        body {
+            background: linear-gradient(135deg, #0a0f2c 0%, #1a2949 50%, #0d122c 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            /* Disable WebKit color scheme override */
+            -webkit-color-scheme: dark;
+            color-scheme: dark;
+        }
+        
+        /* Force dark background for iOS Safari */
+        html {
+            background: #0a0f2c !important;
+            -webkit-color-scheme: dark;
+            color-scheme: dark;
+        }
+        
+        /* Prevent iOS from changing colors */
+        * {
+            -webkit-color-scheme: dark;
+            color-scheme: dark;
+        }
+
+        /* Floating Background Elements */
+        .bg-decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bg-decoration::before,
+        .bg-decoration::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(190, 142, 48, 0.15);
+            animation: float 6s ease-in-out infinite;
+            box-shadow: 0 0 30px rgba(190, 142, 48, 0.2);
+        }
+
+        .bg-decoration::before {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 80%;
+            animation-delay: 0s;
+        }
+
+        .bg-decoration::after {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Enhanced Navbar */
+        header {
+            position: relative;
+            z-index: 100;
+        }
+    </style>
+    <link
+      href="/persev/static/lbstyle.css"
+      rel="stylesheet"
+    />
+    <script src="/persev/static/confetti.js"></script>
+    <link rel="icon" type="image/png" href="/persev/assets/persev.avif" />
+    <script>
+      var stoptime = false;
+      
+      const start = () => {
+          setTimeout(function() {
+              confetti.start()
+          }, 1000); 
+      };
+      
+
+      const stop = (t) => {
+          setTimeout(function() {
+            
+              confetti.stop()
+              stoptime=true;
+          }, t); 
+      };
+      
+      
+    </script>
+    <style>
+      /* Enhanced Typography */
+      .section-title {
+        background: linear-gradient(45deg, #BE8E30, #FFD700, #BE8E30);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 3s ease-in-out infinite;
+        text-shadow: 0 0 30px rgba(190, 142, 48, 0.5);
+      }
+
+      @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+
+      /* Enhanced Table Styling */
+      .leaderboard-table {
+        background: linear-gradient(145deg, #081032 0%, #0c1542 100%);
+        border: 2px solid rgba(190, 142, 48, 0.3);
+        border-radius: 20px !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+        z-index: 10;
+      }
+
+      .leaderboard-table thead tr:first-child th:first-child {
+        border-top-left-radius: 18px;
+      }
+
+      .leaderboard-table thead tr:first-child th:last-child {
+        border-top-right-radius: 18px;
+      }
+
+      .leaderboard-table tbody tr:last-child td:first-child {
+        border-bottom-left-radius: 18px;
+      }
+
+      .leaderboard-table tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 18px;
+      }
+
+      .leaderboard-table th,
+      .leaderboard-table td {
+        border: none !important;
+      }
+
+      .leaderboard-table::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(190, 142, 48, 0.1), transparent);
+        transition: left 0.5s;
+        border-radius: 18px;
+      }
+
+      .leaderboard-table:hover::before {
+        left: 100%;
+      }
+
+      .leaderboard-table:hover {
+        border-color: #BE8E30;
+        box-shadow: 
+            0 20px 40px rgba(190, 142, 48, 0.2),
+            0 0 30px rgba(190, 142, 48, 0.1);
+      }
+
+      .fade-move {
+        transition:
+          transform 0.5s ease,
+          opacity 0.5s ease;
+      }
+      .progress-bar {
+        transition: width 1s ease-in-out;
+      }
+      #leaderboard-container {
+        transition: margin-right 0.3s ease;
+      }
+      
+      /* Enhanced Side Panel */
+      .side-panel {
+        background: linear-gradient(145deg, #081032 0%, #0c1542 100%);
+        border: 2px solid rgba(190, 142, 48, 0.3);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        z-index: 150 !important;
+      }
+
+      .side-panel-header {
+        background: linear-gradient(90deg, #081032, #0c1542);
+        border-bottom: 2px solid rgba(190, 142, 48, 0.3);
+      }
+
+      /* Enhanced Result Container */
+      .result-container {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(190, 142, 48, 0.2);
+        border-radius: 30px;
+        box-shadow: 0 0 30px rgba(190, 142, 48, 0.3);
+        position: relative;
+      }
+
+      .result-container::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(45deg, #BE8E30, #FFD700);
+        border-radius: 50%;
+        border: 2px solid #081032;
+      }
+
+      /* Enhanced animations from index.html theme */
+      .hover-lift {
+        transition: all 0.3s ease;
+      }
+      
+      .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(190, 142, 48, 0.3);
+      }
+      
+      .hover-glow {
+        transition: all 0.3s ease;
+      }
+      
+      .hover-glow:hover {
+        text-shadow: 0 0 15px rgba(190, 142, 48, 0.8);
+        transform: scale(1.02);
+      }
+      
+      .text-reveal {
+        animation: textReveal 0.8s ease-out both;
+      }
+      
+      @keyframes textReveal {
+        0% {
+          opacity: 0;
+          transform: translateY(20px);
+          filter: blur(5px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0px);
+        }
+      }
+      
+      .animate-navbar {
+        animation: slideInFromTop 0.8s ease-out;
+      }
+      
+      @keyframes slideInFromTop {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .fade-in-section {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+      }
+      
+      .fade-in-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      /* Enhanced button styling to match index.html */
+      .theme-button {
+        text-decoration: none;
+        display: inline-block;
+        color: white;
+        background: #081032;
+        padding: 12px 24px;
+        border-radius: 50px;
+        border: 4px solid #BE8E30;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(190, 142, 48, 0.2);
+      }
+      
+      .theme-button:hover {
+        background: #BE8E30;
+        color: #081032;
+        box-shadow: 0 8px 25px rgba(190, 142, 48, 0.4);
+        transform: translateY(-2px);
+      }
+
+      /* Scrollbar Styling */
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #081032;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #BE8E30, #FFD700);
+        border-radius: 6px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(45deg, #FFD700, #BE8E30);
+      }
+
+      /* Prevent horizontal overflow while maintaining table layout */
+      .container {
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+      
+      .overflow-x-auto {
+        overflow-x: hidden;
+      }
+
+      /* Enhanced Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .leaderboard-table {
+          margin-bottom: 1rem;
+        }
+        
+        .section-title {
+          font-size: 2rem !important;
+        }
+
+        .bg-decoration::before,
+        .bg-decoration::after {
+          display: none;
+        }
+        
+        /* On mobile, allow horizontal scroll for the table only */
+        .overflow-x-auto {
+          overflow-x: auto;
+        }
+      }
+
+      /* Entrance Animations */
+      .fade-in-up {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.8s ease forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+<body style="background: linear-gradient(135deg, #0a0f2c, #1a2949);" class="text-white">
+    <!-- Background Decorations -->
+    <div class="bg-decoration"></div>
+    
+    <header style="background-color: #081032;" class="shadow-md animate-navbar">
+      <div class="container pt-2 mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <img
+            src="/persev/assets/persev.avif"
+            alt="Logo"
+            class="h-auto w-16 rounded-full"
+          />
+          <h1 class="text-3xl sm:text-3xl text-blue-200" style = "font-family:Mestizo;">
+            Perseverantia 2025
+          </h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="container mx-auto mt-12 px-4 fade-in-section fade-in-up" id="leaderboard-container">
+      <h1 class="text-4xl font-bold text-center text-blue-200 mb-8 section-title hover-glow" style="font-family: Mestizo;">
+        Leaderboard
+        <div id="mobilelay" class="hidden md:block"></div>
+      </h1>
+      <div class="overflow-x-auto" >
+        <table
+          class="min-w-full leaderboard-table rounded-lg shadow-lg overflow-hidden my-8 hover-lift"
+          id="leaderboard"
+        >
+          <thead>
+            <tr
+              class="bg-blue-700 text-blue-200 uppercase text-md tracking-wider"
+            >
+              <th class="py-4 px-2 text-center w-16" scope="col">Position</th>
+              <th class="py-4 pl-8 px-2 text-left w-48" scope="col">School</th>
+              <th class="py-4 px-2 text-center w-24" scope="col">Points</th>
+              <th class="py-4 px-2 text-center hidden sm:table-cell" scope="col">
+                Progress
+              </th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body" class="text-blue-100"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div
+      id="school-panel"
+      class="fixed top-0 right-0 h-full w-full md:w-1/4 side-panel shadow-lg transform overflow-y-auto translate-x-full transition-transform duration-300"
+    >
+      <div
+        class="flex justify-between items-center p-4 side-panel-header"
+      >
+        <h2 id="school-title" class="text-2xl font-bold text-blue-300 hover-glow" style="font-family: Mestizo;"></h2>
+        <button
+          onclick="closePanel()"
+          class="text-white text-2xl focus:outline-none hover:text-red-500 hover-glow"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="p-6">
+        <table class="w-full text-left table-auto">
+          <tbody id="school-detail-body" class="text-blue-100">
+            <tr>
+              <td class="py-2 font-semibold text-blue-200">Points:</td>
+              <td id="school-points" class="py-2"></td>
+            </tr>
+            <tr>
+              <td class="py-2 font-semibold text-blue-200">Rank:</td>
+              <td id="school-rank" class="py-2"></td>
+            </tr>
+          </tbody>
+        </table>
+        
+
+        <table class="w-full text-left rounded-lg mt-8 border-collapse">
+          <thead
+            class="bg-blue-700 text-blue-200 uppercase text-md tracking-wider"
+          >
+            <tr>
+              <th class="px-4 py-3">Event</th>
+              <th class="px-4 py-3">Points</th>
+            </tr>
+          </thead>
+          <tbody id="scc" class="text-blue-100"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      let previousData = [];
+
+      async function openPanel(school) {
+        document.getElementById("school-title").innerText = school.name;
+        document.getElementById("school-points").innerText = school.points;
+        document.getElementById("school-rank").innerText = `#${school.rank}`;
+        document
+          .getElementById("school-panel")
+          .classList.remove("translate-x-full");
+
+        document.getElementById("leaderboard-container").classList.add("mr-96");
+        document.getElementById("leaderboard-container").classList.add("w-2/3");
+        const response = await fetch("/persev/api/lb/full");
+        const data = await response.json();
+        //sidepanel
+        const scd = data.schools.filter((e) => e.name === school.name)[0];
+        document.getElementById("scc").innerHTML = "";
+
+        scd.events.forEach((event, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td class="px-2 py-2 whitespace-nowrap text-blue-100 border-b border-gray-700">
+              ${event}
+            </td>
+            <td class="px-2 py-2 whitespace-nowrap text-blue-100 border-b border-gray-700">
+              ${scd.eventpoints[index]}
+            </td>
+          `;
+          document.getElementById("scc").appendChild(row);
+        });
+      }
+
+      function closePanel() {
+        document
+          .getElementById("school-panel")
+          .classList.add("translate-x-full");
+
+        document
+          .getElementById("leaderboard-container")
+          .classList.remove("mr-96");
+        document
+          .getElementById("leaderboard-container")
+          .classList.remove("w-2/3");
+      }
+
+      function renderLeaderboard(data) {
+        const leaderboardBody = document.getElementById("leaderboard-body");
+        const maxPoints = Math.max(...data.map((item) => item.points)) || 1;
+
+        data.sort((a, b) => b.points - a.points);
+
+        if (data.length > 0) {
+            data[0].rank = 1; 
+            for (let i = 1; i < data.length; i++) {
+                if (data[i].points === data[i - 1].points) {
+                    data[i].rank = data[i - 1].rank; 
+                } else {
+                    data[i].rank = data[i - 1].rank + 1;
+                }
+            }
+        }
+
+        leaderboardBody.innerHTML = "";
+
+        data.forEach((item) => {
+          const percentage = (item.points / maxPoints) * 100;
+
+          let barColor = "bg-blue-500";
+          if (item.rank === 1) barColor = "bg-yellow-400";
+          else if (item.rank === 2) barColor = "bg-gray-300";
+          else if (item.rank === 3) barColor = "bg-yellow-700";
+
+          const previousItem = previousData.find((d) => d.name === item.name);
+          const previousPosition = previousItem ? previousItem.rank : null;
+          const positionChange = previousPosition
+            ? previousPosition - item.rank
+            : 0;
+
+          let highlightClass = "";
+          let positionArrow = "";
+
+          if (positionChange > 0) {
+            highlightClass = "bg-green-800";
+            positionArrow = "▲";
+          } else if (positionChange < 0) {
+            highlightClass = "bg-red-800";
+            positionArrow = "▼";
+          }
+
+          const row = document.createElement("tr");
+          row.dataset.school = item.name;
+          row.className = `transition-colors duration-500 ${highlightClass} hover:bg-gray-600`;
+
+          row.innerHTML = `
+            <td class="py-4 px-6 font-semibold text-center text-md">
+              #${item.rank} ${positionArrow ? `<span class="inline">${positionArrow}</span>` : ""}
+            </td>
+            <td class="py-4 px-6 text-left cursor-pointer text-blue-100">
+              ${item.rank === 1 ? "🥇" : item.rank === 2 ? "🥈" : item.rank === 3 ? "🥉" : ""} ${item.name}
+            </td>
+            <td class="py-4 px-6 text-center">${item.points}</td>
+            <td class="py-4 px-6 hidden sm:table-cell">
+              <div class="w-full bg-gray-700 rounded-full h-4 overflow-hidden">
+                <div class="${barColor} h-4 rounded-full progress-bar" data-progress="${item.name}"></div>
+              </div>
+            </td>
+          `;
+
+          row.addEventListener("click", () => openPanel(item));
+          leaderboardBody.appendChild(row);
+
+          const progressBar = row.querySelector(
+            `[data-progress="${item.name}"]`,
+          );
+          requestAnimationFrame(() => {
+            progressBar.style.width = `${percentage}%`;
+          });
+
+          if (highlightClass) {
+            setTimeout(() => {
+              row.classList.remove(highlightClass);
+              const positionCell = row.querySelector("td");
+              if (positionCell) positionCell.innerHTML = `#${item.rank}`;
+            }, 6000);
+          }
+        });
+
+        previousData = JSON.parse(JSON.stringify(data)); 
+      }
+
+      async function fetchAndRender() {
+        try {
+          const response = await fetch("/persev/api/lb/info");
+          const data = await response.json();
+          if(data.eventEnd) onEventsEnd();
+          console.log(data.eventEnd)
+          console.log(ee)
+          if(!data.eventEnd && ee) window.location.reload()
+
+
+          const schools = data.schools;
+          const points = data.points;
+
+          const leaderboardData = schools.map((school, index) => ({
+            name: school,
+            points: points[index],
+          }));
+
+          renderLeaderboard(leaderboardData);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+
+      fetchAndRender();
+      setInterval(fetchAndRender, 5000);
+    </script>
+
+    <script>
+      const trophyImages = {
+        1: "https://i.pinimg.com/736x/df/43/6e/df436ea7c7fbb220803957062cb163de.jpg",
+        2: "https://png.pngtree.com/png-vector/20210204/ourmid/pngtree-2nd-winner-silver-trophy-in-3d-png-image_2880321.jpg",
+        3: "https://png.pngtree.com/png-vector/20210204/ourmid/pngtree-3rd-winner-bronze-trophy-png-image_2880322.jpg",
+      };
+      var ee = false;
+      var podiumCreated = false;
+
+      function onEventsEnd() {
+        
+        ee=true;
+        if (podiumCreated) return; // Prevent recreating podium multiple times
+        
+        fetch("/persev/api/lb/info")
+          .then((res) => res.json())
+          .then((data) => {
+            const schools = data.schools;
+            const points = data.points;
+            if(data.eventEnd && !ee) window.location.reload()
+
+            let leaderboard = schools.map((school, index) => ({
+              name: school,
+              points: points[index],
+            }));
+
+            leaderboard.sort((a, b) => b.points - a.points);
+
+            leaderboard[0].rank = 1;
+            for (let i = 1; i < leaderboard.length; i++) {
+              leaderboard[i].rank =
+                leaderboard[i].points === leaderboard[i - 1].points
+                  ? leaderboard[i - 1].rank
+                  : leaderboard[i - 1].rank + 1;
+            }
+
+            const grouped = { 1: [], 2: [], 3: [], others: [] };
+            leaderboard.forEach((entry) => {
+              if ([1, 2, 3].includes(entry.rank)) grouped[entry.rank].push(entry);
+              else grouped.others.push(entry);
+            });
+
+            const resultContainer = document.createElement("div");
+            resultContainer.id = "final-results";
+            resultContainer.className =
+  "mt-12 p-6 result-container text-blue-100 mb-16 pt-20 hidden md:block fade-in-section hover-lift fade-in-up";
+            const podium = document.createElement("div");
+            podium.className = "hidden sm:flex justify-center items-end gap-8 mb-12 text-center flex-wrap";
+
+            if (grouped[2].length > 0)
+              podium.appendChild(createRankBox(grouped[2], 2, "h-48 w-64"));
+            if (grouped[1].length > 0)
+              podium.appendChild(createRankBox(grouped[1], 1, "h-56 w-72"));
+            if (grouped[3].length > 0)
+              podium.appendChild(createRankBox(grouped[3], 3, "h-40 w-56"));
+
+            resultContainer.appendChild(podium);
+            const existing = document.getElementById("final-results");
+            if (existing) existing.remove();
+            
+            document.getElementById("leaderboard-container").insertBefore(resultContainer,document.getElementById("leaderboard-container").firstChild)
+            podiumCreated = true; // Set flag to prevent recreation
+            if(!stoptime){
+              start();
+              stop(15000);
+            }
+          })
+          .catch((err) => console.error("Error loading final results:", err));
+      }
+      
+
+      function createRankBox(schools, rank, sizeClasses) {
+        const box = document.createElement("div");
+        box.className = `relative bg-gray-900 rounded-xl p-4 pt-20 flex flex-col justify-end items-center shadow-xl ${sizeClasses} cursor-pointer hover:bg-gray-700 transition-all duration-300 hover-lift`;
+
+        const imageWrapper = document.createElement("div");
+        imageWrapper.className =
+          "absolute -top-12 left-1/2 transform -translate-x-1/2";
+        const img = document.createElement("img");
+        img.src = trophyImages[rank];
+        img.alt = `Rank ${rank} Trophy`;
+        img.className =
+          "w-24 h-24 rounded-full border-4 border-yellow-300 shadow-lg object-cover hover-glow";
+        imageWrapper.appendChild(img);
+        box.appendChild(imageWrapper);
+
+        const title = document.createElement("div");
+        title.className = "font-bold text-xl text-yellow-300 mb-2 hover-glow";
+        title.style.fontFamily = "Mestizo";
+        title.innerText = `Rank ${rank}`;
+        box.appendChild(title);
+
+        const names = document.createElement("div");
+        names.className = "text-blue-100 text-base leading-tight text-reveal";
+        names.innerHTML = schools.map((s) => s.name).join(" &<br>");
+        box.appendChild(names);
+
+        const points = document.createElement("div");
+        points.className = "mt-2 text-blue-300 text-sm hover-glow";
+        points.innerText = `${schools[0].points} pts`;
+        box.appendChild(points);
+
+        
+
+        return box;
+      }
+
+    </script>
+
+    <!-- Enhanced Intersection Observer and Animations -->
+    <script>
+      // Create intersection observer for scroll-triggered animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Trigger fade-in-up animation
+            if (entry.target.classList.contains('fade-in-up')) {
+              entry.target.style.animationPlayState = 'running';
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observe elements with animation classes
+      document.addEventListener('DOMContentLoaded', () => {
+        const animatedElements = document.querySelectorAll('.fade-in-section, .fade-in-up');
+        animatedElements.forEach(el => {
+          if (el.classList.contains('fade-in-up')) {
+            el.style.animationPlayState = 'paused';
+          }
+          observer.observe(el);
+        });
+      });
+
+      // Parallax effect for background decorations
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector('.bg-decoration');
+        if (parallax) {
+          parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Perseverantia, The Annual Inter-school Festival of Bombay Scottish School, Mahim.">
+  <link rel="icon" type="image/png" href="https://bss-perseverantia.github.io/assets/persevlogo.png" />
+  <meta name="msapplication-TileImage" content="https://perseverantia.events-at-scottishmahim.com/assets/persev.png">
+  <meta property="og:site_name" content="Perseverantia">
+  <meta property="og:title" content="Perseverantia, 2025 - Events">
+  <meta property="og:description"
+    content="Explore the exciting events of Perseverantia, The Annual Inter-school Festival of Bombay Scottish School, Mahim.">
+  <meta property="og:image" content="https://perseverantia.events-at-scottishmahim.com/assets/persev2.png">
+  <meta property="og:type" content="website" />
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="300">
+  <meta property="og:image:height" content="300">
+  <meta property="og:url" content="https://perseverantia.events-at-scottishmahim.com/events">
+  <meta name="twitter:card" content="https://perseverantia.events-at-scottishmahim.com/assets/banner3.jpeg" />
+  <meta name="twitter:title" content="Perseverantia Events" />
+  <meta name="twitter:description"
+    content="Explore the exciting events of Perseverantia, The Annual Inter-school Festival of Bombay Scottish School, Mahim." />
+  <meta name="twitter:image" content="https://perseverantia.events-at-scottishmahim.com/persev2.png" />
+  <meta name="twitter:url" content="https://perseverantia.events-at-scottishmahim.com/events" />
+  <meta name="keywords"
+    content="Persev , Persev 2024, 2024, Perseverantia 2024,Perseverantia, bssm, Perseverantia , Perseverantia 2025, Bombay Scottish School Mahim, Bombay Scottish School, Events at Scottish Mahim, Scottish Mahim, Inter-school Fest, Inter-school Festivals, events">
+  <title>Perseverantia Events</title>
+
+  <!-- Preload stylesheets for critical rendering, then apply with onload -->
+  <link rel="preload" href="/persev/static/style2.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/persev/static/style2.css"></noscript>
+  <link rel="preload" href="/persev/static/style_events.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/persev/static/style_events.css"></noscript>
+
+  <!-- Inline font-face with swap to reduce render-blocking and font load delay -->
+  <style>
+    @font-face {
+      font-family: 'Mestizo';
+      src: url('/persev/assets/MestizoFont.woff2') format('woff2'),
+           url('/persev/assets/MestizoFont.woff') format('woff'),
+           url('/persev/assets/MestizoFont.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+
+<body class="min-h-screen">
+
+  <div id="loading-screen">
+    <video id="loading-video" autoplay muted loop playsinline style="
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.7));
+        border-radius: 12px;
+      ">
+      <source src="/persev/assets/load.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <nav class="text-white" style="background: #081032">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <img src="https://bss-perseverantia.github.io/assets/persevlogo.png" alt="Logo" class="h-10 w-auto md:hidden" />
+        <span class="text-2xl" style="font-family: Mestizo" id="nav-title">
+          Perseverantia
+        </span>
+      </div>
+
+      <div class="hidden md:flex space-x-6 text-lg" id="desktop-nav">
+        <a href="/persev/" class="hover:text-blue-200">Home</a>
+      </div>
+
+
+      <div class="md:hidden">
+        <button id="menu-toggle" class="focus:outline-none" aria-label="menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+
+    <div id="mobile-menu" class="md:hidden hidden opacity-0 scale-y-90 -translate-y-4 transform transition-all duration-500 ease-out origin-top px-4 pb-4">
+      <a href="/persev/" class="block py-2 text-lg hover:text-blue-200">Home</a>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+    <!-- Background Decorations -->
+    <div class="bg-decoration"></div>
+    
+    <header class="text-center mb-12">
+      <h1 class="text-3xl sm:text-5xl text-[#BE8E30] mb-4 section-title fade-in-up">Our Events</h1>
+      <p class="text-gray-300 text-base sm:text-lg fade-in-up">Explore the thrilling line-up of competitions at Perseverantia '25.
+      </p>
+    </header>
+
+    <div id="eventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    </div>
+  </main>
+
+  <!-- Footer matching organizing-committee.html -->
+  <footer class="bg-gradient-to-r from-[#081032] to-[#0c1542] text-white py-8 border-t border-[#BE8E30]/30">
+    <div class="container mx-auto text-center">
+      <div class="mb-4">
+        <h3 class="text-xl" style="font-family: Mestizo; color: #BE8E30;">Perseverantia 2025</h3>
+      </div>
+      <p class="text-gray-300 mb-2">&copy; 2025 Bombay Scottish School, Mahim. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="modal" class="fixed inset-0 bg-[#08103280] flex items-center justify-center z-50 hidden overflow-y-auto p-4">
+    <div
+      class="bg-[#0C1542] border-4 border-[#BE8E30] rounded-xl relative flex flex-col lg:flex-row gap-6 sm:gap-8 shadow-2xl modal-content"
+      style="box-shadow: 0 0 25px 5px #BE8E30;">
+      <button id="closeModal"
+        class="absolute top-4 right-4 text-white text-3xl font-bold hover:text-red-500 transition z-10"
+        aria-label="Close modal">
+        &times;
+      </button>
+
+      <div class="flex-1 p-6 sm:p-8 pt-12 sm:pt-12">
+        <h2 class="text-2xl sm:text-4xl text-[#BE8E30] mb-4 sm:mb-6 leading-tight" id="modalTitle"></h2>
+        <p id="modalDesc" class="text-gray-300 text-base sm:text-lg leading-relaxed whitespace-pre-line mb-6"></p>
+        <a id="ropLinkBtn" href="#" target="_blank"
+          class="inline-block text-white bg-[#081032] py-2.5 px-6 sm:py-3 sm:px-8 rounded-full hover:shadow-xl hover:bg-[#BE8E30] hover:outline-[#081032] hover:text-black transition duration-300 outline outline-[4px] outline-[#BE8E30] outline-offset-2">
+          View ROP
+        </a>
+      </div>
+
+      <div class="flex-shrink-0 w-full lg:w-1/3 rounded-lg overflow-hidden shadow-lg p-6 lg:mt-0">
+        <div class="modal-event-head-wrapper">
+          <img id="modalImage" src="" alt="Event Head" class="w-full h-full object-cover rounded-lg mb-4 sm:hidden lg:block" />
+          <p id="eventHeadName" class="text-[#BE8E30] font-semibold text-lg text-center"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src='/persev/static/events.js'></script>
+
+</body>
+
+</html>

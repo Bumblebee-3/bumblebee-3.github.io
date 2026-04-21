@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Food Menu - Perseverantia 2025, The Annual Inter-school Festival of Bombay Scottish School, Mahim.">
+  <link rel="icon" type="image/png" href="/persev/assets/persev.png" />
+  <meta name="msapplication-TileImage" content="https://perseverantia.events-at-scottishmahim.com/assets/persev.png">
+  <meta property="og:site_name" content="Perseverantia">
+  <meta property="og:title" content="Perseverantia 2025 - Food Menu">
+  <meta property="og:description"
+    content="Explore the delicious food offerings at Perseverantia 2025, The Annual Inter-school Festival of Bombay Scottish School, Mahim.">
+  <meta property="og:image" content="https://perseverantia.events-at-scottishmahim.com/assets/persev2.png">
+  <meta property="og:type" content="website" />
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="300">
+  <meta property="og:image:height" content="300">
+  <meta property="og:url" content="https://perseverantia.events-at-scottishmahim.com/food-menu">
+  <meta name="twitter:card" content="https://perseverantia.events-at-scottishmahim.com/assets/banner3.jpeg" />
+  <meta name="twitter:title" content="Perseverantia Food Menu" />
+  <meta name="twitter:description"
+    content="Explore the delicious food offerings at Perseverantia 2025." />
+  <meta name="twitter:image" content="https://perseverantia.events-at-scottishmahim.com/persev2.png" />
+  <meta name="twitter:url" content="https://perseverantia.events-at-scottishmahim.com/food-menu" />
+  <meta name="keywords"
+    content="Perseverantia, Perseverantia 2025, Food, Menu, Bombay Scottish School Mahim, Festival Food, Event Catering">
+  <title>Food Menu - Perseverantia 2025</title>
+
+  <!-- Preload stylesheets for critical rendering -->
+  <link rel="preload" href="/persev/static/style2.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/persev/static/style2.css"></noscript>
+  <link rel="preload" href="/persev/static/food-menu.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/persev/static/food-menu.css"></noscript>
+
+  <!-- Inline font-face with swap to reduce render-blocking -->
+  <style>
+    @font-face {
+      font-family: 'Mestizo';
+      src: url('/persev/assets/MestizoFont.woff2') format('woff2'),
+           url('/persev/assets/MestizoFont.woff') format('woff'),
+           url('/persev/assets/MestizoFont.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+  <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+
+<body class="min-h-screen">
+
+  <div id="loading-screen">
+    <video id="loading-video" autoplay muted loop playsinline style="
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.7));
+        border-radius: 12px;
+      ">
+      <source src="/persev/assets/load.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <nav class="text-white" style="background: #081032">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <img src="/persev/assets/persevlogo.png" alt="Logo" class="h-10 w-auto md:hidden" />
+        <span class="text-2xl" style="font-family: Mestizo" id="nav-title">
+          Perseverantia
+        </span>
+      </div>
+
+      <div class="hidden md:flex space-x-6 text-lg" id="desktop-nav">
+        <a href="/persev/" class="hover:text-blue-200">Home</a>
+        <a href="/persev/events" class="hover:text-blue-200">Events</a>
+        <a href="/persev/food-menu" class="text-[#BE8E30]">Food Menu</a>
+      </div>
+
+      <div class="md:hidden">
+        <button id="menu-toggle" class="focus:outline-none" aria-label="menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="md:hidden hidden opacity-0 scale-y-90 -translate-y-4 transform transition-all duration-500 ease-out origin-top px-4 pb-4">
+      <a href="/persev/" class="block py-2 text-lg hover:text-blue-200">Home</a>
+      <a href="/persev/events" class="block py-2 text-lg hover:text-blue-200">Events</a>
+      <a href="/persev/food-menu" class="block py-2 text-lg text-[#BE8E30]">Food Menu</a>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+    <!-- Background Decorations -->
+    <div class="bg-decoration"></div>
+    
+    <header class="text-center mb-12">
+      <h1 class="text-3xl sm:text-5xl text-[#BE8E30] mb-4 section-title fade-in-up">Food Menu</h1>
+      <p class="text-gray-300 text-base sm:text-lg fade-in-up">Savor the flavors at Perseverantia 2025</p>
+    </header>
+
+    <!-- The Waffle Hub Section -->
+    <section class="vendor-section mb-16 fade-in-up">
+      <div class="vendor-header">
+        <h2 class="vendor-title">The Waffle Hub</h2>
+        <p class="vendor-subtitle">Indulge in our delicious waffles</p>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Honey Butter</h3>
+            <p class="menu-item-price">₹120</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Maple Butter</h3>
+            <p class="menu-item-price">₹120</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Belgian Chocolate</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Chocolate Overload</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Dark & White Fantasy</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Triple Chocolate</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">KitKat</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Double Chocolate</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Nutella</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card menu-card-special">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Kunafa</h3>
+            <p class="menu-item-price">₹250</p>
+            <span class="special-badge">Special</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pizza Hut Section -->
+    <section class="vendor-section mb-16 fade-in-up">
+      <div class="vendor-header pizza-hut-theme">
+        <h2 class="vendor-title">Pizza Hut</h2>
+        <p class="vendor-subtitle">Choose your toppings</p>
+      </div>
+      
+      <!-- VEG Pizzas Subsection -->
+      <div class="subsection-header pizzahut-subsection">
+        <h3 class="subsection-title">VEG PIZZAS</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card pizza-hut-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">Margherita</h3>
+            </div>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card pizza-hut-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">Corn & Cheese</h3>
+            </div>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- NON-VEG Pizzas Subsection -->
+      <div class="subsection-header pizzahut-subsection">
+        <h3 class="subsection-title">NON-VEG PIZZAS</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card pizza-hut-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">Chicken Sausage</h3>
+            </div>
+            <p class="menu-item-price">₹250</p>
+          </div>
+        </div>
+        <div class="menu-card pizza-hut-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">Chicken Sausage & Corn</h3>
+            </div>
+            <p class="menu-item-price">₹250</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DESSERT Subsection -->
+      <div class="subsection-header pizzahut-subsection">
+        <h3 class="subsection-title">DESSERT</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card pizza-hut-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">Choco Volcano</h3>
+            </div>
+            <p class="menu-item-price">₹99</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOUIS BURGER Section -->
+    <section class="vendor-section mb-16 fade-in-up">
+      <div class="vendor-header louis-theme">
+        <h2 class="vendor-title">LOUIS BURGER</h2>
+        <p class="vendor-subtitle">Premium burgers crafted to perfection</p>
+      </div>
+      
+      <!-- Burgers Subsection -->
+      <div class="subsection-header louis-subsection">
+        <h3 class="subsection-title">BURGERS</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card louis-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">FarmHouse Burger</h3>
+            </div>
+            <p class="menu-item-price">₹250</p>
+          </div>
+        </div>
+        <div class="menu-card louis-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">Swiss Cottage Cheese Burger</h3>
+            </div>
+            <p class="menu-item-price">₹250</p>
+          </div>
+        </div>
+        <div class="menu-card louis-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">Louis Fried Chicken Burger</h3>
+            </div>
+            <p class="menu-item-price">₹250</p>
+          </div>
+        </div>
+        <div class="menu-card louis-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">Classic Chicken Burger</h3>
+            </div>
+            <p class="menu-item-price">₹250</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sides Subsection -->
+      <div class="subsection-header louis-subsection">
+        <h3 class="subsection-title">SIDES</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card louis-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">Chicken Popcorn</h3>
+            </div>
+            <p class="menu-item-price">₹220</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BRAKEFREE Section -->
+    <section class="vendor-section mb-16 fade-in-up">
+      <div class="vendor-header brakefree-theme">
+        <h2 class="vendor-title">BRAKEFREE</h2>
+        <p class="vendor-subtitle">Fresh beverages and refreshments</p>
+      </div>
+      
+      <!-- Hot Coffee Subsection -->
+      <div class="subsection-header brakefree-subsection">
+        <h3 class="subsection-title">HOT COFFEE</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Americano</h3>
+            <p class="menu-item-price">₹140</p>
+            <span class="hot-badge">HOT</span>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Flat White</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Cappuccino</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Cortado</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Cafe Latte</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Mocha</h3>
+            <p class="menu-item-price">₹175</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Hazelnut Latte</h3>
+            <p class="menu-item-price">₹175</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Almond Milk Cappuccino</h3>
+            <p class="menu-item-price">₹175</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Oats Milk Cappuccino</h3>
+            <p class="menu-item-price">₹175</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Hot Chocolate</h3>
+            <p class="menu-item-price">₹175</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cold Coffee Subsection -->
+      <div class="subsection-header brakefree-subsection">
+        <h3 class="subsection-title">COLD COFFEE</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Cold Brew</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Vietnamese Cold Brew</h3>
+            <p class="menu-item-price">₹180</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Classic Cold Coffee</h3>
+            <p class="menu-item-price">₹180</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Iced Cold Coffee</h3>
+            <p class="menu-item-price">₹180</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Iced Latte</h3>
+            <p class="menu-item-price">₹180</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Almond Milk Cold Coffee</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Oats Milk Cold Coffee</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Iced Mocha</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Cold Chocolate</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Hazelnut Frappe</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Milkshakes Subsection -->
+      <div class="subsection-header brakefree-subsection">
+        <h3 class="subsection-title">MILKSHAKES</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Strawberry Milkshake</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Nutella Icecream Milkshake</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">KitKat Milkshake</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Banana Milkshake</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Pure Vanilla</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Pure Chocolate</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Blueberry Milkshake</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Oreo Cookie Milkshake</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Tiramisu Milkshake</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Butterscotch Milkshake</h3>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mint Cooler Subsection -->
+      <div class="subsection-header brakefree-subsection">
+        <h3 class="subsection-title">MINT COOLER</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Mint Basil Lemon Cooler</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Mint, Basil & Strawberry</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Green Apple Mint Cooler</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Passion Fruit Mint Cooler</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ice Teas Subsection -->
+      <div class="subsection-header brakefree-subsection">
+        <h3 class="subsection-title">ICE TEAS</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Lemon Ice Tea</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Peach Ice Tea</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Passion Ice Tea</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Green Apple Ice Tea</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card brakefree-card">
+          <div class="menu-card-content">
+            <h3 class="menu-item-name">Strawberry Ice Tea</h3>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE J Section -->
+    <section class="vendor-section mb-16 fade-in-up">
+      <div class="vendor-header thej-theme">
+        <h2 class="vendor-title">THE J</h2>
+        <p class="vendor-subtitle">Crispy fries, endless flavors</p>
+      </div>
+      
+      <!-- Veg Fries Subsection -->
+      <div class="subsection-header thej-subsection">
+        <h3 class="subsection-title">VEG FRIES</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card thej-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">Chilli Cheese</h3>
+            </div>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card thej-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">BBQ Cheese</h3>
+            </div>
+            <p class="menu-item-price">₹150</p>
+          </div>
+        </div>
+        <div class="menu-card thej-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">Peri Peri Cheese</h3>
+            </div>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card thej-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="veg-symbol">🟢</span>
+              <h3 class="menu-item-name">Korean Fries</h3>
+            </div>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Non Veg Fries Subsection -->
+      <div class="subsection-header thej-subsection">
+        <h3 class="subsection-title">NON VEG FRIES</h3>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card thej-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">Chicken Popcorn Fries</h3>
+            </div>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card thej-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">BBQ Chicken Fries</h3>
+            </div>
+            <p class="menu-item-price">₹200</p>
+          </div>
+        </div>
+        <div class="menu-card thej-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">Peri Peri Chicken</h3>
+            </div>
+            <p class="menu-item-price">₹220</p>
+          </div>
+        </div>
+        <div class="menu-card thej-card">
+          <div class="menu-card-content">
+            <div class="menu-item-header">
+              <span class="nonveg-symbol">🔴</span>
+              <h3 class="menu-item-name">Korean Fried Chicken</h3>
+            </div>
+            <p class="menu-item-price">₹220</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-[#081032] to-[#0c1542] text-white py-8 border-t border-[#BE8E30]/30">
+    <div class="container mx-auto text-center">
+      <div class="mb-4">
+        <h3 class="text-xl" style="font-family: Mestizo; color: #BE8E30;">Perseverantia 2025</h3>
+      </div>
+      <p class="text-gray-300 mb-2">&copy; 2025 Bombay Scottish School, Mahim. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src='/persev/static/food-menu.js'></script>
+
+</body>
+
+</html>

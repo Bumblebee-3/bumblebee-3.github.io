@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Login to Perseverantia - The Annual Inter-school Festival of Bombay Scottish School, Mahim.">
+    <link rel="icon" type="image/png" href="/persev/assets/persev.png" />
+    <title>Login - Perseverantia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+      @font-face {
+        font-family: Mestizo;
+        src: url(/persev/assets/MestizoFont.ttf);
+      }
+      
+      .gradient-bg {
+        background: linear-gradient(135deg, #0D122C 0%, #131D3F 100%);
+      }
+      
+      .form-gradient {
+        background: linear-gradient(90deg, #0D122C 0%, #131D3F 100%);
+      }
+      
+      .input-field {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(190, 142, 48, 0.3);
+        transition: all 0.3s ease;
+      }
+      
+      .input-field:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #BE8E30;
+        outline: none;
+        box-shadow: 0 0 20px rgba(190, 142, 48, 0.3);
+      }
+      
+      .login-button {
+        background: #081032;
+        color: white;
+        border: 4px solid #BE8E30;
+        transition: all 0.3s ease;
+      }
+      
+      .login-button:hover {
+        background: #BE8E30;
+        color: #081032;
+        box-shadow: 0 0 25px rgba(190, 142, 48, 0.5);
+        transform: translateY(-2px);
+      }
+      
+      .logo-glow {
+        filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.4));
+      }
+    </style>
+    <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+  
+  <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <!-- Login Container -->
+    <div class="w-full max-w-md">
+      <!-- Logo Section -->
+      <div class="text-center mb-8">
+        <img 
+          src="/persev/assets/persevlogo.png" 
+          alt="Perseverantia Logo" 
+          class="w-24 h-24 mx-auto mb-4 logo-glow"
+        />
+        <h1 class="text-4xl text-white mb-2" style="font-family: Mestizo">
+          Perseverantia
+        </h1>
+        <p class="text-gray-300 text-lg">
+          Welcome Back
+        </p>
+      </div>
+
+      <!-- Login Form -->
+      <div class="form-gradient rounded-3xl p-8 shadow-2xl border border-[#BE8E30]/20">
+        <!-- Error Message -->
+        <div id="error-message" class="hidden mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-300 text-sm">
+        </div>
+        
+        <form id="loginForm" class="space-y-6">
+          <!-- Email Field -->
+          <div>
+            <label for="username" class="block text-white text-lg mb-2" style="font-family: Mestizo">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              required
+              class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-300"
+              placeholder="Enter your username"
+            />
+          </div>
+
+          <!-- Password Field -->
+          <div>
+            <label for="password" class="block text-white text-lg mb-2" style="font-family: Mestizo">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-300"
+              placeholder="Enter your password"
+            />
+          </div>
+
+          
+
+          <!-- Login Button -->
+          <button
+            type="submit"
+            class="login-button w-full py-3 px-6 rounded-full text-lg font-medium"
+            style="font-family: Mestizo"
+          >
+            Sign In
+          </button>
+
+          
+        </form>
+      </div>
+
+      <!-- Back to Home -->
+      <div class="text-center mt-6">
+        <a 
+          href="/persev/" 
+          class="text-gray-400 hover:text-white transition-colors inline-flex items-center"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Back to Home
+        </a>
+      </div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-[#BE8E30] rounded-full opacity-10 blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-[#BE8E30] rounded-full opacity-10 blur-3xl"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      // Check for error parameters in URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const loginError = urlParams.get('error');
+      
+      if (loginError) {
+        const errorDiv = document.getElementById('error-message');
+        errorDiv.classList.remove('hidden');
+        if (loginError === 'invalid') {
+          errorDiv.textContent = 'Invalid username or password. Please try again.';
+        } else if (loginError === 'access') {
+          errorDiv.textContent = 'Access denied. Please check your credentials.';
+        } else {
+          errorDiv.textContent = 'Login failed. Please try again.';
+        }
+      }
+      
+      document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        
+        // Validate inputs
+        if (!username || !password) {
+          const errorDiv = document.getElementById('error-message');
+          errorDiv.classList.remove('hidden');
+          errorDiv.textContent = 'Please enter both username and password';
+          return;
+        }
+        
+        // Hide any existing error messages
+        document.getElementById('error-message').classList.add('hidden');
+        
+        // Show loading state
+        const submitButton = document.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        submitButton.textContent = 'Signing In...';
+        submitButton.disabled = true;
+        
+        // Send login request to backend
+        window.location.href = `/persev/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+      });
+      
+      // Add some interactive effects
+      const inputs = document.querySelectorAll('.input-field');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          this.parentElement.classList.add('focused');
+        });
+        
+        input.addEventListener('blur', function() {
+          this.parentElement.classList.remove('focused');
+        });
+      });
+    </script>
+  </body>
+</html>

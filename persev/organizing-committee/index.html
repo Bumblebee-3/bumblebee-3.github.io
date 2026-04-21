@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Meet the Organising Committee of Perseverantia, Bombay Scottish School, Mahim.">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0a0f2c">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/png" href="/persev/assets/persev.png" />
+    <meta property="og:site_name" content="Perseverantia">
+    <meta property="og:title" content="Organising Committee - Perseverantia 2025">
+    <meta property="og:description"
+        content="Meet the brilliant team behind Perseverantia, The Annual Inter-school Festival of Bombay Scottish School, Mahim.">
+    <meta property="og:image" content="https://perseverantia.events-at-scottishmahim.com/assets/persev2.png">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://perseverantia.events-at-scottishmahim.com/organizing-committee">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Organising Committee - Perseverantia 2025" />
+    <meta name="twitter:description" content="Meet the team behind Perseverantia, Bombay Scottish School, Mahim." />
+    <meta name="twitter:image" content="https://perseverantia.events-at-scottishmahim.com/persev2.png" />
+
+    <title>Organising Committee - Perseverantia</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        @font-face {
+            font-family: Mestizo;
+            src: url(/persev/assets/MestizoFont.ttf);
+        }
+
+        #loading-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Enhanced Background and Animations */
+        body {
+            background: linear-gradient(135deg, #0a0f2c 0%, #1a2949 50%, #0d122c 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            /* Disable WebKit color scheme override */
+            -webkit-color-scheme: dark;
+            color-scheme: dark;
+        }
+        
+        /* Force dark background for iOS Safari */
+        html {
+            background: #0a0f2c !important;
+            -webkit-color-scheme: dark;
+            color-scheme: dark;
+        }
+        
+        /* Prevent iOS from changing colors */
+        * {
+            -webkit-color-scheme: dark;
+            color-scheme: dark;
+        }
+
+        /* Floating Background Elements */
+        .bg-decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bg-decoration::before,
+        .bg-decoration::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(190, 142, 48, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .bg-decoration::before {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 80%;
+            animation-delay: 0s;
+        }
+
+        .bg-decoration::after {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 10%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Enhanced Card Animations */
+        .member-card {
+            background: linear-gradient(145deg, #081032 0%, #0c1542 100%);
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(190, 142, 48, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .member-card:hover::before {
+            left: 100%;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: #BE8E30;
+            box-shadow: 
+                0 20px 40px rgba(190, 142, 48, 0.3),
+                0 0 30px rgba(190, 142, 48, 0.2);
+        }
+
+        .member-card img {
+            transition: all 0.4s ease;
+            filter: grayscale(20%);
+        }
+
+        .member-card:hover img {
+            filter: grayscale(0%) brightness(110%);
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Typography */
+        .section-title {
+            background: linear-gradient(45deg, #BE8E30, #FFD700, #BE8E30);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(190, 142, 48, 0.5);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .member-name {
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover .member-name {
+            text-shadow: 0 0 20px rgba(190, 142, 48, 0.8);
+        }
+
+        /* Enhanced Presidents Section */
+        .presidents-container {
+            position: relative;
+            padding: 2rem;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(190, 142, 48, 0.2);
+            margin-bottom: 3rem;
+        }
+
+        .presidents-container::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #BE8E30, #FFD700);
+            border-radius: 50%;
+            border: 2px solid #081032;
+        }
+
+        /* Grid Enhancement */
+        .department-grid {
+            position: relative;
+        }
+
+        .department-section {
+            position: relative;
+            padding: 1.5rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(190, 142, 48, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .department-section:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(190, 142, 48, 0.3);
+        }
+
+        /* Loading Animation Enhancement */
+        #loading-screen {
+            background: radial-gradient(circle at center, #1a2949 0%, #0a0f2c 100%);
+        }
+
+        #loading-video {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive Enhancements */
+        @media (max-width: 768px) {
+            .member-card {
+                margin-bottom: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem !important;
+            }
+
+            .presidents-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #081032;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #BE8E30, #FFD700);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #FFD700, #BE8E30);
+        }
+
+        /* Entrance Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger animation delays */
+        .member-card:nth-child(1) { animation-delay: 0.1s; }
+        .member-card:nth-child(2) { animation-delay: 0.2s; }
+        .member-card:nth-child(3) { animation-delay: 0.3s; }
+        .member-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+  <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <!-- Loading Screen -->
+    <div id="loading-screen"
+        style="position: fixed; inset: 0; background: linear-gradient(135deg, #0a0f2c, #1a2949); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s ease;">
+        <video id="loading-video" autoplay muted loop playsinline
+            style="width: 150px; height: 150px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.7)); border-radius: 12px;">
+            <source src="/persev/assets/load.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="text-white" style="background: #081032">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="/persev/assets/persev.png" alt="Logo" class="h-10 w-10 md:hidden" />
+                <span class="text-2xl" style="font-family: Mestizo" id="nav-title">
+                    Perseverantia
+                </span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-lg" id="desktop-nav">
+                <a href="/persev/" class="hover:text-blue-200">Home</a>
+                <a href="/persev/events.html" class="hover:text-blue-200">Events</a>
+                <a href="/persev/organizing-committee.html" class="hover:text-blue-200">Organizing Committee</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="focus:outline-none" aria-label="menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden opacity-0 scale-y-90 -translate-y-4 transform transition-all duration-500 ease-out origin-top px-4 pb-4">
+            <a href="/persev/" class="block py-2 text-lg hover:text-blue-200">Home</a>
+            <a href="/persev/events.html" class="block py-2 text-lg hover:text-blue-200">Events</a>
+            <a href="/persev/organizing-committee.html" class="block py-2 text-lg hover:text-blue-200">Organizing Committee</a>
+        </div>
+    </nav>
+
+    <!-- Organising Committee Section -->
+    <section class="py-12 text-white relative">
+        <!-- Background Decorations -->
+        <div class="bg-decoration"></div>
+        
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl mb-12 text-center section-title fade-in-up" style="font-family: Mestizo">
+                Meet Our Organizing Committee
+            </h2>
+
+            <!-- Presidents (enhanced with special container) -->
+            <div class="presidents-container fade-in-up">
+                <div class="text-4xl text-center mb-8 section-title" style="font-family: Mestizo;">
+                    Presidents
+                </div>
+                <div class="flex flex-wrap justify-center gap-8">
+                    <div class="member-card w-72 p-6 fade-in-up">
+                        <img src="/persev/assets/oc2025/presidents/darshil.avif" alt="Darshil Kochar" 
+                             class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                        <div class="text-xl member-name text-center">Darshil Kochar</div>
+                        <div class="text-sm text-[#BE8E30] text-center mt-1">President</div>
+                    </div>
+                    <div class="member-card w-72 p-6 fade-in-up">
+                        <img src="/persev/assets/oc2025/presidents/neel.avif" alt="Neel More" 
+                             class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                        <div class="text-xl member-name text-center">Neel More</div>
+                        <div class="text-sm text-[#BE8E30] text-center mt-1">President</div>
+                    </div>
+                    <div class="member-card w-72 p-6 fade-in-up">
+                        <img src="/persev/assets/oc2025/presidents/nishil.avif" alt="Nishil Iyer" 
+                             class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                        <div class="text-xl member-name text-center">Nishil Iyer</div>
+                        <div class="text-sm text-[#BE8E30] text-center mt-1">President</div>
+                    </div>
+                </div>
+            </div>
+
+
+                            
+
+
+            <!-- Department Grid -->
+            <div class="department-grid grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Administration 
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        
+
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/administration/adhunya.avif" alt="Adhunya" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Adhunya Pan</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Administration</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/administration/krishay.avif" alt="Krishay" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Krishay Shreeram</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Administration</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Research & Development Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Research & Documentation
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/rnd/varun.avif" alt="Varun" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Varun Sinha</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of R&D</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/rnd/aadya.avif" alt="Aadya" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Aadya Raikar</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of R&D</div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- Design Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Design
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/design/janyaa.avif" alt="Janyaa" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Janyaa Patkar</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Design</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/design/naisha.avif" alt="Naisha" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Naisha Doshi</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Design</div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Social Media
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/social-media/sharanya.avif" alt="Sharanya" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Sharanya Madan</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Social Media</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/social-media/tanisha.avif" alt="Tanisha" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Tanisha Dutta</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Social Media</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Marketing
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/marketing/aastha.avif" alt="Aastha" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Aastha Shahane</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Marketing</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/marketing/yashvi.avif" alt="Yashvi" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Yashvi Mehta</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Marketing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marketing Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Public Relations
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/public-relations/anshrah.avif" alt="Anshrah" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Anshrah Ahmed</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Public Relations</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/public-relations/anvi.avif" alt="Anvi" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Anvi Khattar</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Public Relations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finance Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Finance
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/finance/shaurya.avif" alt="Shaurya Raisoni" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Shaurya Raisoni</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Finance</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/finance/vivaan.avif" alt="Vivaan Chakrabarti" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Vivaan Chakrabarti</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Finance</div>
+                        </div>
+                    </div>
+                </div>
+<!-- Technical Operations Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Technical Operations
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/technical-operations/Hridhuun.avif" alt="Hridhuun Savant" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Hridhuun Savant</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Technical Operations</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/technical-operations/Arhaan.avif" alt="Arhaan Barucha" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Arhaan Barucha</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Technical Operations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hospitality Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Hospitality 
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/hospitality/druvan.avif" alt="Druvan Kapoor" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Druvan Kapoor</div>
+                            <div class="text-xs text-[#BE8E30] text-center"> Head of Hospitality </div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/hospitality/nandini.avif" alt="Nandini Gurav" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Nandini Gurav</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Hospitality</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Security 
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        
+
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/security/arjun.avif" alt="Arjun" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Arjun Bapat</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Security</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/security/aadita.avif" alt="Aaditya" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Aaditya Gupta</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Security</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Awards 
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        
+
+                            <div class="member-card w-56 p-4 fade-in-up">
+                                <img src="/persev/assets/oc2025/awards/aditi.avif" alt="Aditi" 
+                                    class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                                <div class="text-lg member-name text-center">Aditi Manchandani</div>
+                                <div class="text-xs text-[#BE8E30] text-center">Head of Awards</div>
+                            </div>
+                        
+                    </div>
+                </div>
+
+
+                <!-- Photography Department -->
+                <div class="department-section fade-in-up">
+                    <div class="text-3xl text-center mb-6 section-title" style="font-family: Mestizo;">
+                        Photography
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/photography/suyash.avif" alt="Suyash" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Suyash Agarwal</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Head of Photography</div>
+                        </div>
+                        <div class="member-card w-56 p-4 fade-in-up">
+                            <img src="/persev/assets/oc2025/photography/naman.avif" alt="Naman" 
+                                 class="aspect-[4/3] w-full object-cover object-top rounded-lg mb-4">
+                            <div class="text-lg member-name text-center">Naman Kalra</div>
+                            <div class="text-xs text-[#BE8E30] text-center">Deputy Head of Photography</div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-[#081032] to-[#0c1542] text-white py-8 border-t border-[#BE8E30]/30">
+        <div class="container mx-auto text-center">
+            <div class="mb-4">
+                <img src="/persev/assets/persevlogo.png" alt="Perseverantia Logo" class="w-12 h-12 mx-auto mb-2" style="filter: drop-shadow(0 0 10px rgba(190, 142, 48, 0.5));">
+                <h3 class="text-xl" style="font-family: Mestizo; color: #BE8E30;">Perseverantia 2025</h3>
+            </div>
+            <p class="text-gray-300 mb-2">&copy; 2025 Bombay Scottish School, Mahim. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Place this script before </body> -->
+    <script>
+        // --- Enhanced Animations and Interactions ---
+        
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Add click sound effect and ripple animation to member cards
+        document.querySelectorAll('.member-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('div');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: rgba(190, 142, 48, 0.3);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s ease-out;
+                    pointer-events: none;
+                    z-index: 1;
+                `;
+                
+                this.appendChild(ripple);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Parallax effect for background decorations
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.bg-decoration');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // --- Navbar Logic with better fallback ---
+        async function setupNavbar() {
+            try {
+                const res = await fetch('/persev/config.json');
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                const config = await res.json();
+                const website = config.website || {};
+                const navbar = website.navbar || {};
+
+                // Populate Navbar Links
+                const desktopNav = document.getElementById("desktop-nav");
+                const mobileMenu = document.getElementById("mobile-menu");
+                
+                // Clear existing content
+                desktopNav.innerHTML = '';
+                mobileMenu.innerHTML = '';
+                
+                // Add Home link
+                const homeDesktop = document.createElement('a');
+                homeDesktop.href = '/persev/';
+                homeDesktop.textContent = 'Home';
+                homeDesktop.className = 'hover:text-blue-200';
+                desktopNav.appendChild(homeDesktop);
+
+                const homeMobile = document.createElement('a');
+                homeMobile.href = '/persev/';
+                homeMobile.textContent = 'Home';
+                homeMobile.className = 'block py-2 text-lg hover:text-blue-200';
+                mobileMenu.appendChild(homeMobile);
+
+                // Add config-based links
+                (navbar.links || []).forEach(link => {
+                    // Desktop Nav
+                    const desktopLink = document.createElement('a');
+                    desktopLink.href = link.linkto;
+                    desktopLink.textContent = link.name;
+                    desktopLink.className = 'hover:text-blue-200';
+                    desktopNav.appendChild(desktopLink);
+
+                    // Mobile Nav
+                    const mobileLink = document.createElement('a');
+                    mobileLink.href = link.linkto;
+                    mobileLink.textContent = link.name;
+                    mobileLink.className = 'block py-2 text-lg hover:text-blue-200';
+                    mobileMenu.appendChild(mobileLink);
+                });
+
+                // Update navbar title
+                document.getElementById("nav-title").textContent = navbar.title || "Perseverantia";
+            } catch (err) {
+                console.warn("Could not load config.json, using fallback navbar:", err);
+                // Fallback: Add static navigation links
+                const desktopNav = document.getElementById("desktop-nav");
+                const mobileMenu = document.getElementById("mobile-menu");
+                
+                // Clear existing content
+                desktopNav.innerHTML = '';
+                mobileMenu.innerHTML = '';
+                
+                // Static fallback links
+                const staticLinks = [
+                    { name: 'Home', href: '/persev/' },
+                    { name: 'Events', href: '/persev/events.html' },
+                    { name: 'Organizing Committee', href: '/persev/organizing-committee.html' }
+                ];
+                
+                staticLinks.forEach(link => {
+                    // Desktop Nav
+                    const desktopLink = document.createElement('a');
+                    desktopLink.href = link.href;
+                    desktopLink.textContent = link.name;
+                    desktopLink.className = 'hover:text-blue-200';
+                    desktopNav.appendChild(desktopLink);
+
+                    // Mobile Nav
+                    const mobileLink = document.createElement('a');
+                    mobileLink.href = link.href;
+                    mobileLink.textContent = link.name;
+                    mobileLink.className = 'block py-2 text-lg hover:text-blue-200';
+                    mobileMenu.appendChild(mobileLink);
+                });
+            }
+        }
+        document.addEventListener("DOMContentLoaded", setupNavbar);
+
+        // --- Mobile Menu Toggle Script ---
+        const toggleBtn = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+        let menuOpen = false;
+        toggleBtn.addEventListener("click", () => {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                mobileMenu.classList.remove("hidden");
+                void mobileMenu.offsetWidth;
+                mobileMenu.classList.remove("opacity-0", "scale-y-90", "-translate-y-4");
+                mobileMenu.classList.add("opacity-100", "scale-y-100", "translate-y-0");
+            } else {
+                mobileMenu.classList.remove("opacity-100", "scale-y-100", "translate-y-0");
+                mobileMenu.classList.add("opacity-0", "scale-y-90", "-translate-y-4");
+                setTimeout(() => {
+                    if (!menuOpen) {
+                        mobileMenu.classList.add("hidden");
+                    }
+                }, 500);
+            }
+        });
+
+        // --- Remove loading screen after 2 sec ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById("loading-screen");
+            setTimeout(() => {
+                loader.classList.add("fade-out");
+                setTimeout(() => loader.remove(), 600);
+            }, 2000);
+        });
+
+        // --- Link Interception for Loading Screen (Optional for consistency) ---
+        document.body.addEventListener('click', function (e) {
+            let targetLink = e.target.closest('a[href]');
+            if (targetLink && targetLink.href) {
+                const isInternal = targetLink.origin === window.location.origin;
+                const isFile = targetLink.href.includes('/persev/assets/');
+                const isMailto = targetLink.protocol === 'mailto:';
+                const isAnchor = targetLink.hash && targetLink.pathname === window.location.pathname;
+                if (isInternal && !isFile && !isMailto && !isAnchor) {
+                    e.preventDefault();
+                    let loadingScreen = document.getElementById("loading-screen");
+                    
+                    // If loading screen doesn't exist, create it
+                    if (!loadingScreen) {
+                        loadingScreen = document.createElement('div');
+                        loadingScreen.id = 'loading-screen';
+                        loadingScreen.style.cssText = `
+                            position: fixed;
+                            inset: 0;
+                            background: linear-gradient(135deg, #0a0f2c, #1a2949);
+                            z-index: 9999;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: opacity 0.6s ease;
+                            opacity: 1;
+                        `;
+                        
+                        loadingScreen.innerHTML = `
+                            <video autoplay muted loop playsinline style="width: 150px; height: 150px; object-fit: contain; filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.7)); border-radius: 12px;">
+                                <source src="/persev/assets/load.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+                        `;
+                        
+                        document.body.appendChild(loadingScreen);
+                    } else {
+                        // If it exists, show it
+                        loadingScreen.classList.remove("fade-out");
+                        loadingScreen.style.opacity = '1';
+                        loadingScreen.style.pointerEvents = 'auto';
+                        loadingScreen.style.display = 'flex';
+                    }
+                    
+                    setTimeout(() => {
+                        window.location.href = targetLink.href;
+                    }, 1000);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

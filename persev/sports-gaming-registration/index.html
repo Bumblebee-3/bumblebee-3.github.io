@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports and Gaming Events Registration - Perseverantia 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: Mestizo;
+            src: url('/persev/assets/MestizoFont.ttf');
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0D122C 0%, #131D3F 100%);
+        }
+        
+        .form-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .form-card:hover {
+            border-color: #BE8E30;
+            box-shadow: 0 0 30px rgba(190, 142, 48, 0.2);
+        }
+        
+        .input-field {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #BE8E30;
+            box-shadow: 0 0 20px rgba(190, 142, 48, 0.3);
+            outline: none;
+        }
+        
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Custom Select Styling for Safari/WebKit */
+        select.input-field {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23BE8E30' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+        
+        select.input-field option {
+            background: #0D122C;
+            color: white;
+            border: none;
+        }
+        
+        /* Ensure consistent height on Safari */
+        select.input-field {
+            min-height: 44px; /* Minimum touch target for mobile Safari */
+        }
+        
+        .event-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(190, 142, 48, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .event-toggle.active {
+            background: rgba(190, 142, 48, 0.2);
+            border-color: #BE8E30;
+            box-shadow: 0 0 20px rgba(190, 142, 48, 0.3);
+        }
+        
+        .participant-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(190, 142, 48, 0.2);
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideIn 0.5s ease forwards;
+        }
+        
+        @keyframes slideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #BE8E30, #FFD700);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #FFD700, #BE8E30);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(190, 142, 48, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #BE8E30;
+            color: #BE8E30;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #BE8E30;
+            color: #0D122C;
+        }
+        
+        .loading-spinner {
+            border: 3px solid rgba(190, 142, 48, 0.3);
+            border-top: 3px solid #BE8E30;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #10B981, #059669);
+            border: 1px solid #065F46;
+        }
+        
+        .error-message {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+            border: 1px solid #991B1B;
+        }
+
+        .participant-counter {
+            background: rgba(190, 142, 48, 0.1);
+            border: 1px solid rgba(190, 142, 48, 0.3);
+            color: #BE8E30;
+        }
+        
+        /* Custom Radio Button Styles */
+        .custom-radio {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .custom-radio input[type="radio"] {
+            opacity: 0;
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+        
+        .radio-indicator {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(190, 142, 48, 0.5);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            margin-right: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .radio-indicator::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #BE8E30;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.2s ease;
+        }
+        
+        .custom-radio input[type="radio"]:checked + .radio-indicator {
+            border-color: #BE8E30;
+            background: rgba(190, 142, 48, 0.1);
+            box-shadow: 0 0 10px rgba(190, 142, 48, 0.3);
+        }
+        
+        .custom-radio input[type="radio"]:checked + .radio-indicator::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .custom-radio:hover .radio-indicator {
+            border-color: #BE8E30;
+            background: rgba(190, 142, 48, 0.05);
+        }
+        
+        .radio-label {
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .custom-radio:hover .radio-label {
+            color: #BE8E30;
+        }
+    </style>
+  <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+<body class="gradient-bg min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-[#BE8E30]/30 mb-8">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="/persev/assets/persevlogo.png" alt="Perseverantia Logo" class="w-12 h-12">
+                    <div>
+                        <h1 class="text-3xl text-white" style="font-family: Mestizo">Sports and Gaming Registration</h1>
+                        <p class="text-gray-300 text-sm">Perseverantia 2025</p>
+                    </div>
+                </div>
+                <a href="/persev/panel" class="text-[#BE8E30] hover:text-white transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 pb-12">
+        <div class="max-w-4xl mx-auto">
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between text-sm text-gray-300 mb-2">
+                    <span>Registration Progress</span>
+                    <span id="progress-text">Step 1 of 2</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2">
+                    <div id="progress-bar" class="bg-gradient-to-r from-[#BE8E30] to-[#FFD700] h-2 rounded-full transition-all duration-500" style="width: 50%"></div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="registrationForm" class="space-y-8">
+                <!-- School Information Section -->
+                <div class="form-card rounded-3xl p-8" id="school-section">
+                    <h2 class="text-2xl text-white mb-6 flex items-center" style="font-family: Mestizo">
+                        <i class="fas fa-school text-[#BE8E30] mr-3"></i>
+                        School Information
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-white mb-2 font-medium">Institution Name</label>
+                            <input type="text" name="schoolName" readonly 
+                                   class="input-field w-full px-4 py-3 rounded-xl opacity-75 cursor-not-allowed"
+                                   placeholder="Loading school information...">
+                            <p class="text-gray-400 text-xs mt-1">Auto-populated from your account</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white mb-2 font-medium">Contingent Code</label>
+                            <input type="text" name="contingentCode" readonly 
+                                   class="input-field w-full px-4 py-3 rounded-xl opacity-75 cursor-not-allowed"
+                                   placeholder="Loading...">
+                            <p class="text-gray-400 text-xs mt-1">Auto-populated from your account</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white mb-2 font-medium">Teacher In-charge Name *</label>
+                            <input type="text" name="teacherName" required 
+                                   class="input-field w-full px-4 py-3 rounded-xl"
+                                   placeholder="Enter teacher's full name">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white mb-2 font-medium">Teacher Mobile Number *</label>
+                            <input type="tel" name="teacherMobile" required 
+                                   class="input-field w-full px-4 py-3 rounded-xl"
+                                   placeholder="Enter mobile number">
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-white mb-2 font-medium">Teacher Email Address *</label>
+                            <input type="email" name="teacherEmail" required 
+                                   class="input-field w-full px-4 py-3 rounded-xl"
+                                   placeholder="Enter email address">
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end mt-8">
+                        <button type="button" id="continue-to-events" 
+                                class="btn-primary px-8 py-3 rounded-xl text-white font-medium">
+                            Continue to Events <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Events Section -->
+                <div class="form-card rounded-3xl p-8 hidden" id="events-section">
+                    <h2 class="text-2xl text-white mb-6 flex items-center" style="font-family: Mestizo">
+                        <i class="fas fa-futbol text-[#BE8E30] mr-3"></i>
+                        Sports and Gaming Events Selection
+                    </h2>
+                    
+                    <p class="text-gray-300 mb-8">
+                        Select the sports and gaming events you want to participate in and add your team members. 
+                        You can participate in multiple events with different teams.
+                    </p>
+                    
+                    <div class="bg-blue-900/30 border border-blue-500/30 rounded-xl p-4 mb-8" id="registration-notice">
+                        <div class="flex items-center">
+                            <i class="fas fa-info-circle text-blue-400 mr-3" id="notice-icon"></i>
+                            <div id="notice-content">
+                                <p class="text-blue-300 font-medium" id="notice-title">Registration Notice</p>
+                                <p class="text-blue-200 text-sm" id="notice-text">Please select your preferred events below. You can modify your registration details at any time until <strong>further notice</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Events Container -->
+                    <div id="events-container" class="space-y-6">
+                        <!-- Events will be loaded dynamically -->
+                    </div>
+
+                    <!-- Existing Registrations Summary (Edit Mode Only) -->
+                    <div id="existing-summary" class="hidden bg-green-900/30 border border-green-500/30 rounded-xl p-6 mt-8">
+                        <h3 class="text-lg text-green-300 font-medium mb-4 flex items-center">
+                            <i class="fas fa-check-circle mr-3"></i>
+                            Current Registrations
+                        </h3>
+                        <div id="summary-content" class="space-y-3">
+                            <!-- Summary will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex flex-col sm:flex-row justify-between gap-4 mt-8">
+                        <button type="button" id="back-to-school" 
+                                class="btn-secondary px-8 py-3 rounded-xl font-medium">
+                            <i class="fas fa-arrow-left mr-2"></i>Back
+                        </button>
+                        <button type="submit" id="submit-registration" 
+                                class="btn-primary px-8 py-3 rounded-xl text-white font-medium">
+                            <span id="submit-text">Submit Registration</span>
+                            <div id="submit-spinner" class="loading-spinner hidden inline-block ml-2"></div>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Success/Error Messages -->
+            <div id="message-container" class="hidden mt-8">
+                <!-- Messages will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sportsEvents = [
+            {
+                _id: 'explorare',
+                name: 'Explorare',
+                description: 'Grades 9-12',
+                minParticipants: 4,
+                maxParticipants: 4,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'any',
+                needsWeight: false
+            },
+            {
+                _id: 'monopolium',
+                name: 'Monopolium',
+                description: 'Grades 9-12',
+                minParticipants: 1,
+                maxParticipants: 1,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'any',
+                needsWeight: false
+            },
+            {
+                _id: 'football-u19-boys',//[IMPORTANT]
+                name: 'Football: Category 1: U19 Boys',
+                description: 'Born on or after 01/09/2007',
+                minParticipants: 8,
+                maxParticipants: 8,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'male_only',
+                needsWeight: false
+            },
+            {
+                _id: 'football-u17-boys',//[IMPORTANT]
+                name: 'Football: Category 2: U17 Boys',
+                description: 'Born on or after 04/10/2009',
+                minParticipants: 8,
+                maxParticipants: 8,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'male_only',
+                needsWeight: false
+            },
+            {
+                _id: 'football-u19-girls',//[IMPORTANT]
+                name: 'Football: Category 3: U19 Girls',
+                description: 'Born on or after 01/09/2007',
+                minParticipants: 8,
+                maxParticipants: 8,
+                minGrade: 8,
+                maxGrade: 12,
+                genderRequirement: 'female_only',
+                needsWeight: false
+            },
+            {
+                _id: 'basketball-u19-boys',
+                name: 'Basketball: Boys (U19)',
+                description: 'Under 19 boys (Grades 9-12)',
+                minParticipants: 7,
+                maxParticipants: 10,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'male_only',
+                needsWeight: false
+            },
+            {
+                _id: 'basketball-u19-girls',
+                name: 'Basketball: Girls (U19)',
+                description: 'Under 19 Girls (Grades 9-12)',
+                minParticipants: 7,
+                maxParticipants: 10,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'female_only',
+                needsWeight: false
+            },
+            {
+                _id: 'gully-cricket',
+                name: 'Gully Cricket',
+                description: '6 players + 1 Substitute, 1 girl compulsory',
+                minParticipants: 7,
+                maxParticipants: 7,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'male_female_required',
+                needsWeight: false
+            },
+            {
+                _id: 'table-tennis',
+                name: 'Table Tennis',
+                description: 'Under 19 Boys and Girls',
+                minParticipants: 2,
+                maxParticipants: 4,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'any',
+                needsWeight: false
+            },
+            {
+                _id: 'tug-of-war-boys-u16',//[IMPORTANT]
+                name: 'Tug Of War: Boys (U16)',
+                description: 'Boys Under 16',
+                minParticipants: 8,
+                maxParticipants: 8,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'male_only',
+                needsWeight: true
+            },
+            {
+                _id: 'tug-of-war-boys-u19',//[IMPORTANT]
+                name: 'Tug Of War: Boys (U19)',
+                description: 'Boys Under 19',
+                minParticipants: 8,
+                maxParticipants: 8,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'male_only',
+                needsWeight: true
+            },
+            {
+                _id: 'tug-of-war-girls-u16',//[IMPORTANT]
+                name: 'Tug Of War: Girls (U16)',
+                description: 'Girls Under 16',
+                minParticipants: 8,
+                maxParticipants: 8,
+                minGrade: 8,
+                maxGrade: 12,
+                genderRequirement: 'female_only',
+                needsWeight: true
+            },
+            {
+                _id: 'tug-of-war-girls-u19',//[IMPORTANT]
+                name: 'Tug Of War: Girls (U19)',
+                description: 'Girls Under 19',
+                minParticipants: 8,
+                maxParticipants: 8,
+                minGrade: 8,
+                maxGrade: 12,
+                genderRequirement: 'female_only',
+                needsWeight: true
+            },
+            {
+                _id: 'e-sports',
+                name: 'E-Sports',
+                description: 'Video game tournament',
+                minParticipants: 2,
+                maxParticipants: 4,
+                minGrade: 9,
+                maxGrade: 12,
+                genderRequirement: 'any',
+                needsWeight: false
+            }
+        ];
+        
+        let currentStep = 1;
+        let editMode = false;
+        let existingRegistrations = [];
+
+        // Initialize form
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if we're in edit mode
+            const urlParams = new URLSearchParams(window.location.search);
+            editMode = urlParams.get('mode') === 'edit';
+            
+            await loadUserSchoolInfo();
+            
+            if (editMode) {
+                await loadExistingRegistrations();
+                updateHeaderForEditMode();
+            }
+            
+            renderEvents();
+            setupEventListeners();
+            
+            if (editMode && existingRegistrations.length > 0) {
+                populateExistingData();
+            }
+        });
+
+        // Update header for edit mode
+        function updateHeaderForEditMode() {
+            const title = document.querySelector('h1');
+            const subtitle = document.querySelector('.text-gray-300');
+            title.textContent = 'Modify Sports and Gaming Registration';
+            subtitle.textContent = 'Update your existing registration details';
+        }
+
+        // Load existing registrations
+        async function loadExistingRegistrations() {
+            try {
+                const response = await fetch('/persev/api/check-sports-registration');
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.hasRegistration) {
+                        existingRegistrations = data.registrations;
+                        
+                        // Pre-populate school info from existing registration
+                        if (data.school) {
+                            document.querySelector('[name="teacherName"]').value = data.school.teacherName || '';
+                            document.querySelector('[name="teacherMobile"]').value = data.school.teacherMobile || '';
+                            document.querySelector('[name="teacherEmail"]').value = data.school.teacherEmail || '';
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading existing registrations:', error);
+            }
+        }
+
+        // Populate existing registration data
+        function populateExistingData() {
+            existingRegistrations.forEach(registration => {
+                let eventId =
+                    registration.eventId ||
+                    registration.eventSlug ||
+                    (registration.event && (registration.event._id || registration.event.slug)) ||
+                    registration._id ||
+                    registration.id;
+
+                // Fallback: resolve by event name from the local sportsEvents list
+                if (!eventId) {
+                    const nameFromPayload = registration.eventName || (registration.event && registration.event.name);
+                    if (nameFromPayload) {
+                        const match = sportsEvents.find(e => e.name === nameFromPayload);
+                        if (match) eventId = match._id;
+                    }
+                }
+
+                if (!eventId) return;
+                // Select "Yes" for this event (fire real change handlers)
+                const yesRadio = document.querySelector(`input[name="participate_${eventId}"][value="yes"]`);
+                if (yesRadio) {
+                    // Prefer a real click so inline onchange runs and mutual exclusion with the "no" radio is handled by the browser
+                    if (!yesRadio.checked) yesRadio.click();
+                    // Safety: ensure UI state even if the inline handler wasn't bound yet
+                    toggleEvent(eventId, true);
+                    
+                    // Add participants after the card has expanded
+                    setTimeout(() => {
+                        const participantList = document.getElementById(`participant_list_${eventId}`);
+                        if (!participantList) return;
+                        participantList.innerHTML = ''; // Clear auto-added participants
+                        
+                        (registration.participants || []).forEach((participant, index) => {
+                            addParticipant(eventId);
+                            
+                            // Fill participant data (wait a moment for the row to be inserted)
+                            setTimeout(() => {
+                                const cards = participantList.querySelectorAll('.participant-card');
+                                const currentCard = cards[index];
+                                if (currentCard) {
+                                    const nameInput = currentCard.querySelector(`input[name="participant_name_${eventId}[]"]`);
+                                    const gradeSelect = currentCard.querySelector(`select[name="participant_grade_${eventId}[]"]`);
+                                    const genderSelect = currentCard.querySelector(`select[name="participant_gender_${eventId}[]"]`);
+                                    const weightInput = currentCard.querySelector(`input[name="participant_weight_${eventId}[]"]`);
+                                    
+                                    if (nameInput) nameInput.value = participant.name ?? '';
+                                    if (gradeSelect) gradeSelect.value = String(participant.grade ?? '');
+                                    if (genderSelect && participant.gender) genderSelect.value = participant.gender;
+                                    if (weightInput && participant.weight != null) weightInput.value = participant.weight;
+                                }
+                            }, 100);
+                        });
+                        
+                        updateParticipantCount(eventId);
+                        validateEvent(eventId);
+                    }, 200);
+                }
+            });
+        }
+
+        // Load user's school information
+        async function loadUserSchoolInfo() {
+            try {
+                const response = await fetch('/persev/api/user/school-info');
+                if (response.ok) {
+                    const schoolInfo = await response.json();
+                    document.querySelector('[name="schoolName"]').value = schoolInfo.name;
+                    document.querySelector('[name="contingentCode"]').value = schoolInfo.contingentCode;
+                } else {
+                    console.error('Could not load school information');
+                    showMessage('Could not load school information. Please refresh the page.', 'error');
+                }
+            } catch (error) {
+                console.error('Error loading school info:', error);
+                showMessage('Error loading school information. Please refresh the page.', 'error');
+            }
+        }
+
+        // Render events dynamically
+        function renderEvents() {
+            const container = document.getElementById('events-container');
+            container.innerHTML = '';
+
+            sportsEvents.forEach(event => {
+                const eventCard = createEventCard(event);
+                container.appendChild(eventCard);
+            });
+        }
+
+        // Create event card HTML
+        function createEventCard(event) {
+            const div = document.createElement('div');
+            div.className = 'event-toggle rounded-2xl p-6';
+            div.dataset.eventId = event._id;
+            
+            div.innerHTML = `
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-4 gap-4">
+                    <div class="flex-1">
+                        <h3 class="text-xl text-white font-bold">${event.name}</h3>
+                        <p class="text-gray-300 text-sm">${event.description}</p>
+                        <div class="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm">
+                            <span class="text-[#BE8E30]">Grades: ${event.minGrade}-${event.maxGrade}</span>
+                            <span class="text-[#BE8E30]">Team: ${event.minParticipants === event.maxParticipants ? event.minParticipants : event.minParticipants + '-' + event.maxParticipants} participants</span>
+                            ${event.genderRequirement === 'male_female_required' ? 
+                                '<span class="text-[#BE8E30]">Mixed gender required</span>' : 
+                                event.genderRequirement === 'male_only' ? 
+                                '<span class="text-[#BE8E30]">Boys only</span>' :
+                                event.genderRequirement === 'female_only' ? 
+                                '<span class="text-[#BE8E30]">Girls only</span>' : ''}
+                            ${event.needsWeight ? '<span class="text-[#BE8E30]">Weight required</span>' : ''}
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 flex-shrink-0">
+                        <label class="text-white font-medium text-center sm:text-left">Participate:</label>
+                        <div class="flex justify-center sm:justify-start space-x-3">
+                            <label class="custom-radio">
+                                <input type="radio" name="participate_${event._id}" value="yes" 
+                                       onchange="toggleEvent('${event._id}', true)">
+                                <div class="radio-indicator"></div>
+                                <span class="radio-label">Yes</span>
+                            </label>
+                            <label class="custom-radio">
+                                <input type="radio" name="participate_${event._id}" value="no" 
+                                       onchange="toggleEvent('${event._id}', false)" checked>
+                                <div class="radio-indicator"></div>
+                                <span class="radio-label">No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="participants_${event._id}" class="hidden">
+                    <div class="border-t border-[#BE8E30]/30 pt-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-lg text-white font-medium">Team Members</h4>
+                            <div class="participant-counter px-3 py-1 rounded-full text-sm font-medium">
+                                <span id="count_${event._id}">0</span> / ${event.maxParticipants} participants
+                            </div>
+                        </div>
+                        
+                        <div id="participant_list_${event._id}" class="space-y-4 mb-4">
+                            <!-- Participants will be added here -->
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <button type="button" onclick="addParticipant('${event._id}')" 
+                                    id="add_btn_${event._id}"
+                                    class="btn-secondary px-4 py-2 rounded-lg text-sm">
+                                <i class="fas fa-plus mr-2"></i>Add Participant
+                            </button>
+                            <button type="button" onclick="removeLastParticipant('${event._id}')" 
+                                    id="remove_btn_${event._id}" class="btn-secondary px-4 py-2 rounded-lg text-sm hidden">
+                                <i class="fas fa-minus mr-2"></i>Remove Last
+                            </button>
+                        </div>
+                        
+                        <div id="validation_${event._id}" class="mt-4 text-sm"></div>
+                    </div>
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // Toggle event participation
+        function toggleEvent(eventId, participate) {
+            const participantsSection = document.getElementById(`participants_${eventId}`);
+            const eventCard = document.querySelector(`[data-event-id="${eventId}"]`);
+            
+            if (participate) {
+                participantsSection.classList.remove('hidden');
+                eventCard.classList.add('active');
+                
+                // Add minimum required participants
+                const event = sportsEvents.find(e => e._id === eventId);
+                const currentCount = document.querySelectorAll(`#participant_list_${eventId} .participant-card`).length;
+                
+                for (let i = currentCount; i < event.minParticipants; i++) {
+                    addParticipant(eventId);
+                }
+            } else {
+                participantsSection.classList.add('hidden');
+                eventCard.classList.remove('active');
+                
+                // Clear all participants
+                document.getElementById(`participant_list_${eventId}`).innerHTML = '';
+                updateParticipantCount(eventId);
+            }
+        }
+
+        // Add participant
+        function addParticipant(eventId) {
+            const event = sportsEvents.find(e => e._id === eventId);
+            const participantList = document.getElementById(`participant_list_${eventId}`);
+            const currentCount = participantList.children.length;
+            
+            if (currentCount >= event.maxParticipants) {
+                showMessage(`Maximum ${event.maxParticipants} participants allowed for ${event.name}`, 'error');
+                return;
+            }
+            
+            const participantIndex = currentCount + 1;
+            const participantCard = document.createElement('div');
+            participantCard.className = 'participant-card rounded-xl p-4';
+            participantCard.style.animationDelay = `${currentCount * 0.1}s`;
+            
+            let participantTitle = `Participant ${participantIndex}`;
+            if (eventId === 'gully-cricket' && participantIndex === 7) {
+                participantTitle = 'Participant 7 (Substitute)';
+            }
+            
+            const genderOptions = getGenderOptions(event, participantIndex);
+            const weightField = event.needsWeight ? `
+                <div>
+                    <label class="block text-gray-300 mb-1 text-sm">Weight (kg) *</label>
+                    <input type="number" name="participant_weight_${eventId}[]" required 
+                           class="input-field w-full px-3 py-2 rounded-lg text-sm"
+                           placeholder="Enter weight in kg" min="1" step="0.1">
+                </div>
+            ` : '';
+            
+            // Determine grid columns based on available fields
+            let gridCols = 2; // Default: name and grade
+            if (genderOptions) gridCols++;
+            if (weightField) gridCols++;
+            
+            participantCard.innerHTML = `
+                <div class="flex items-center justify-between mb-3">
+                    <h5 class="text-white font-medium">${participantTitle}</h5>
+                    <button type="button" onclick="removeParticipant('${eventId}', this)" 
+                            class="text-red-400 hover:text-red-300 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-${gridCols} gap-4">
+                    <div>
+                        <label class="block text-gray-300 mb-1 text-sm">Full Name *</label>
+                        <input type="text" name="participant_name_${eventId}[]" required 
+                               class="input-field w-full px-3 py-2 rounded-lg text-sm"
+                               placeholder="Enter participant's full name">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-1 text-sm">Grade *</label>
+                        <select name="participant_grade_${eventId}[]" required 
+                                class="input-field w-full px-3 py-2 rounded-lg text-sm">
+                            <option value="">Select Grade</option>
+                            ${Array.from({length: event.maxGrade - event.minGrade + 1}, (_, i) => 
+                                `<option value="${event.minGrade + i}">${event.minGrade + i}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                    ${genderOptions}
+                    ${weightField}
+                </div>
+            `;
+            
+            participantList.appendChild(participantCard);
+            updateParticipantCount(eventId);
+            validateEvent(eventId);
+        }
+
+        // Get gender options based on event requirements
+        function getGenderOptions(event, participantIndex) {
+            // No gender field for Monopolium and Explorare
+            if (event._id === 'monopolium' || event._id === 'explorare') {
+                return '';
+            }
+            
+            if (event.genderRequirement === 'any') {
+                return `
+                    <div>
+                        <label class="block text-gray-300 mb-1 text-sm">Gender</label>
+                        <select name="participant_gender_${event._id}[]" 
+                                class="input-field w-full px-3 py-2 rounded-lg text-sm">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                `;
+            } else if (event.genderRequirement === 'male_only') {
+                return `
+                    <div>
+                        <label class="block text-gray-300 mb-1 text-sm">Gender *</label>
+                        <select name="participant_gender_${event._id}[]" required 
+                                class="input-field w-full px-3 py-2 rounded-lg text-sm">
+                            <option value="male">Male</option>
+                        </select>
+                    </div>
+                `;
+            } else if (event.genderRequirement === 'female_only') {
+                return `
+                    <div>
+                        <label class="block text-gray-300 mb-1 text-sm">Gender *</label>
+                        <select name="participant_gender_${event._id}[]" required 
+                                class="input-field w-full px-3 py-2 rounded-lg text-sm">
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                `;
+            } else if (event.genderRequirement === 'male_female_required') {
+                return `
+                    <div>
+                        <label class="block text-gray-300 mb-1 text-sm">Gender *</label>
+                        <select name="participant_gender_${event._id}[]" required 
+                                class="input-field w-full px-3 py-2 rounded-lg text-sm">
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                `;
+            }
+            return '';
+        }
+
+        // Remove participant
+        function removeParticipant(eventId, button) {
+            const event = sportsEvents.find(e => e._id === eventId);
+            const participantCard = button.closest('.participant-card');
+            const participantList = document.getElementById(`participant_list_${eventId}`);
+            
+            if (participantList.children.length <= event.minParticipants) {
+                showMessage(`Minimum ${event.minParticipants} participants required for ${event.name}`, 'error');
+                return;
+            }
+            
+            participantCard.remove();
+            updateParticipantCount(eventId);
+            renumberParticipants(eventId);
+            validateEvent(eventId);
+        }
+
+        // Remove last participant
+        function removeLastParticipant(eventId) {
+            const participantList = document.getElementById(`participant_list_${eventId}`);
+            const lastParticipant = participantList.lastElementChild;
+            
+            if (lastParticipant) {
+                const removeBtn = lastParticipant.querySelector('button');
+                removeParticipant(eventId, removeBtn);
+            }
+        }
+
+        // Renumber participants after removal
+        function renumberParticipants(eventId) {
+            const participantList = document.getElementById(`participant_list_${eventId}`);
+            const participantCards = participantList.querySelectorAll('.participant-card');
+            
+            participantCards.forEach((card, index) => {
+                const title = card.querySelector('h5');
+                let participantTitle = `Participant ${index + 1}`;
+                if (eventId === 'gully-cricket' && index === 6) {
+                    participantTitle = 'Participant 7 (Substitute)';
+                }
+                title.textContent = participantTitle;
+            });
+        }
+
+        // Update participant count
+        function updateParticipantCount(eventId) {
+            const participantList = document.getElementById(`participant_list_${eventId}`);
+            const count = participantList.children.length;
+            const event = sportsEvents.find(e => e._id === eventId);
+            
+            document.getElementById(`count_${eventId}`).textContent = count;
+            
+            const addBtn = document.getElementById(`add_btn_${eventId}`);
+            const removeBtn = document.getElementById(`remove_btn_${eventId}`);
+            
+            if (count >= event.maxParticipants) {
+                addBtn.classList.add('hidden');
+            } else {
+                addBtn.classList.remove('hidden');
+            }
+            
+            if (count > event.minParticipants) {
+                removeBtn.classList.remove('hidden');
+            } else {
+                removeBtn.classList.add('hidden');
+            }
+        }
+
+        // Validate event requirements
+        function validateEvent(eventId) {
+            const event = sportsEvents.find(e => e._id === eventId);
+            const participantList = document.getElementById(`participant_list_${eventId}`);
+            const count = participantList.children.length;
+            const validationDiv = document.getElementById(`validation_${eventId}`);
+            
+            let messages = [];
+            
+            if (count < event.minParticipants) {
+                messages.push(`⚠️ Need at least ${event.minParticipants} participants`);
+            }
+            
+            if (event.genderRequirement === 'male_female_required') {
+                const genderSelects = participantList.querySelectorAll('select[name*="gender"]');
+                const selectedGenders = Array.from(genderSelects).map(s => s.value);
+                const hasMale = selectedGenders.includes('male');
+                const hasFemale = selectedGenders.includes('female');
+                
+                if (!hasMale || !hasFemale) {
+                    messages.push('⚠️ Need both male and female participants');
+                }
+            }
+            
+            if (messages.length > 0) {
+                validationDiv.innerHTML = `<div class="text-yellow-400">${messages.join('<br>')}</div>`;
+            } else {
+                validationDiv.innerHTML = '';
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('continue-to-events').addEventListener('click', () => {
+                if (validateSchoolInfo()) {
+                    showEventsSection();
+                }
+            });
+            
+            document.getElementById('back-to-school').addEventListener('click', showSchoolSection);
+            
+            document.getElementById('registrationForm').addEventListener('submit', handleSubmit);
+        }
+
+        // Validate school information
+        function validateSchoolInfo() {
+            const requiredFields = ['schoolName', 'teacherName', 'teacherMobile', 'teacherEmail'];
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                const input = document.querySelector(`[name="${field}"]`);
+                if (!input.value.trim()) {
+                    input.classList.add('border-red-500');
+                    isValid = false;
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+            
+            if (!isValid) {
+                showMessage('Please fill in all required school information fields.', 'error');
+            }
+            
+            return isValid;
+        }
+
+        // Show events section
+        function showEventsSection() {
+            document.getElementById('school-section').classList.add('hidden');
+            document.getElementById('events-section').classList.remove('hidden');
+            currentStep = 2;
+            updateProgress();
+            
+            // Update submit button text based on mode
+            const submitText = document.getElementById('submit-text');
+            if (editMode) {
+                submitText.textContent = 'Update Registration';
+                showExistingSummary();
+            } else {
+                submitText.textContent = 'Submit Registration';
+            }
+            // Ensure hydration happens after the events section is shown
+            if (editMode && existingRegistrations.length > 0) {
+                populateExistingData();
+            }
+        }
+
+        // Show existing registrations summary
+        function showExistingSummary() {
+            if (existingRegistrations.length > 0) {
+                const summaryDiv = document.getElementById('existing-summary');
+                const summaryContent = document.getElementById('summary-content');
+                
+                let summaryHTML = '';
+                existingRegistrations.forEach(registration => {
+                    summaryHTML += `
+                        <div class="bg-green-800/20 rounded-lg p-3">
+                            <h4 class="text-green-200 font-medium">${registration.eventName}</h4>
+                            <p class="text-green-300 text-sm mt-1">
+                                ${registration.participants.length} participant(s): 
+                                ${registration.participants.map(p => p.name).join(', ')}
+                            </p>
+                        </div>
+                    `;
+                });
+                
+                summaryContent.innerHTML = summaryHTML;
+                summaryDiv.classList.remove('hidden');
+            }
+        }
+
+        // Show school section
+        function showSchoolSection() {
+            document.getElementById('events-section').classList.add('hidden');
+            document.getElementById('school-section').classList.remove('hidden');
+            currentStep = 1;
+            updateProgress();
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            
+            if (currentStep === 1) {
+                progressBar.style.width = '50%';
+                progressText.textContent = 'Step 1 of 2';
+            } else {
+                progressBar.style.width = '100%';
+                progressText.textContent = 'Step 2 of 2';
+            }
+        }
+
+        // Handle form submission
+        async function handleSubmit(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-registration');
+            const submitText = document.getElementById('submit-text');
+            const submitSpinner = document.getElementById('submit-spinner');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitText.textContent = 'Submitting...';
+            submitSpinner.classList.remove('hidden');
+            
+            try {
+                const formData = collectFormData();
+                
+                if (!validateFormData(formData)) {
+                    throw new Error('Please complete all required fields and event requirements.');
+                }
+                
+                const response = await fetch('/persev/api/register/sports', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    const successMessage = editMode ? 
+                        'Sports and Gaming registration updated successfully! 🎉' : 
+                        'Sports and Gaming registration submitted successfully! 🎉';
+                    showMessage(successMessage, 'success');
+                    
+                    // Redirect to panel after successful submission
+                    setTimeout(() => {
+                        window.location.href = '/persev/panel';
+                    }, 2000);
+                } else {
+                    throw new Error(result.message || 'Registration failed');
+                }
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                showMessage(error.message, 'error');
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                const resetText = editMode ? 'Update Registration' : 'Submit Registration';
+                submitText.textContent = resetText;
+                submitSpinner.classList.add('hidden');
+            }
+        }
+
+        // Collect form data
+        function collectFormData() {
+            const formData = {
+                school: {
+                    name: document.querySelector('[name="schoolName"]').value.trim(),
+                    contingentCode: document.querySelector('[name="contingentCode"]').value.trim(),
+                    teacherName: document.querySelector('[name="teacherName"]').value.trim(),
+                    teacherMobile: document.querySelector('[name="teacherMobile"]').value.trim(),
+                    teacherEmail: document.querySelector('[name="teacherEmail"]').value.trim()
+                },
+                events: []
+            };
+            
+            // Collect event registrations
+            sportsEvents.forEach(event => {
+                const participateYes = document.querySelector(`input[name="participate_${event._id}"][value="yes"]`);
+                if (participateYes && participateYes.checked) {
+                    const participants = [];
+                    const participantList = document.getElementById(`participant_list_${event._id}`);
+                    
+                    participantList.querySelectorAll('.participant-card').forEach((card, index) => {
+                        const name = card.querySelector(`input[name="participant_name_${event._id}[]"]`).value.trim();
+                        const grade = parseInt(card.querySelector(`select[name="participant_grade_${event._id}[]"]`).value);
+                        const genderSelect = card.querySelector(`select[name="participant_gender_${event._id}[]"]`);
+                        const gender = genderSelect ? genderSelect.value : '';
+                        const weightInput = card.querySelector(`input[name="participant_weight_${event._id}[]"]`);
+                        const weight = weightInput ? parseFloat(weightInput.value) : null;
+                        
+                        if (name && grade) {
+                            // Convert to proper Title Case (e.g., "john doe" → "John Doe")
+                            const titleCaseName = name.trim().toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+                            
+                            const participant = {
+                                name: titleCaseName,
+                                grade: grade,
+                                participantOrder: index + 1
+                            };
+                            
+                            // Only include gender if it exists and is not empty
+                            if (gender && gender.trim() !== '') {
+                                participant.gender = gender;
+                            }
+                            
+                            // Include weight if required
+                            if (event.needsWeight && weight) {
+                                participant.weight = weight;
+                            }
+                            
+                            participants.push(participant);
+                        }
+                    });
+                    
+                    if (participants.length > 0) {
+                        formData.events.push({
+                            eventId: event._id,
+                            participants: participants
+                        });
+                    }
+                }
+            });
+            
+            return formData;
+        }
+
+        // Validate form data
+        function validateFormData(formData) {
+            // Check school info
+            const requiredSchoolFields = ['name', 'teacherName', 'teacherMobile', 'teacherEmail'];
+            for (let field of requiredSchoolFields) {
+                if (!formData.school[field]) {
+                    return false;
+                }
+            }
+            
+            // Check at least one event is selected
+            if (formData.events.length === 0) {
+                showMessage('Please select at least one event to participate in.', 'error');
+                return false;
+            }
+            
+            // Validate each event
+            for (let eventReg of formData.events) {
+                const event = sportsEvents.find(e => e._id === eventReg.eventId);
+                
+                // Check participant count
+                if (eventReg.participants.length < event.minParticipants || 
+                    eventReg.participants.length > event.maxParticipants) {
+                    showMessage(`${event.name} requires ${event.minParticipants === event.maxParticipants ? event.minParticipants : event.minParticipants + '-' + event.maxParticipants} participants.`, 'error');
+                    return false;
+                }
+                
+                // Check gender requirements
+                if (event.genderRequirement === 'male_female_required') {
+                    const genders = eventReg.participants.map(p => p.gender);
+                    if (!genders.includes('male') || !genders.includes('female')) {
+                        showMessage(`${event.name} requires both male and female participants.`, 'error');
+                        return false;
+                    }
+                }
+                
+                // Check grade requirements
+                for (let participant of eventReg.participants) {
+                    if (participant.grade < event.minGrade || participant.grade > event.maxGrade) {
+                        showMessage(`${event.name} is for grades ${event.minGrade}-${event.maxGrade} only.`, 'error');
+                        return false;
+                    }
+                }
+                
+                // Check weight requirements
+                if (event.needsWeight) {
+                    for (let participant of eventReg.participants) {
+                        if (!participant.weight || participant.weight <= 0) {
+                            showMessage(`${event.name} requires weight for all participants.`, 'error');
+                            return false;
+                        }
+                    }
+                }
+            }
+            
+            return true;
+        }
+
+        // Show message
+        function showMessage(message, type) {
+            const container = document.getElementById('message-container');
+            const messageClass = type === 'success' ? 'success-message' : 'error-message';
+            
+            container.innerHTML = `
+                <div class="${messageClass} rounded-xl p-4 text-white">
+                    <div class="flex items-center">
+                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'} mr-3"></i>
+                        <span>${message}</span>
+                    </div>
+                </div>
+            `;
+            
+            container.classList.remove('hidden');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                container.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

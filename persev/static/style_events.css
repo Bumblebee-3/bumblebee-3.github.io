@@ -1,0 +1,379 @@
+/* Custom styles for loading screen and font */
+@font-face {
+  font-family: Mestizo;
+  src: url('/persev/assets/MestizoFont.ttf');
+}
+
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #1a2949 0%, #0a0f2c 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.6s ease;
+}
+
+#loading-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#loading-video {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Enhanced Background and Animations */
+html {
+  background: linear-gradient(135deg, #0a0f2c 0%, #1a2949 50%, #0d122c 100%);
+  background-size: 100% 100%;
+  min-height: 100vh;
+}
+
+body {
+  background: linear-gradient(135deg, #0a0f2c 0%, #1a2949 50%, #0d122c 100%);
+  background-size: 100% 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Floating Background Elements */
+.bg-decoration {
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bg-decoration::before,
+.bg-decoration::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(190, 142, 48, 0.1);
+  animation: float 6s ease-in-out infinite;
+}
+
+.bg-decoration::before {
+  width: 200px;
+  height: 200px;
+  top: 10%;
+  left: 80%;
+  animation-delay: 0s;
+}
+
+.bg-decoration::after {
+  width: 150px;
+  height: 150px;
+  bottom: 20%;
+  left: 10%;
+  animation-delay: 3s;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* Enhanced Typography */
+h1,
+h2,
+h3 {
+  font-family: 'Mestizo', serif;
+}
+
+.section-title {
+  background: linear-gradient(45deg, #BE8E30, #FFD700, #BE8E30);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(190, 142, 48, 0.5);
+}
+
+@keyframes gradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Enhanced Event Card Animations */
+.event-card {
+  background: linear-gradient(145deg, #081032 0%, #0c1542 100%);
+  border: 2px solid rgba(190, 142, 48, 0.3);
+  border-radius: 20px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(190, 142, 48, 0.2), transparent);
+  transition: left 0.3s;
+}
+
+.event-card:hover::before {
+  left: 100%;
+}
+
+.event-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  border-color: #BE8E30;
+  box-shadow:
+    0 20px 40px rgba(190, 142, 48, 0.3),
+    0 0 30px rgba(190, 142, 48, 0.2);
+}
+
+.event-card img {
+  transition: all 0.4s ease;
+  filter: grayscale(20%);
+}
+
+.event-card:hover img {
+  filter: grayscale(0%) brightness(110%);
+  transform: scale(1.1);
+}
+
+.event-name {
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.event-card:hover .event-name {
+  text-shadow: 0 0 20px rgba(190, 142, 48, 0.8);
+}
+
+/* Stagger animation delays */
+.event-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.event-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.event-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.event-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.event-card:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.event-card:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* Enhanced Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #081032;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #BE8E30, #FFD700);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #FFD700, #BE8E30);
+}
+
+/* Custom styles for hamburger menu and modal adjustments (mobile only) */
+@media (max-width: 639px) {
+
+  /* Tailwind CSS 'sm' breakpoint is 640px */
+  #mobile-menu {
+    background-color: #0c154250;
+    border-top: 0px solid #BE8E30;
+    padding-top: 0.5rem;
+  }
+
+  #mobile-menu a {
+    margin-bottom: 0.75rem;
+  }
+
+  .md\:hidden button {
+    display: block;
+  }
+}
+
+@media (min-width: 640px) {
+  .md\:hidden button {
+    display: none;
+  }
+}
+
+/* Modal specific adjustments for smaller screens */
+#modal .modal-content {
+  width: 95%;
+  max-width: 600px;
+}
+
+/* Hide modal image on mobile/tablet using aspect ratio (portrait orientation) */
+@media (max-aspect-ratio: 4/3) {
+  .modal-event-head-wrapper {
+    display: none;
+  }
+}
+
+/* Ensure close button is always visible and modal content is scrollable */
+#modalDesc {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+/* Style for the scrollbar if it appears */
+#modalDesc::-webkit-scrollbar {
+  width: 8px;
+}
+
+#modalDesc::-webkit-scrollbar-track {
+  background: #081032;
+  border-radius: 10px;
+}
+
+#modalDesc::-webkit-scrollbar-thumb {
+  background-color: #BE8E30;
+  border-radius: 10px;
+  border: 2px solid #081032;
+}
+
+/* Desktop modal size increase and centering for event head photo */
+@media (min-width: 1024px) {
+  #modal .modal-content {
+    max-width: 900px;
+  }
+
+  .modal-event-head-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+  }
+
+  .modal-event-head-wrapper img {
+    max-width: 250px;
+    height: auto;
+  }
+
+  #modalDesc {
+    max-height: 350px;
+  }
+}
+
+/* Enhanced Event Card Animations matching organizing-committee.html */
+.event-card {
+  background: linear-gradient(145deg, #081032 0%, #0c1542 100%);
+  border: 2px solid rgba(190, 142, 48, 0.3);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(190, 142, 48, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.event-card:hover::before {
+  left: 100%;
+}
+
+.event-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  border-color: #BE8E30;
+  box-shadow:
+    0 20px 40px rgba(190, 142, 48, 0.3),
+    0 0 30px rgba(190, 142, 48, 0.2);
+}
+
+.event-card img {
+  transition: all 0.4s ease;
+  filter: grayscale(20%);
+}
+
+.event-card:hover img {
+  filter: grayscale(0%) brightness(110%);
+  transform: scale(1.1);
+}
+
+.event-name {
+  color: #BE8E30;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.event-card:hover .event-name {
+  text-shadow: 0 0 20px rgba(190, 142, 48, 0.8);
+}
+
+/* Entrance Animations */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

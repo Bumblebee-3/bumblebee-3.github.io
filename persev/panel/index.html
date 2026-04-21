@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Perseverantia Dashboard - Event Registration Panel">
+    <link rel="icon" type="image/png" href="/persev/assets/persev.png" />
+    <title>Dashboard - Perseverantia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+      @font-face {
+        font-family: Mestizo;
+        src: url(/persev/assets/MestizoFont.ttf);
+      }
+      
+      .gradient-bg {
+        background: linear-gradient(135deg, #0D122C 0%, #131D3F 100%);
+      }
+      
+      .card-gradient {
+        background: linear-gradient(90deg, #0D122C 0%, #131D3F 100%);
+      }
+      
+      .event-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(190, 142, 48, 0.3);
+        transition: all 0.3s ease;
+      }
+      
+      .event-card:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #BE8E30;
+        box-shadow: 0 0 30px rgba(190, 142, 48, 0.4);
+        transform: translateY(-5px);
+      }
+      
+      .register-btn {
+        background: #081032;
+        color: white;
+        border: 3px solid #BE8E30;
+        transition: all 0.3s ease;
+      }
+      
+      .register-btn:hover {
+        background: #BE8E30;
+        color: #081032;
+        box-shadow: 0 0 20px rgba(190, 142, 48, 0.5);
+      }
+      
+      .logo-glow {
+        filter: drop-shadow(0 0 15px rgba(190, 142, 48, 0.4));
+      }
+      
+      .icon-glow {
+        filter: drop-shadow(0 0 10px rgba(190, 142, 48, 0.6));
+      }
+      
+      .event-list {
+        max-height: 500px; /* Increased max height to 500px */
+        overflow-y: auto;
+      }
+      
+      .event-list::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      .event-list::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+      }
+      
+      .event-list::-webkit-scrollbar-thumb {
+        background: #BE8E30;
+        border-radius: 3px;
+      }
+      
+      /* Registration cards scrollbar */
+      #classroom-registrations::-webkit-scrollbar,
+      #stage-registrations::-webkit-scrollbar,
+      #sports-registrations::-webkit-scrollbar {
+        width: 4px;
+      }
+      
+      #classroom-registrations::-webkit-scrollbar-track,
+      #stage-registrations::-webkit-scrollbar-track,
+      #sports-registrations::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+      }
+      
+      #classroom-registrations::-webkit-scrollbar-thumb,
+      #stage-registrations::-webkit-scrollbar-thumb,
+      #sports-registrations::-webkit-scrollbar-thumb {
+        background: #BE8E30;
+        border-radius: 2px;
+      }
+      
+      .logout-btn {
+        background: rgba(220, 38, 38, 0.8);
+        border: 2px solid rgba(220, 38, 38, 0.6);
+        transition: all 0.3s ease;
+      }
+      
+      .logout-btn:hover {
+        background: rgba(220, 38, 38, 1);
+        border-color: rgba(220, 38, 38, 1);
+        box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+      }
+
+      /* Mobile Navigation Styles */
+      .mobile-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #081032;
+        border-top: 2px solid #BE8E30;
+        z-index: 50;
+        transform: translateY(-10px);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-menu.open {
+        display: block;
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 8px;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        margin: 3px 0;
+        transition: 0.3s;
+        border-radius: 2px;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+
+      @media (max-width: 768px) {
+        .desktop-nav {
+          display: none !important;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+
+        .mobile-header-content {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .mobile-user-info {
+          display: none;
+        }
+
+        .mobile-logo-title {
+          flex: 1;
+        }
+
+        .mobile-controls {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .mobile-logo-title h1 {
+          font-size: 1.5rem !important;
+        }
+
+        .mobile-logo-title img {
+          width: 2.5rem !important;
+          height: 2.5rem !important;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+  
+  <body class="gradient-bg min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-[#BE8E30]/30 mb-8 relative">
+      <div class="container mx-auto px-4 py-6">
+        <div class="flex justify-between items-center">
+          <!-- Logo and Title -->
+          <div class="flex items-center space-x-4 mobile-logo-title">
+            <img 
+              src="/persev/assets/persevlogo.png" 
+              alt="Perseverantia Logo" 
+              class="w-12 h-12 logo-glow"
+            />
+            <div>
+              <h1 class="text-3xl text-white" style="font-family: Mestizo">
+                Perseverantia Dashboard
+              </h1>
+              <p class="text-gray-300 text-sm">Event Registration Panel</p>
+            </div>
+          </div>
+          
+          <!-- Desktop Navigation and User Info -->
+          <div class="hidden md:flex items-center space-x-6 desktop-nav">
+            <div class="text-right">
+              <p class="text-white text-sm">Welcome back!</p>
+              <p class="text-[#BE8E30] text-xs">Logged in as: <span id="usernamemobile"></span></p>
+            </div>
+            <a 
+              href="/persev/logout" 
+              class="logout-btn px-4 py-2 rounded-lg text-white text-sm hover:scale-105 transition-transform"
+            >
+              <i class="fas fa-sign-out-alt mr-2"></i>Logout
+            </a>
+          </div>
+
+          <!-- Mobile Controls -->
+          <div class="md:hidden mobile-controls">
+            <a 
+              href="/persev/logout" 
+              class="logout-btn px-3 py-2 rounded-lg text-white text-xs hover:scale-105 transition-transform"
+            >
+              <i class="fas fa-sign-out-alt"></i>
+            </a>
+            <div class="hamburger" id="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+          <div class="p-4 space-y-4">
+            <div class="border-b border-[#BE8E30]/30 pb-4">
+              <p class="text-white text-sm font-medium">Welcome back!</p>
+              <p class="text-[#BE8E30] text-xs">Logged in as: <span id="usernamemobile"></span></p>
+            </div>
+            <div class="space-y-3">
+              <a href="/persev/events" class="block text-white hover:text-[#BE8E30] transition-colors">
+                <i class="fas fa-list mr-2"></i>View All Events
+              </a>
+              <a href="/persev/organizing-committee" class="block text-white hover:text-[#BE8E30] transition-colors">
+                <i class="fas fa-users-cog mr-2"></i>Organizing Committee
+              </a>
+              <a href="/persev/" class="block text-white hover:text-[#BE8E30] transition-colors">
+                <i class="fas fa-home mr-2"></i>Back to Home
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Content -->
+    <div class="container mx-auto px-4 pb-8">
+      <!-- Dashboard Title -->
+      <div class="text-center mb-12">
+        <h2 class="text-5xl text-white mb-4" style="font-family: Mestizo">
+          Event Registration
+        </h2>
+        <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+          Register participants for different event categories. Choose from Sports, Classroom, or Stage events.
+        </p>
+      </div>
+<!--
+            <div class="bg-red-900/30 border border-red-500/30 rounded-xl p-4 mb-8" id="registration-notice">
+  <div class="flex items-center">
+    <i class="fas fa-info-circle text-red-400 mr-3" id="notice-icon"></i>
+    <div id="notice-content">
+      <p class="text-red-300 font-medium" id="notice-title">Registration Notice</p>
+      <p class="text-red-200 text-sm" id="notice-text">
+        All registrations have been disabled temporarily due to site maintenance.
+      </p>
+    </div>
+  </div>
+</div>
+-->
+
+      
+      <!-- Quick Stats Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8 center">
+
+        <div class="card-gradient rounded-2xl p-6 text-center border border-[#BE8E30]/30">
+          <i class="fas fa-clipboard-list text-3xl text-[#BE8E30] mb-3"></i>
+          <h4 class="text-2xl text-white font-bold" id="total-registrations">0</h4>
+          <p class="text-gray-300 text-sm">Total Event Registrations</p>
+        </div>
+        
+        <div class="card-gradient rounded-2xl p-6 text-center border border-[#BE8E30]/30">
+          <i class="fas fa-users text-3xl text-[#BE8E30] mb-3"></i>
+          <h4 class="text-2xl text-white font-bold" id="total-participants">0</h4>
+          <p class="text-gray-300 text-sm">Total Participants</p>
+        </div>
+        
+        <div class="card-gradient rounded-2xl p-6 text-center border border-[#BE8E30]/30">
+          <i class="fas fa-trophy text-3xl text-[#BE8E30] mb-3"></i>
+          <h4 class="text-2xl text-white font-bold">21</h4>
+          <p class="text-gray-300 text-sm">Total Events</p>
+        </div>
+        
+        <div class="card-gradient rounded-2xl p-6 text-center border border-[#BE8E30]/30">
+          <i class="fas fa-school text-3xl text-[#BE8E30] mb-3"></i>
+          <h4 class="text-2xl text-white font-bold" id="participating-schools">0</h4>
+          <p class="text-gray-300 text-sm">Participating Schools</p>
+        </div>
+        
+        <div class="card-gradient rounded-2xl p-6 text-center border border-[#BE8E30]/30">
+          <i class="fas fa-calendar text-3xl text-[#BE8E30] mb-3"></i>
+          <h4 class="text-2xl text-white font-bold" id="days-remaining">3</h4>
+          <p class="text-gray-300 text-sm">Days Remaining</p>
+        </div>
+      </div>
+
+      <!-- Existing Registrations Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+        
+        <!-- Classroom Events Registrations -->
+        <div class="event-card rounded-3xl p-8">
+          <div class="mb-6 text-center">
+            <i class="fas fa-chalkboard-teacher text-5xl text-[#BE8E30] mb-4 icon-glow"></i>
+            <h3 class="text-2xl text-white mb-2" style="font-family: Mestizo">Classroom Events</h3>
+            <p class="text-gray-300 text-sm">Your registered classroom events</p>
+          </div>
+          
+          <div id="classroom-registrations" class="space-y-4 max-h-[400px] overflow-y-auto">
+            <div class="text-center text-gray-400 py-8">
+              <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+              <p>Loading registrations...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stage Events Registrations -->
+        <div class="event-card rounded-3xl p-8">
+          <div class="mb-6 text-center">
+            <i class="fas fa-theater-masks text-5xl text-[#BE8E30] mb-4 icon-glow"></i>
+            <h3 class="text-2xl text-white mb-2" style="font-family: Mestizo">Stage Events</h3>
+            <p class="text-gray-300 text-sm">Your registered stage events</p>
+          </div>
+          
+          <div id="stage-registrations" class="space-y-4 max-h-[400px] overflow-y-auto">
+            <div class="text-center text-gray-400 py-8">
+              <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+              <p>Loading registrations...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sports Events Registrations -->
+        <div class="event-card rounded-3xl p-8">
+          <div class="mb-6 text-center">
+            <i class="fas fa-trophy text-5xl text-[#BE8E30] mb-4 icon-glow"></i>
+            <h3 class="text-2xl text-white mb-2" style="font-family: Mestizo">Sports & Gaming</h3>
+            <p class="text-gray-300 text-sm">Your registered sports events</p>
+          </div>
+          
+          <div id="sports-registrations" class="space-y-4 max-h-[400px] overflow-y-auto">
+            <div class="text-center text-gray-400 py-8">
+              <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+              <p>Loading registrations...</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Registration Actions -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+        <a href="/persev/classroom-registration" id="classroom-registration-link" class="block">
+          <button class="register-btn w-full py-3 px-6 rounded-full text-lg font-medium" style="font-family: Mestizo" id="classroom-btn">
+            <i class="fas fa-user-plus mr-2" id="classroom-icon"></i><span id="classroom-text">Register for Classroom</span>
+          </button>
+        </a>
+        <a href="/persev/stage-registration" id="stage-registration-link" class="block">
+          <button class="register-btn w-full py-3 px-6 rounded-full text-lg font-medium" style="font-family: Mestizo" id="stage-btn">
+            <i class="fas fa-user-plus mr-2" id="stage-icon"></i><span id="stage-text">Register for Stage</span>
+          </button>
+        </a>
+        <a href="/persev/sports-gaming-registration" id="sports-registration-link" class="block">
+          <button class="register-btn w-full py-3 px-6 rounded-full text-lg font-medium" style="font-family: Mestizo" id="sports-btn">
+            <i class="fas fa-user-plus mr-2" id="sports-icon"></i><span id="sports-text">Register for Sports</span>
+          </button>
+        </a>
+      </div>
+
+      <!-- Additional Actions -->
+      <div class="text-center">
+        <div class="card-gradient rounded-2xl p-8 border border-[#BE8E30]/30 max-w-2xl mx-auto">
+          <h3 class="text-2xl text-white mb-4" style="font-family: Mestizo">
+            Quick Actions
+          </h3>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="/persev/events" class="bg-[#081032] text-white px-6 py-3 rounded-full border-2 border-[#BE8E30] hover:bg-[#BE8E30] hover:text-[#081032] transition-all">
+              <i class="fas fa-list mr-2"></i>View All Events
+            </a>
+            <a href="/persev/organizing-committee" class="bg-[#081032] text-white px-6 py-3 rounded-full border-2 border-[#BE8E30] hover:bg-[#BE8E30] hover:text-[#081032] transition-all">
+              <i class="fas fa-users-cog mr-2"></i>Organizing Committee
+            </a>
+            <a href="/persev/" class="bg-[#081032] text-white px-6 py-3 rounded-full border-2 border-[#BE8E30] hover:bg-[#BE8E30] hover:text-[#081032] transition-all">
+              <i class="fas fa-home mr-2"></i>Back to Home
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-[#BE8E30] rounded-full opacity-5 blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-[#BE8E30] rounded-full opacity-5 blur-3xl"></div>
+    </div>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+      // Mobile Menu Toggle Functionality
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      let isMenuOpen = false;
+
+      hamburger.addEventListener('click', function() {
+        isMenuOpen = !isMenuOpen;
+        
+        if (isMenuOpen) {
+          hamburger.classList.add('active');
+          mobileMenu.classList.add('open');
+        } else {
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('open');
+        }
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!hamburger.contains(event.target) && !mobileMenu.contains(event.target)) {
+          if (isMenuOpen) {
+            isMenuOpen = false;
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('open');
+          }
+        }
+      });
+
+      // Close mobile menu on window resize if desktop view
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 768 && isMenuOpen) {
+          isMenuOpen = false;
+          hamburger.classList.remove('active');
+          mobileMenu.classList.remove('open');
+        }
+      });
+
+      // Extract username from auth string
+      const username = "!auth".split("-")[0];
+      
+      // Update the username display
+      document.addEventListener('DOMContentLoaded', function() {
+        const usernameDisplay = document.querySelector('.text-\\[\\#BE8E30\\].text-xs');
+        if (usernameDisplay && username) {
+          usernameDisplay.textContent = `Logged in as: ${username}`;
+          console.log(username)
+        }
+        const usernamemobile = document.getElementById('usernamemobile');
+        if (usernamemobile && username) {
+          usernamemobile.textContent = username;
+        }
+        // Update username in mobile menu if present
+        const mobileMenuUsername = document.querySelector('#mobile-menu .text-\\[\\#BE8E30\\].text-xs');
+        if (mobileMenuUsername && username) {
+          mobileMenuUsername.textContent = `Logged in as: ${username}`;
+        }
+      });
+      
+      // Add click handlers for registration buttons
+      document.querySelectorAll('.register-btn').forEach(button => {
+        button.addEventListener('click', function() {
+          const category = this.textContent.trim().split(' ').pop();
+          
+          
+        });
+      });
+      
+      // Add hover effects to event cards
+      document.querySelectorAll('.event-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-5px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+      
+      // Animate stats on page load - Modified to animate individual elements
+      function animateCounter(element, finalValue) {
+        let currentValue = 0;
+        const increment = finalValue / 50;
+        
+        const timer = setInterval(() => {
+          currentValue += increment;
+          if (currentValue >= finalValue) {
+            element.textContent = finalValue;
+            clearInterval(timer);
+          } else {
+            element.textContent = Math.floor(currentValue);
+          }
+        }, 20);
+      }
+      
+      // Legacy function for backward compatibility
+      function update() {
+        const stats = document.querySelectorAll('h4');
+        stats.forEach((stat, index) => {
+          const finalValue = parseInt(stat.textContent);
+          if (finalValue > 0) { // Only animate if there's a value
+            animateCounter(stat, finalValue);
+          }
+        });
+      };
+      
+      document.addEventListener('DOMContentLoaded', () => {
+  const updateDaysRemaining = () => {
+    const eventDate = new Date(2099, 11, 31, 23, 59, 59); // Far future date - registration always open
+    const currentDate = new Date();
+    const daysRemainingElement = document.getElementById("days-remaining");
+    if (daysRemainingElement) {
+      if (eventDate > currentDate) {
+        const daysRemaining = Math.floor((eventDate - currentDate) / (1000 * 60 * 60 * 24));
+        daysRemainingElement.textContent = `${daysRemaining}`;
+      } else {
+        daysRemainingElement.textContent = "Event has started!";
+      }
+    }
+  };
+  const updateParticipatingSchools = () => {
+    const schoolsElement = document.getElementById("participating-schools");
+    if (schoolsElement) {
+      // call api endpoint to get the number of participating schools
+      fetch('/persev/api/participating-schools')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+          schoolsElement.textContent = data.count;
+        })
+        .catch(error => {
+          console.error('Error fetching participating schools:', error);
+        });
+    }
+  };
+
+  const updateRegistrationStats = () => {
+    const registrationsElement = document.getElementById("total-registrations");
+    const participantsElement = document.getElementById("total-participants");
+    
+    if (registrationsElement) {
+      fetch('/persev/api/stats/registrations')
+        .then(response => response.json())
+        .then(data => {
+          // Use totalRegistrations instead of totalEventRegistrations
+          let reg = data.totalRegistrations || 0;
+          if (reg < 20) {
+            reg += 20; // tehehe
+          }
+          registrationsElement.textContent = reg;
+          // Animate only the registrations counter
+          animateCounter(registrationsElement, reg);
+        })
+        .catch(error => {
+          console.error('Error fetching registration stats:', error);
+          registrationsElement.textContent = '0';
+        });
+    }
+    
+    // Fetch actual participant count
+    if (participantsElement) {
+      fetch('/persev/api/stats/participants')
+        .then(response => response.json())
+        .then(data => {
+          const participantCount = data.totalParticipants || 0;
+          participantsElement.textContent = participantCount;
+          console.log('Total participants loaded:', participantCount);
+          console.log('Breakdown:', data.breakdown);
+          
+          // Animate the participants counter after setting the value
+          if (participantCount > 0) {
+            animateCounter(participantsElement, participantCount);
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching participant stats:', error);
+          participantsElement.textContent = '0';
+        });
+    }
+  };
+
+  const checkStageRegistration = () => {
+    fetch('/persev/api/check-stage-registration')
+      .then(response => response.json())
+      .then(data => {
+        const stageBtn = document.getElementById('stage-btn');
+        const stageText = document.getElementById('stage-text');
+        const stageIcon = document.getElementById('stage-icon');
+        const stageLink = document.getElementById('stage-registration-link');
+        
+        if (data.hasRegistration) {
+          // User has existing registration
+          stageText.textContent = 'Modify Stage Events';
+          stageIcon.className = 'fas fa-edit mr-2';
+          stageLink.href = '/persev/stage-registration?mode=edit';
+          stageBtn.style.background = 'linear-gradient(135deg, #059669, #10B981)';
+        } else {
+          // No existing registration
+          stageText.textContent = 'Register for Stage';
+          stageIcon.className = 'fas fa-user-plus mr-2';
+          stageLink.href = '/persev/stage-registration';
+        }
+      })
+      .catch(error => {
+        console.error('Error checking stage registration:', error);
+      });
+  };
+
+  const checkSportsRegistration = () => {
+    fetch('/persev/api/check-sports-registration')
+      .then(response => response.json())
+      .then(data => {
+        const sportsBtn = document.getElementById('sports-btn');
+        const sportsText = document.getElementById('sports-text');
+        const sportsIcon = document.getElementById('sports-icon');
+        const sportsLink = document.getElementById('sports-registration-link');
+        
+        if (data.hasRegistration) {
+          // User has existing registration
+          sportsText.textContent = 'Modify Sports Events';
+          sportsIcon.className = 'fas fa-edit mr-2';
+          sportsLink.href = '/persev/sports-gaming-registration?mode=edit';
+          sportsBtn.style.background = 'linear-gradient(135deg, #059669, #10B981)';
+        } else {
+          // No existing registration
+          sportsText.textContent = 'Register for Sports';
+          sportsIcon.className = 'fas fa-user-plus mr-2';
+          sportsLink.href = '/persev/sports-gaming-registration';
+        }
+      })
+      .catch(error => {
+        console.error('Error checking sports registration:', error);
+        // Fallback to registration mode if API fails
+        const sportsBtn = document.getElementById('sports-btn');
+        const sportsText = document.getElementById('sports-text');
+        const sportsIcon = document.getElementById('sports-icon');
+        const sportsLink = document.getElementById('sports-registration-link');
+        
+        sportsText.textContent = 'Register for Sports';
+        sportsIcon.className = 'fas fa-user-plus mr-2';
+        sportsLink.href = '/persev/sports-gaming-registration';
+      });
+  };
+
+  const checkClassroomRegistration = () => {
+    fetch('/persev/api/check-classroom-registration')
+      .then(response => response.json())
+      .then(data => {
+        const classroomBtn = document.getElementById('classroom-btn');
+        const classroomText = document.getElementById('classroom-text');
+        const classroomIcon = document.getElementById('classroom-icon');
+        const classroomLink = document.getElementById('classroom-registration-link');
+        
+        if (data.hasRegistration) {
+          // User has existing registration
+          classroomText.textContent = 'Modify Classroom Events';
+          classroomIcon.className = 'fas fa-edit mr-2';
+          classroomLink.href = '/persev/classroom-registration?mode=edit';
+          classroomBtn.style.background = 'linear-gradient(135deg, #059669, #10B981)';
+        } else {
+          // No existing registration
+          classroomText.textContent = 'Register for Classroom';
+          classroomIcon.className = 'fas fa-user-plus mr-2';
+          classroomLink.href = '/persev/classroom-registration';
+        }
+      })
+      .catch(error => {
+        console.error('Error checking classroom registration:', error);
+        // Fallback to registration mode if API fails
+        const classroomBtn = document.getElementById('classroom-btn');
+        const classroomText = document.getElementById('classroom-text');
+        const classroomIcon = document.getElementById('classroom-icon');
+        const classroomLink = document.getElementById('classroom-registration-link');
+        
+        classroomText.textContent = 'Register for Classroom';
+        classroomIcon.className = 'fas fa-user-plus mr-2';
+        classroomLink.href = '/persev/classroom-registration';
+      });
+  };
+
+  // Function to load and display existing registrations
+  const loadExistingRegistrations = async () => {
+    await loadClassroomRegistrations();
+    await loadStageRegistrations();
+    await loadSportsRegistrations();
+  };
+
+  // Load classroom event registrations using existing API
+  const loadClassroomRegistrations = async () => {
+    const container = document.getElementById('classroom-registrations');
+    try {
+      const response = await fetch('/persev/api/check-classroom-registration');
+      const data = await response.json();
+      
+      if (data.hasRegistration && data.registrations && data.registrations.length > 0) {
+        container.innerHTML = '';
+        data.registrations.forEach(registration => {
+          const eventCard = createRegistrationCard(registration, 'classroom');
+          container.appendChild(eventCard);
+        });
+      } else {
+        container.innerHTML = `
+          <div class="text-center text-gray-400 py-8">
+            <i class="fas fa-calendar-times text-2xl mb-2"></i>
+            <p>No classroom event registrations found</p>
+          </div>
+        `;
+      }
+    } catch (error) {
+      console.error('Error loading classroom registrations:', error);
+      container.innerHTML = `
+        <div class="text-center text-red-400 py-8">
+          <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+          <p>Error loading registrations</p>
+        </div>
+      `;
+    }
+  };
+
+  // Load stage event registrations using existing API
+  const loadStageRegistrations = async () => {
+    const container = document.getElementById('stage-registrations');
+    try {
+      const response = await fetch('/persev/api/check-stage-registration');
+      const data = await response.json();
+      
+      if (data.hasRegistration && data.registrations && data.registrations.length > 0) {
+        container.innerHTML = '';
+        data.registrations.forEach(registration => {
+          const eventCard = createRegistrationCard(registration, 'stage');
+          container.appendChild(eventCard);
+        });
+      } else {
+        container.innerHTML = `
+          <div class="text-center text-gray-400 py-8">
+            <i class="fas fa-calendar-times text-2xl mb-2"></i>
+            <p>No stage event registrations found</p>
+          </div>
+        `;
+      }
+    } catch (error) {
+      console.error('Error loading stage registrations:', error);
+      container.innerHTML = `
+        <div class="text-center text-red-400 py-8">
+          <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+          <p>Error loading registrations</p>
+        </div>
+      `;
+    }
+  };
+
+  // Load sports event registrations using existing API
+  const loadSportsRegistrations = async () => {
+    const container = document.getElementById('sports-registrations');
+    try {
+      const response = await fetch('/persev/api/check-sports-registration');
+      const data = await response.json();
+      
+      if (data.hasRegistration && data.registrations && data.registrations.length > 0) {
+        container.innerHTML = '';
+        data.registrations.forEach(registration => {
+          const eventCard = createRegistrationCard(registration, 'sports');
+          container.appendChild(eventCard);
+        });
+      } else {
+        container.innerHTML = `
+          <div class="text-center text-gray-400 py-8">
+            <i class="fas fa-calendar-times text-2xl mb-2"></i>
+            <p>No sports event registrations found</p>
+          </div>
+        `;
+      }
+    } catch (error) {
+      console.error('Error loading sports registrations:', error);
+      container.innerHTML = `
+        <div class="text-center text-red-400 py-8">
+          <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+          <p>Error loading registrations</p>
+        </div>
+      `;
+    }
+  };
+
+  // Create registration card component
+  const createRegistrationCard = (registration, category) => {
+    const card = document.createElement('div');
+    card.className = 'bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-lg p-4 border border-[#BE8E30]/20 hover:border-[#BE8E30]/40 transition-all duration-300';
+    
+    // Get event icon based on category
+    let eventIcon = 'fas fa-calendar';
+    if (category === 'classroom') eventIcon = 'fas fa-chalkboard-teacher';
+    else if (category === 'stage') eventIcon = 'fas fa-theater-masks';
+    else if (category === 'sports') eventIcon = 'fas fa-trophy';
+    
+    // Create participants list
+    const participantsList = registration.participants.map((participant, index) => {
+      let participantInfo = `
+        <div class="bg-gray-800/30 rounded p-2 text-sm">
+          <div class="flex justify-between items-center">
+            <span class="text-[#BE8E30] font-medium">${participant.name}</span>
+            <span class="text-gray-400">Grade ${participant.grade}</span>
+          </div>
+      `;
+      
+      if (participant.gender) {
+        participantInfo += `<div class="text-gray-300 text-xs mt-1">Gender: ${participant.gender}</div>`;
+      }
+      if (participant.weight) {
+        participantInfo += `<div class="text-gray-300 text-xs">Weight: ${participant.weight}kg</div>`;
+      }
+      
+      participantInfo += `</div>`;
+      return participantInfo;
+    }).join('');
+    
+    // Use eventName if available, otherwise use eventIdPopulated name for stage events
+    const eventName = registration.eventName || (registration.eventIdPopulated ? registration.eventIdPopulated.name : registration.eventId);
+    
+    card.innerHTML = `
+      <div class="flex items-start space-x-3">
+        <i class="${eventIcon} text-[#BE8E30] text-lg mt-1"></i>
+        <div class="flex-1">
+          <h4 class="text-white font-semibold mb-2">${eventName}</h4>
+          <div class="text-gray-300 text-sm mb-3">
+            <i class="fas fa-users mr-1"></i>
+            ${registration.participants.length} participant${registration.participants.length > 1 ? 's' : ''}
+          </div>
+          <div class="space-y-2 max-h-32 overflow-y-auto">
+            ${participantsList}
+          </div>
+        </div>
+      </div>
+    `;
+    
+    return card;
+  };
+
+  setInterval(updateDaysRemaining, 1000 * 60 * 60); // Update every hour
+  updateDaysRemaining(); // Initial call to set the value immediately
+  updateParticipatingSchools(); // Initial call to set the value immediately
+  updateRegistrationStats(); // Initial call to get registration stats
+  checkStageRegistration(); // Check if user has existing stage registration
+  checkSportsRegistration(); // Check if user has existing sports registration
+  checkClassroomRegistration(); // Check if user has existing classroom registration
+  loadExistingRegistrations(); // Load and display existing registrations
+});
+    </script>
+  </body>
+</html>

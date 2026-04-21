@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: 
+Disallow: /cgi-bin/
+Disallow: /admin/login
+Disallow: /school-login
+Sitemap: https://perseverantia.events-at-scottishmahim.com/static/sitemap.xml

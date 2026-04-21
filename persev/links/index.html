@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Perseverantia Quick Links - Access all important pages">
+    <link rel="icon" type="image/png" href="/persev/assets/persev.png" />
+    <title>Quick Links - Perseverantia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+      @font-face {
+        font-family: Mestizo;
+        src: url(/persev/assets/MestizoFont.ttf);
+        font-display: swap;
+      }
+      
+      body {
+        background: linear-gradient(135deg, #0a0f2c, #1a2949);
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      
+      #loading-screen {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #0a0f2c, #1a2949);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.6s ease;
+      }
+      
+      #loading-screen.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .loading-video {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.7));
+        border-radius: 12px;
+      }
+      
+      /* Enhanced Animations */
+      .animate-navbar {
+        animation: slideInFromTop 0.8s ease-out;
+      }
+      
+      .animate-logo {
+        animation: logoFloat 1.2s ease-out 0.5s both;
+      }
+      
+      .animate-title {
+        animation: fadeInUp 1s ease-out 0.8s both;
+      }
+      
+      .animate-subtitle {
+        animation: fadeInUp 1s ease-out 1s both;
+      }
+      
+      .animate-link-1 {
+        animation: fadeInScale 0.8s ease-out 1.2s both;
+      }
+      
+      .animate-link-2 {
+        animation: fadeInScale 0.8s ease-out 1.4s both;
+      }
+      
+      .animate-link-3 {
+        animation: fadeInScale 0.8s ease-out 1.6s both;
+      }
+      
+      .animate-footer {
+        animation: slideInFromBottom 0.8s ease-out 1.8s both;
+      }
+      
+      @keyframes slideInFromTop {
+        0% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes logoFloat {
+        0% {
+          opacity: 0;
+          transform: translateY(20px) scale(0.9);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes fadeInScale {
+        0% {
+          opacity: 0;
+          transform: scale(0.8) translateY(20px);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+      
+      @keyframes slideInFromBottom {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      /* Link Button Styles */
+      .link-button {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(190, 142, 48, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .link-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(190, 142, 48, 0.2), transparent);
+        transition: left 0.5s;
+      }
+      
+      .link-button:hover::before {
+        left: 100%;
+      }
+      
+      .link-button:hover {
+        background: rgba(190, 142, 48, 0.1);
+        border-color: #BE8E30;
+        box-shadow: 0 0 30px rgba(190, 142, 48, 0.4);
+        transform: translateY(-5px) scale(1.02);
+      }
+      
+      .link-icon {
+        transition: all 0.3s ease;
+        filter: drop-shadow(0 0 10px rgba(190, 142, 48, 0.6));
+      }
+      
+      .link-button:hover .link-icon {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(190, 142, 48, 0.8));
+      }
+      
+      /* Hover Glow Effect */
+      .hover-glow {
+        transition: all 0.3s ease;
+      }
+      
+      .hover-glow:hover {
+        text-shadow: 0 0 15px rgba(190, 142, 48, 0.8);
+        transform: scale(1.02);
+      }
+      
+      /* Background Decorations */
+      .bg-decoration {
+        position: fixed;
+        pointer-events: none;
+        z-index: 1;
+      }
+      
+      .bg-decoration::before,
+      .bg-decoration::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(190, 142, 48, 0.1);
+        animation: float 6s ease-in-out infinite;
+        box-shadow: 0 0 30px rgba(190, 142, 48, 0.2);
+      }
+      
+      .bg-decoration::before {
+        width: 200px;
+        height: 200px;
+        top: 10%;
+        right: 10%;
+        animation-delay: 0s;
+      }
+      
+      .bg-decoration::after {
+        width: 150px;
+        height: 150px;
+        bottom: 20%;
+        left: 10%;
+        animation-delay: 3s;
+      }
+      
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(180deg); }
+      }
+      
+      /* Ripple Effect */
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(190, 142, 48, 0.6);
+        transform: scale(0);
+        animation: ripple-animation 0.6s linear;
+        pointer-events: none;
+      }
+      
+      @keyframes ripple-animation {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+      
+      /* Mobile Responsiveness */
+      @media (max-width: 768px) {
+        .bg-decoration::before,
+        .bg-decoration::after {
+          display: none;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="/persev/assets/app.css">
+  <script src="/persev/assets/app.js"></script>
+  <script src="/persev/assets/pages.js"></script>
+</head>
+  
+  <body class="text-white">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        class="loading-video"
+      >
+        <source src="/persev/assets/load.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Background Decorations -->
+    <div class="bg-decoration"></div>
+
+    <!-- Navbar -->
+    <nav class="text-white animate-navbar" style="background: #081032">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="text-2xl hover-glow" style="font-family: Mestizo">
+          Perseverantia
+        </div>
+        <div>
+          <a href="/persev/" class="text-white hover:text-yellow-300 transition-colors">
+            <i class="fas fa-home text-xl"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-8">
+      <!-- Logo -->
+      <div class="mb-8 animate-logo">
+        <img
+          src="/persev/assets/persev.png"
+          alt="Perseverantia Logo"
+          class="w-24 h-24 mx-auto filter drop-shadow-lg"
+        />
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 animate-title hover-glow" style="font-family: Mestizo">
+        Quick Links
+      </h1>
+      
+      <!-- Subtitle -->
+      <p class="text-lg md:text-xl text-gray-300 text-center mb-12 max-w-md animate-subtitle">
+        Access all the important information and resources for Perseverantia 2025
+      </p>
+
+      <!-- Links Container -->
+      <div class="w-full max-w-md space-y-6">
+        
+        <!-- Menu Items Link -->
+        <a
+          href="/persev/food-menu"
+          class="link-button w-full flex items-center justify-center p-6 rounded-2xl text-white text-lg font-semibold animate-link-1"
+        >
+          <i class="fas fa-utensils text-2xl mr-4 text-[#BE8E30] link-icon"></i>
+          <span>Menu Items</span>
+        </a>
+
+        <!-- School Leaderboard Link -->
+        <a
+          href="/persev/leaderboard"
+          class="link-button w-full flex items-center justify-center p-6 rounded-2xl text-white text-lg font-semibold animate-link-2"
+        >
+          <i class="fas fa-trophy text-2xl mr-4 text-[#BE8E30] link-icon"></i>
+          <span>School Leaderboard</span>
+        </a>
+
+        <!-- Event Locations Link -->
+        <a
+          href="/persev/locations"
+          class="link-button w-full flex items-center justify-center p-6 rounded-2xl text-white text-lg font-semibold animate-link-3"
+        >
+          <i class="fas fa-map-marker-alt text-2xl mr-4 text-[#BE8E30] link-icon"></i>
+          <span>Event Locations</span>
+        </a>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="mt-16 text-center animate-footer">
+        <p class="text-gray-400 text-sm hover-glow">
+          &copy; 2025 Bombay Scottish School, Mahim
+        </p>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      // Loading screen fade out
+      window.addEventListener('load', () => {
+        const loader = document.getElementById("loading-screen");
+        setTimeout(() => {
+          loader.classList.add("fade-out");
+          setTimeout(() => loader.remove(), 600);
+        }, 1500);
+      });
+
+      // Ripple effect for buttons
+      document.querySelectorAll('.link-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+          
+          ripple.style.width = ripple.style.height = size + 'px';
+          ripple.style.left = x + 'px';
+          ripple.style.top = y + 'px';
+          ripple.classList.add('ripple');
+          
+          this.appendChild(ripple);
+          
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+
+      // Add floating animation to navbar title
+      const navTitle = document.querySelector('.hover-glow');
+      if (navTitle) {
+        navTitle.addEventListener('mouseenter', () => {
+          navTitle.style.animation = 'logoFloat 0.6s ease-in-out';
+        });
+        navTitle.addEventListener('animationend', () => {
+          navTitle.style.animation = '';
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -583,6 +583,9 @@
 <script src="./assets/mock-api.js"></script>
 <script>
 	lucide.createIcons();
+	document.addEventListener("DOMContentLoaded", () => {
+		UIkit.modal("#aoiPanelInfoModal").show();
+	});
 </script>
 <script>
 	function getParameterByName(name, url = window.location.href) {

@@ -200,8 +200,8 @@
         }
       }
     </style>
-    <link rel="stylesheet" href="/persev/assets/app.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/css/shepherd.css">
+    <link rel="stylesheet" href="/persev/assets/app.css">
   <script src="/persev/assets/app.js"></script>
   <script src="/persev/assets/pages.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/js/shepherd.min.js"></script>
@@ -898,6 +898,7 @@
       const tour = new Shepherd.Tour({
         defaultStepOptions: {
           cancelIcon: { enabled: true },
+          classes: 'shepherd-theme-arrows',
           scrollTo: { behavior: 'smooth', block: 'center' }
         },
         useModalOverlay: true
@@ -999,6 +1000,7 @@
       const successTour = new Shepherd.Tour({
         defaultStepOptions: {
           cancelIcon: { enabled: true },
+          classes: 'shepherd-theme-arrows',
           scrollTo: { behavior: 'smooth', block: 'center' }
         },
         useModalOverlay: true

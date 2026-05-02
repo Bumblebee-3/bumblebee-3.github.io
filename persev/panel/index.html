@@ -201,8 +201,11 @@
       }
     </style>
     <link rel="stylesheet" href="/persev/assets/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/css/shepherd.css">
   <script src="/persev/assets/app.js"></script>
   <script src="/persev/assets/pages.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/js/shepherd.min.js"></script>
+
 </head>
   
   <body class="gradient-bg min-h-screen">
@@ -883,6 +886,158 @@
   checkSportsRegistration(); // Check if user has existing sports registration
   checkClassroomRegistration(); // Check if user has existing classroom registration
   loadExistingRegistrations(); // Load and display existing registrations
+  
+  // Initialize Shepherd tour for panel page
+  function initPanelTour() {
+    if (typeof Shepherd === 'undefined') {
+      setTimeout(initPanelTour, 100);
+      return;
+    }
+    
+    if (!localStorage.getItem('persev.panel-tour.seen.v1')) {
+      const tour = new Shepherd.Tour({
+        defaultStepOptions: {
+          cancelIcon: { enabled: true },
+          scrollTo: { behavior: 'smooth', block: 'center' }
+        },
+        useModalOverlay: true
+      });
+      
+      tour.addStep({
+        id: 'panel-intro',
+        title: 'Event Registration Dashboard',
+        text: 'This is where schools registered their students for each event at Perseverantia! You can register participants for Classroom, Stage, or Sports & Gaming events.',
+        attachTo: {
+          element: 'h2',
+          on: 'bottom'
+        },
+        buttons: [
+          {
+            action() {
+              return this.next();
+            },
+            text: 'Next'
+          }
+        ]
+      });
+      
+      tour.addStep({
+        id: 'register-button',
+        title: 'Start Registering',
+        text: 'Click any of these buttons to register your students for an event. Each category has different events you can choose from.',
+        attachTo: {
+          element: '#classroom-btn',
+          on: 'top'
+        },
+        buttons: [
+          {
+            action() {
+              return this.previous();
+            },
+            text: 'Back'
+          },
+          {
+            action() {
+              return this.next();
+            },
+            text: 'Next'
+          }
+        ]
+      });
+      
+      tour.addStep({
+        id: 'try-registering',
+        title: 'Try Registering Now',
+        text: 'Ready to go? Click any "Register" button above to start adding your students to events. You can always come back to modify your registrations later!',
+        attachTo: {
+          element: '.grid.grid-cols-1.md\\:grid-cols-3',
+          on: 'top'
+        },
+        buttons: [
+          {
+            action() {
+              return this.previous();
+            },
+            text: 'Back'
+          },
+          {
+            action() {
+              localStorage.setItem('persev.panel-tour.seen.v1', '1');
+              this.complete();
+            },
+            text: 'Got it!'
+          }
+        ]
+      });
+      
+      tour.on('complete', () => {
+        localStorage.setItem('persev.panel-tour.seen.v1', '1');
+      });
+      
+      tour.on('cancel', () => {
+        localStorage.setItem('persev.panel-tour.seen.v1', '1');
+      });
+      
+      tour.start();
+    }
+  }
+  
+  initPanelTour();
+  
+  // Check for successful registration and show admin panel prompt
+  function checkRegistrationSuccess() {
+    if (typeof Shepherd === 'undefined') {
+      setTimeout(checkRegistrationSuccess, 100);
+      return;
+    }
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('registration') === 'success') {
+      // Clear the success parameter from URL
+      window.history.replaceState({}, document.title, '/persev/panel');
+      
+      const successTour = new Shepherd.Tour({
+        defaultStepOptions: {
+          cancelIcon: { enabled: true },
+          scrollTo: { behavior: 'smooth', block: 'center' }
+        },
+        useModalOverlay: true
+      });
+      
+      successTour.addStep({
+        id: 'registration-success',
+        title: '🎉 Registration Complete!',
+        text: 'Now try viewing the admin panel, which was used by the admin department of the OC to manage and organise the registrations!',
+        buttons: [
+          {
+            action() {
+              window.open('/admin/login', '_blank');
+              this.next();
+            },
+            text: 'View Admin Panel'
+          },
+          {
+            action() {
+              return this.next();
+            },
+            text: 'Skip'
+          }
+        ]
+      });
+      
+      successTour.on('complete', () => {
+        // Do nothing, just close
+      });
+      
+      successTour.on('cancel', () => {
+        // Do nothing, just close
+      });
+      
+      successTour.start();
+    }
+  }
+  
+  checkRegistrationSuccess();
 });
     </script>
   </body>

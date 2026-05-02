@@ -1021,7 +1021,7 @@
 
                     // Redirect to panel after successful submission
                     setTimeout(() => {
-                        window.location.href = '/persev/panel';
+                        window.location.href = '/persev/panel?registration=success';
                     }, 2000);
                 } else {
                     throw new Error(result.message || 'Registration failed');

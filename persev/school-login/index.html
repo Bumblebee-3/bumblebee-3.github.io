@@ -54,9 +54,11 @@
         filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.4));
       }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/css/shepherd.css">
     <link rel="stylesheet" href="/persev/assets/app.css">
   <script src="/persev/assets/app.js"></script>
   <script src="/persev/assets/pages.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/js/shepherd.min.js"></script>
 </head>
   
   <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
@@ -78,7 +80,7 @@
       </div>
 
       <!-- Login Form -->
-      <div class="form-gradient rounded-3xl p-8 shadow-2xl border border-[#BE8E30]/20">
+      <div id="school-login-tour" class="form-gradient rounded-3xl p-8 shadow-2xl border border-[#BE8E30]/20">
         <!-- Error Message -->
         <div id="error-message" class="hidden mb-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-300 text-sm">
         </div>
@@ -93,6 +95,7 @@
               type="text"
               id="username"
               name="username"
+              value="user1"
               required
               class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-300"
               placeholder="Enter your username"
@@ -108,6 +111,7 @@
               type="password"
               id="password"
               name="password"
+              value="pass1"
               required
               class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-300"
               placeholder="Enter your password"
@@ -205,6 +209,62 @@
           this.parentElement.classList.remove('focused');
         });
       });
+
+      (function () {
+        const seenKey = 'persev.school-login-tour.seen.v1';
+
+        function startTour() {
+          if (!window.Shepherd || localStorage.getItem(seenKey) === '1') {
+            return;
+          }
+
+          const loginCard = document.getElementById('school-login-tour');
+          const loginButton = document.querySelector('button[type="submit"]');
+
+          if (!loginCard || !loginButton) {
+            return;
+          }
+
+          const tour = new Shepherd.Tour({
+            defaultStepOptions: {
+              cancelIcon: { enabled: true },
+              classes: 'shepherd-theme-arrows',
+              scrollTo: { behavior: 'smooth', block: 'center' }
+            },
+            useModalOverlay: true
+          });
+
+          tour.addStep({
+            id: 'school-login-card',
+            title: 'School Login',
+            text: 'Log in here with user1 and pass1 to enter the event registration panel.',
+            attachTo: { element: loginCard, on: 'top' },
+            buttons: [{ text: 'Next', action: tour.next.bind(tour) }]
+          });
+
+          tour.addStep({
+            id: 'school-login-submit',
+            title: 'Sign In',
+            text: 'Once the credentials are in place, click Sign In to continue.',
+            attachTo: { element: loginButton, on: 'top' },
+            buttons: [{ text: 'Finish', action: tour.complete.bind(tour) }]
+          });
+
+          tour.on('complete', function () {
+            localStorage.setItem(seenKey, '1');
+          });
+
+          tour.on('cancel', function () {
+            localStorage.setItem(seenKey, '1');
+          });
+
+          tour.start();
+        }
+
+        window.addEventListener('load', function () {
+          setTimeout(startTour, 300);
+        });
+      })();
     </script>
   </body>
 </html>

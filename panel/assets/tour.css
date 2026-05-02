@@ -1,0 +1,63 @@
+/* ── Shepherd.js tour – Aoi.Panel dark theme ── */
+.shepherd-element {
+  background: #1e2027;
+  border: 2px solid #839BF1;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(131, 155, 241, 0.1);
+  max-width: 340px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.shepherd-has-title .shepherd-content .shepherd-header {
+  background: #25252c;
+  border-bottom: 1px solid rgba(131, 155, 241, 0.25);
+  padding: 14px 20px 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+.shepherd-title {
+  color: #839BF1;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.shepherd-text {
+  color: #e0e0e8;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: 12px 20px;
+}
+
+.shepherd-footer {
+  padding: 8px 20px 14px;
+  border-top: 1px solid rgba(131, 155, 241, 0.15);
+}
+
+.shepherd-button {
+  background: #25252c;
+  border: 2px solid #839BF1;
+  border-radius: 20px;
+  color: #fbfbfb;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.825rem;
+  padding: 5px 16px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.shepherd-button:hover:not(:disabled) {
+  background: #839BF1;
+  color: #181a1e;
+}
+
+.shepherd-button + .shepherd-button {
+  margin-left: 8px;
+}
+
+.shepherd-cancel-icon {
+  color: rgba(131, 155, 241, 0.6);
+}
+
+.shepherd-cancel-icon:hover {
+  color: #839BF1;
+}

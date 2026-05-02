@@ -16,3 +16,70 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   opacity: 0.88;
 }
+
+/* ── Shepherd.js tour – Perseverantia gold theme ── */
+.shepherd-element {
+  background: linear-gradient(135deg, #0D122C 0%, #131D3F 100%);
+  border: 2px solid #BE8E30;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(190, 142, 48, 0.2), 0 8px 32px rgba(0, 0, 0, 0.5);
+  max-width: 340px;
+}
+
+.shepherd-has-title .shepherd-content .shepherd-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(190, 142, 48, 0.3);
+  padding: 14px 20px 10px;
+  border-radius: 10px 10px 0 0;
+}
+
+.shepherd-title {
+  color: #BE8E30;
+  font-family: Mestizo, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.shepherd-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: 12px 20px;
+}
+
+.shepherd-footer {
+  padding: 8px 20px 14px;
+  border-top: 1px solid rgba(190, 142, 48, 0.2);
+}
+
+.shepherd-button {
+  background: #081032;
+  border: 2px solid #BE8E30;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.825rem;
+  padding: 5px 16px;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.shepherd-button:hover:not(:disabled) {
+  background: #BE8E30;
+  color: #081032;
+  box-shadow: 0 0 12px rgba(190, 142, 48, 0.4);
+}
+
+.shepherd-button + .shepherd-button {
+  margin-left: 8px;
+}
+
+.shepherd-cancel-icon {
+  color: rgba(190, 142, 48, 0.6);
+}
+
+.shepherd-cancel-icon:hover {
+  color: #BE8E30;
+}
+
+.shepherd-element.shepherd-theme-arrows .shepherd-arrow::before {
+  background: #0D122C;
+}

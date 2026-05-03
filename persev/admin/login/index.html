@@ -184,6 +184,16 @@
           if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
             // mark authenticated in localStorage for static mode
             localStorage.setItem('persev.admin.auth', '1');
+            try {
+              // also update mock state so fetch interceptions pass without checking localstorage every time
+              let stateRaw = localStorage.getItem('persev.static.v1');
+              if (stateRaw) {
+                let state = JSON.parse(stateRaw);
+                state.admin.authenticated = true;
+                localStorage.setItem('persev.static.v1', JSON.stringify(state));
+              }
+            } catch(e) {}
+            
             successMsg.textContent = 'Login successful! Redirecting...';
             successMsg.classList.remove('hidden');
             setTimeout(() => {

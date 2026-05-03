@@ -908,8 +908,14 @@
         // Static logout handler (clears client-side auth)
         document.getElementById('static-logout').addEventListener('click', function(e) {
             e.preventDefault();
-            localStorage.removeItem('persev.admin.auth');
-            window.location.href = '/persev/admin/login';
+            localStorage.removeItem('persev.admin.auth');            try {
+              let stateRaw = localStorage.getItem('persev.static.v1');
+              if (stateRaw) {
+                let state = JSON.parse(stateRaw);
+                state.admin.authenticated = false;
+                localStorage.setItem('persev.static.v1', JSON.stringify(state));
+              }
+            } catch(e) {}            window.location.href = '/persev/admin/login';
         });
     </script>
 </body>

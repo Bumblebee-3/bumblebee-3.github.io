@@ -515,7 +515,8 @@
     }
 
     if (path === "/admin/check-auth" && method === "GET") {
-      return Promise.resolve(jsonResponse({ authenticated: !!state.admin.authenticated }));
+      const isStaticAuth = localStorage.getItem('persev.admin.auth') === '1';
+      return Promise.resolve(jsonResponse({ authenticated: !!state.admin.authenticated || isStaticAuth }));
     }
 
     if (path === "/admin/logout" && method === "GET") {
@@ -525,28 +526,32 @@
     }
 
     if (path === "/admin/api/registrations/stage" && method === "GET") {
-      if (!state.admin.authenticated) {
+      const isStaticAuth = localStorage.getItem('persev.admin.auth') === '1';
+      if (!state.admin.authenticated && !isStaticAuth) {
         return Promise.resolve(jsonResponse({ message: "Admin authentication required" }, 401));
       }
       return Promise.resolve(jsonResponse(groupForAdmin(state.registrations.stage)));
     }
 
     if (path === "/admin/api/registrations/sports" && method === "GET") {
-      if (!state.admin.authenticated) {
+      const isStaticAuth = localStorage.getItem('persev.admin.auth') === '1';
+      if (!state.admin.authenticated && !isStaticAuth) {
         return Promise.resolve(jsonResponse({ message: "Admin authentication required" }, 401));
       }
       return Promise.resolve(jsonResponse(groupForAdmin(state.registrations.sports)));
     }
 
     if (path === "/admin/api/registrations/classroom" && method === "GET") {
-      if (!state.admin.authenticated) {
+      const isStaticAuth = localStorage.getItem('persev.admin.auth') === '1';
+      if (!state.admin.authenticated && !isStaticAuth) {
         return Promise.resolve(jsonResponse({ message: "Admin authentication required" }, 401));
       }
       return Promise.resolve(jsonResponse(groupForAdmin(state.registrations.classroom)));
     }
 
     if (path === "/admin/api/summary" && method === "GET") {
-      if (!state.admin.authenticated) {
+      const isStaticAuth = localStorage.getItem('persev.admin.auth') === '1';
+      if (!state.admin.authenticated && !isStaticAuth) {
         return Promise.resolve(jsonResponse({ message: "Admin authentication required" }, 401));
       }
       return Promise.resolve(jsonResponse(buildAdminSummary(state)));

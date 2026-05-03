@@ -217,6 +217,44 @@ Mahim West, Mumbai, Maharashtra - 400016
       });
     }
 
+    function showRestartButton() {
+      if (document.getElementById('restart-tour-wrapper')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.id = 'restart-tour-wrapper';
+      wrapper.style.position = 'fixed';
+      wrapper.style.right = '20px';
+      wrapper.style.bottom = '20px';
+      wrapper.style.zIndex = '99999';
+      wrapper.style.display = 'flex';
+      wrapper.style.alignItems = 'center';
+
+      const tooltip = document.createElement('div');
+      tooltip.className = 'restart-tour-tooltip';
+      tooltip.textContent = 'Try registering for events!';
+
+      const btn = document.createElement('button');
+      btn.id = 'restart-tour-btn';
+      btn.className = 'restart-tour-btn';
+      btn.setAttribute('aria-label', 'Restart tour');
+      btn.title = 'Restart tour';
+      btn.innerHTML = '<span style="font-weight:700;font-size:20px;line-height:1">?</span>';
+      btn.addEventListener('click', function () {
+        localStorage.removeItem(seenKey);
+        if (window.startPersevTour) window.startPersevTour();
+      });
+
+      wrapper.appendChild(tooltip);
+      wrapper.appendChild(btn);
+      document.body.appendChild(wrapper);
+
+      // animate in
+      setTimeout(function () {
+        tooltip.style.opacity = '1';
+        btn.style.transform = 'scale(1)';
+      }, 10);
+    }
+
     function createTour(targets) {
       const tour = new Shepherd.Tour({
         defaultStepOptions: {
@@ -280,17 +318,36 @@ Mahim West, Mumbai, Maharashtra - 400016
 
       tour.on('complete', function () {
         localStorage.setItem(seenKey, '1');
+        showRestartButton();
       });
 
       tour.on('cancel', function () {
         localStorage.setItem(seenKey, '1');
+        showRestartButton();
       });
 
       return tour;
     }
 
+    function startPersevTour() {
+      waitForTargets().then(function (targets) {
+        if (!targets.leaderboard || !targets.events || !targets.oc || !targets.reg) {
+          return;
+        }
+
+        const tour = createTour(targets);
+        tour.start();
+      });
+    }
+
+    window.startPersevTour = startPersevTour;
+
     window.addEventListener('load', function () {
-      if (!window.Shepherd || localStorage.getItem(seenKey) === '1') {
+      if (!window.Shepherd) return;
+
+      if (localStorage.getItem(seenKey) === '1') {
+        // show the restart button if tour already seen
+        showRestartButton();
         return;
       }
 
@@ -305,6 +362,15 @@ Mahim West, Mumbai, Maharashtra - 400016
     });
   })();
 </script>
-<style>.ripple{position:absolute;border-radius:50%;background:rgba(190,142,48,.6);transform:scale(0);animation:ripple-animation .6s linear;pointer-events:none}@keyframes ripple-animation{to{transform:scale(4);opacity:0}}</style>
+<style>
+.ripple{position:absolute;border-radius:50%;background:rgba(190,142,48,.6);transform:scale(0);animation:ripple-animation .6s linear;pointer-events:none}
+@keyframes ripple-animation{to{transform:scale(4);opacity:0}}
+
+/* Restart tour button styles */
+.restart-tour-btn{width:56px;height:56px;border-radius:50%;background:#081032;color:#fff;border:4px solid #BE8E30;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);cursor:pointer;transition:transform .15s ease,box-shadow .15s;transform:scale(0);outline:none}
+.restart-tour-btn:hover{box-shadow:0 10px 25px rgba(0,0,0,0.3);transform:scale(1.05)}
+.restart-tour-tooltip{background:#081032;color:white;padding:8px 12px;border-radius:999px;margin-right:10px;border:2px solid #BE8E30;white-space:nowrap;opacity:0;transition:opacity .2s ease;font-weight:600}
+
+</style>
 </body>
 </html>

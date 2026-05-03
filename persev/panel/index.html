@@ -199,6 +199,10 @@
           height: 2.5rem !important;
         }
       }
+      /* Restart tour button styles */
+      .restart-tour-btn{width:56px;height:56px;border-radius:50%;background:#081032;color:#fff;border:4px solid #BE8E30;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);cursor:pointer;transition:transform .15s ease,box-shadow .15s;transform:scale(0);outline:none}
+      .restart-tour-btn:hover{box-shadow:0 10px 25px rgba(0,0,0,0.3);transform:scale(1.05)}
+      .restart-tour-tooltip{background:#081032;color:white;padding:8px 12px;border-radius:999px;margin-right:10px;border:2px solid #BE8E30;white-space:nowrap;opacity:0;transition:opacity .2s ease;font-weight:600}
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/css/shepherd.css">
     <link rel="stylesheet" href="/persev/assets/app.css">
@@ -888,13 +892,8 @@
   loadExistingRegistrations(); // Load and display existing registrations
   
   // Initialize Shepherd tour for panel page
-  function initPanelTour() {
-    if (typeof Shepherd === 'undefined') {
-      setTimeout(initPanelTour, 100);
-      return;
-    }
-    
-    if (!localStorage.getItem('persev.panel-tour.seen.v1')) {
+  (function () {
+    function createPanelTour() {
       const tour = new Shepherd.Tour({
         defaultStepOptions: {
           cancelIcon: { enabled: true },
@@ -903,100 +902,118 @@
         },
         useModalOverlay: true
       });
-      
+
       tour.addStep({
         id: 'panel-intro',
         title: 'Event Registration Dashboard',
         text: 'This is where schools registered their students for each event at Perseverantia! You can register participants for Classroom, Stage, or Sports & Gaming events.',
-        attachTo: {
-          element: 'h2',
-          on: 'bottom'
-        },
-        buttons: [
-          {
-            action() {
-              return this.next();
-            },
-            text: 'Next'
-          }
-        ]
+        attachTo: { element: 'h2', on: 'bottom' },
+        buttons: [{ action() { return this.next(); }, text: 'Next' }]
       });
-      
+
       tour.addStep({
         id: 'register-button',
         title: 'Start Registering',
         text: 'Click any of these buttons to register your students for an event. Each category has different events you can choose from.',
-        attachTo: {
-          element: '#classroom-btn',
-          on: 'top'
-        },
+        attachTo: { element: '#classroom-btn', on: 'top' },
         buttons: [
-          {
-            action() {
-              return this.previous();
-            },
-            text: 'Back'
-          },
-          {
-            action() {
-              return this.next();
-            },
-            text: 'Next'
-          }
+          { action() { return this.previous(); }, text: 'Back' },
+          { action() { return this.next(); }, text: 'Next' }
         ]
       });
-      
+
       tour.addStep({
         id: 'try-registering',
         title: 'Try Registering Now',
         text: 'Ready to go? Click any "Register" button above to start adding your students to events. You can always come back to modify your registrations later!',
-        attachTo: {
-          element: '.grid.grid-cols-1.md\\:grid-cols-3',
-          on: 'top'
-        },
+        attachTo: { element: '.grid.grid-cols-1.md\\:grid-cols-3', on: 'top' },
         buttons: [
-          {
-            action() {
-              return this.previous();
-            },
-            text: 'Back'
-          },
-          {
-            action() {
-              localStorage.setItem('persev.panel-tour.seen.v1', '1');
-              this.complete();
-            },
-            text: 'Got it!'
-          }
+          { action() { return this.previous(); }, text: 'Back' },
+          { action() { localStorage.setItem('persev.panel-tour.seen.v1', '1'); this.complete(); }, text: 'Got it!' }
         ]
       });
-      
+
       tour.on('complete', () => {
         localStorage.setItem('persev.panel-tour.seen.v1', '1');
+        showPanelRestartButton();
       });
-      
+
       tour.on('cancel', () => {
         localStorage.setItem('persev.panel-tour.seen.v1', '1');
+        showPanelRestartButton();
       });
-      
+
+      return tour;
+    }
+
+    function startPanelTour() {
+      if (typeof Shepherd === 'undefined') {
+        setTimeout(startPanelTour, 100);
+        return;
+      }
+      const tour = createPanelTour();
       tour.start();
     }
-  }
-  
-  initPanelTour();
+
+    window.startPanelTour = startPanelTour;
+
+    function showPanelRestartButton() {
+      if (document.getElementById('panel-restart-wrapper')) return;
+      // remove admin restart if present to avoid overlap
+      const existingAdmin = document.getElementById('admin-restart-wrapper');
+      if (existingAdmin) existingAdmin.remove();
+      const wrapper = document.createElement('div');
+      wrapper.id = 'panel-restart-wrapper';
+      wrapper.style.position = 'fixed';
+      wrapper.style.right = '20px';
+      wrapper.style.bottom = '20px';
+      wrapper.style.zIndex = '99999';
+      wrapper.style.display = 'flex';
+      wrapper.style.alignItems = 'center';
+
+      const tooltip = document.createElement('div');
+      tooltip.className = 'restart-tour-tooltip';
+      tooltip.textContent = 'Try registering for events!';
+
+      const btn = document.createElement('button');
+      btn.id = 'panel-restart-btn';
+      btn.className = 'restart-tour-btn';
+      btn.setAttribute('aria-label', 'Restart panel tour');
+      btn.title = 'Restart tour';
+      btn.innerHTML = '<span style="font-weight:700;font-size:20px;line-height:1">?</span>';
+      btn.addEventListener('click', function () {
+        // Allow users to restart the panel tour
+        localStorage.removeItem('persev.panel-tour.seen.v1');
+        if (window.startPanelTour) window.startPanelTour();
+      });
+
+      wrapper.appendChild(tooltip);
+      wrapper.appendChild(btn);
+      document.body.appendChild(wrapper);
+
+      setTimeout(function () { tooltip.style.opacity = '1'; btn.style.transform = 'scale(1)'; }, 10);
+    }
+
+    // Auto-start panel tour if not seen and Shepherd is ready
+    function initPanelTourAuto() {
+      if (typeof Shepherd === 'undefined') {
+        setTimeout(initPanelTourAuto, 100);
+        return;
+      }
+
+      if (!localStorage.getItem('persev.panel-tour.seen.v1')) {
+        startPanelTour();
+      } else {
+        showPanelRestartButton();
+      }
+    }
+
+    initPanelTourAuto();
+  })();
   
   // Check for successful registration and show admin panel prompt
-  function checkRegistrationSuccess() {
-    if (typeof Shepherd === 'undefined') {
-      setTimeout(checkRegistrationSuccess, 100);
-      return;
-    }
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('registration') === 'success') {
-      // Clear the success parameter from URL
-      window.history.replaceState({}, document.title, '/persev/panel');
-      
+  (function () {
+    function createSuccessTour() {
       const successTour = new Shepherd.Tour({
         defaultStepOptions: {
           cancelIcon: { enabled: true },
@@ -1005,41 +1022,90 @@
         },
         useModalOverlay: true
       });
-      
+
       successTour.addStep({
         id: 'registration-success',
-        title: '🎉 Registration Complete!',
+        title: 'Registration Complete!',
         text: 'Now try viewing the admin panel, which was used by the admin department of the OC to manage and organise the registrations!',
         buttons: [
-          {
-            action() {
-              window.open('/admin/login', '_blank');
-              this.next();
-            },
-            text: 'View Admin Panel'
-          },
-          {
-            action() {
-              return this.next();
-            },
-            text: 'Skip'
-          }
+          { action() { window.open('/persev/admin/login', '_blank'); this.next(); }, text: 'View Admin Panel' },
+          { action() { return this.next(); }, text: 'Skip' }
         ]
       });
-      
+
       successTour.on('complete', () => {
-        // Do nothing, just close
+        showAdminRestartButton();
       });
-      
+
       successTour.on('cancel', () => {
-        // Do nothing, just close
+        showAdminRestartButton();
       });
-      
-      successTour.start();
+
+      return successTour;
     }
-  }
-  
-  checkRegistrationSuccess();
+
+    function startSuccessTour() {
+      if (typeof Shepherd === 'undefined') {
+        setTimeout(startSuccessTour, 100);
+        return;
+      }
+      const tour = createSuccessTour();
+      tour.start();
+    }
+
+    window.startSuccessTour = startSuccessTour;
+
+    function showAdminRestartButton() {
+      if (document.getElementById('admin-restart-wrapper')) return;
+      // remove panel restart if present to avoid overlap
+      const existingPanel = document.getElementById('panel-restart-wrapper');
+      if (existingPanel) existingPanel.remove();
+      const wrapper = document.createElement('div');
+      wrapper.id = 'admin-restart-wrapper';
+      wrapper.style.position = 'fixed';
+      wrapper.style.right = '20px';
+      wrapper.style.bottom = '20px';
+      wrapper.style.zIndex = '99999';
+      wrapper.style.display = 'flex';
+      wrapper.style.alignItems = 'center';
+
+      const tooltip = document.createElement('div');
+      tooltip.className = 'restart-tour-tooltip';
+      tooltip.textContent = 'Try out the admin portal!';
+
+      const btn = document.createElement('button');
+      btn.id = 'admin-restart-btn';
+      btn.className = 'restart-tour-btn';
+      btn.setAttribute('aria-label', 'Restart admin tour');
+      btn.title = 'Restart admin tour';
+      btn.innerHTML = '<span style="font-weight:700;font-size:20px;line-height:1">?</span>';
+      btn.addEventListener('click', function () {
+        if (window.startSuccessTour) window.startSuccessTour();
+      });
+
+      wrapper.appendChild(tooltip);
+      wrapper.appendChild(btn);
+      document.body.appendChild(wrapper);
+
+      setTimeout(function () { tooltip.style.opacity = '1'; btn.style.transform = 'scale(1)'; }, 10);
+    }
+
+    function checkRegistrationSuccess() {
+      if (typeof Shepherd === 'undefined') {
+        setTimeout(checkRegistrationSuccess, 100);
+        return;
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('registration') === 'success') {
+        // Clear the success parameter from URL
+        window.history.replaceState({}, document.title, '/persev/panel');
+        startSuccessTour();
+      }
+    }
+
+    checkRegistrationSuccess();
+  })();
 });
     </script>
   </body>

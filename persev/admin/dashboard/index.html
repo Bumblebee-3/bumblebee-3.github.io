@@ -428,6 +428,9 @@
             }
         }
     </style>
+  <!-- Shepherd.js for guided tours -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/css/shepherd.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/js/shepherd.min.js"></script>
   <link rel="stylesheet" href="/persev/assets/app.css">
   <script src="/persev/assets/app.js"></script>
   <script src="/persev/assets/pages.js"></script>
@@ -519,6 +522,12 @@
             <div id="summary-tab" class="tab-pane">
                 <div id="summary-content" class="loading">Loading summary...</div>
             </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+            <a href="/persev/leaderboard" target="_blank" id="leaderboard-btn" class="btn-primary" style="display: inline-block; padding: 15px 30px; border-radius: 999px; text-decoration: none; font-size: 16px; font-weight: 600;">
+                Check out the Leaderboard
+            </a>
         </div>
     </div>
 
@@ -830,7 +839,13 @@
         function switchTab(tabName) {
             // Update tab buttons
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
+            // handle calls from code that don't have event.target
+            if (window.event && window.event.target) {
+                window.event.target.classList.add('active');
+            } else {
+                const btn = document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`);
+                if (btn) btn.classList.add('active');
+            }
 
             // Update tab content
             document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
@@ -917,6 +932,163 @@
               }
             } catch(e) {}            window.location.href = '/persev/admin/login';
         });
+
+        // --- Shepherd tour for admin dashboard ---
+        (function() {
+          const STORAGE_KEY = 'persev.admin.dashboard-tour.seen.v1';
+
+          function createDashboardTour() {
+            const tour = new Shepherd.Tour({
+              defaultStepOptions: {
+                cancelIcon: { enabled: true },
+                classes: 'shepherd-theme-arrows',
+                scrollTo: { behavior: 'smooth', block: 'center' }
+              },
+              useModalOverlay: true
+            });
+
+            tour.addStep({
+              id: 'step-intro',
+              title: 'Perseverantia',
+              text: 'The admin team at Perseverantia used this to view, download, and categorize registrations.',
+              buttons: [
+                { text: 'Next', action: tour.next }
+              ]
+            });
+
+            tour.addStep({
+              id: 'step-tabs',
+              title: 'Perseverantia',
+              text: 'View stage events, classroom events, and sports events using these tabs.',
+              attachTo: { element: '.tabs', on: 'bottom' },
+              buttons: [
+                { text: 'Back', action: tour.back },
+                { text: 'Next', action: tour.next }
+              ]
+            });
+
+            tour.addStep({
+              id: 'step-summary',
+              title: 'Perseverantia',
+              text: 'View summary of all events and schools by clicking here.',
+              attachTo: { element: document.querySelector('.tab[onclick="switchTab(\\\'summary\\\')"]') || '.tabs', on: 'bottom' },
+              beforeShowPromise: function() {
+                return new Promise((resolve) => {
+                  switchTab('summary');
+                  setTimeout(resolve, 300);
+                });
+              },
+              buttons: [
+                { text: 'Back', action: tour.back },
+                { text: 'Next', action: tour.next }
+              ]
+            });
+
+            tour.addStep({
+              id: 'step-leaderboard',
+              title: 'Perseverantia',
+              text: 'Now check out the leaderboard system which was handled by the scoring and awards department.',
+              buttons: [
+                { text: 'Open Leaderboard', action: function(){
+                    window.open('/persev/leaderboard', '_blank');
+                } },
+                { text: 'Finish', action: tour.complete }
+              ]
+            });
+            tour.on('complete', () => {
+              try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e){}
+              showDashboardRestartButton();
+            });
+
+            tour.on('cancel', () => {
+              showDashboardRestartButton();
+            });
+
+            return tour;
+          }
+
+          let _dashboardTour = null;
+
+          window.startDashboardTour = function() {
+            // switch back to first tab before tour starts
+            switchTab('stage');
+
+            if (!_dashboardTour) _dashboardTour = createDashboardTour();
+            hideDashboardRestartButton();
+            _dashboardTour.start();
+          };
+
+          // Restart button UI using the same structure/styles as /persev/index.html
+          function showDashboardRestartButton() {
+            if (document.getElementById('restart-tour-wrapper')) return;
+
+            const wrapper = document.createElement('div');
+            wrapper.id = 'restart-tour-wrapper';
+            wrapper.style.position = 'fixed';
+            wrapper.style.right = '20px';
+            wrapper.style.bottom = '20px';
+            wrapper.style.zIndex = '99999';
+            wrapper.style.display = 'flex';
+            wrapper.style.alignItems = 'center';
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'restart-tour-tooltip';
+            tooltip.textContent = 'check out the leaderboard!';
+
+            const btn = document.createElement('button');
+            btn.id = 'restart-tour-btn';
+            btn.className = 'restart-tour-btn';
+            btn.setAttribute('aria-label', 'Restart tour');
+            btn.title = 'Restart tour';
+            btn.innerHTML = '<span style="font-weight:700;font-size:20px;line-height:1">?</span>';
+            btn.addEventListener('click', function () {
+              try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+              if (window.startDashboardTour) window.startDashboardTour();
+            });
+
+            wrapper.appendChild(tooltip);
+            wrapper.appendChild(btn);
+            document.body.appendChild(wrapper);
+
+            setTimeout(function () {
+              tooltip.style.opacity = '1';
+              btn.style.transform = 'scale(1)';
+            }, 10);
+          }
+
+          function hideDashboardRestartButton() {
+            const wrapper = document.getElementById('restart-tour-wrapper');
+            if (wrapper) wrapper.remove();
+          }
+
+          // Minimal styles for restart button
+          (function ensureRestartStyles(){
+            if (document.getElementById('persev-restart-styles')) return;
+            const styleEl = document.createElement('style');
+            styleEl.id = 'persev-restart-styles';
+            styleEl.textContent = `
+              .restart-tour-btn{width:56px;height:56px;border-radius:50%;background:#081032;color:#fff;border:4px solid #BE8E30;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);cursor:pointer;transition:transform .15s ease,box-shadow .15s;transform:scale(0);outline:none}
+              .restart-tour-btn:hover{box-shadow:0 10px 25px rgba(0,0,0,0.3);transform:scale(1.05)}
+              .restart-tour-tooltip{background:#081032;color:white;padding:8px 12px;border-radius:999px;margin-right:10px;border:2px solid #BE8E30;white-space:nowrap;opacity:0;transition:opacity .2s ease;font-weight:600}
+            `;
+            document.head.appendChild(styleEl);
+          })();
+
+          // Auto-start tour if not seen before
+          // We wait slightly to make sure data load doesn't clash with height calcs
+          document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+              try {
+                const seen = localStorage.getItem(STORAGE_KEY);
+                if (!seen) {
+                  window.startDashboardTour();
+                } else {
+                  showDashboardRestartButton();
+                }
+              } catch(e) {}
+            }, 1000);
+          });
+        })();
     </script>
 </body>
 </html>

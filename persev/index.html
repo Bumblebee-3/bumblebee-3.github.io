@@ -205,6 +205,15 @@ Mahim West, Mumbai, Maharashtra - 400016
 
           if (targets.leaderboard && targets.events && targets.oc && targets.reg) {
             clearInterval(timer);
+            
+            // Re-assign to mobile links if on mobile
+            if (window.innerWidth < 768) {
+              const mobileAnchors = Array.from(document.querySelectorAll('#mobile-menu a'));
+              targets.leaderboard = mobileAnchors.find(function(a) { return a.textContent.trim() === 'Leaderboard'; }) || targets.leaderboard;
+              targets.events = mobileAnchors.find(function(a) { return a.textContent.trim() === 'Events'; }) || targets.events;
+              targets.oc = mobileAnchors.find(function(a) { return a.textContent.trim() === 'Organizing Committee'; }) || targets.oc;
+            }
+            
             resolve(targets);
             return;
           }
@@ -272,12 +281,35 @@ Mahim West, Mumbai, Maharashtra - 400016
         buttons: [{ text: 'Next', action: tour.next.bind(tour) }]
       });
 
+      tour.addStep({
+        id: 'leaderboard',
+        title: 'Leaderboard',
+        text: 'The leaderboard shows the current standings of participating schools.',
+        attachTo: { element: targets.leaderboard, on: 'bottom' },
+        beforeShowPromise: function() {
+          return new Promise(function(resolve) {
+            if (window.innerWidth < 768) {
+              const menu = document.getElementById('mobile-menu');
+              if (menu && menu.classList.contains('hidden')) {
+                document.getElementById('menu-toggle').click();
+                setTimeout(resolve, 550); // wait for menu animation
+                return;
+              }
+            }
+            resolve();
+          });
+        },
+        buttons: [
+          { text: 'Back', action: tour.back.bind(tour) },
+          { text: 'Next', action: tour.next.bind(tour) }
+        ]
+      });
 
       tour.addStep({
         id: 'events',
         title: 'Events',
         text: 'Events contains the full list of Perseverantia competitions and activities.',
-        attachTo: { element: "#button1", on: 'bottom' },
+        attachTo: { element: targets.events, on: 'bottom' },
         buttons: [
           { text: 'Back', action: tour.back.bind(tour) },
           { text: 'Next', action: tour.next.bind(tour) }
@@ -288,7 +320,7 @@ Mahim West, Mumbai, Maharashtra - 400016
         id: 'organizing-committee',
         title: 'Organizing Committee',
         text: 'OC introduces the people behind the fest and the teams running it.',
-        attachTo: { element: "#button2", on: 'bottom' },
+        attachTo: { element: targets.oc, on: 'bottom' },
         buttons: [
           { text: 'Back', action: tour.back.bind(tour) },
           { text: 'Next', action: tour.next.bind(tour) }
@@ -300,6 +332,19 @@ Mahim West, Mumbai, Maharashtra - 400016
         title: 'Event Registration',
         text: 'Use this button at the end. Schools used it to register for each event they wanted to take part in.',
         attachTo: { element: targets.reg, on: 'bottom' },
+        beforeShowPromise: function() {
+          return new Promise(function(resolve) {
+            if (window.innerWidth < 768) {
+              const menu = document.getElementById('mobile-menu');
+              if (menu && !menu.classList.contains('hidden')) {
+                document.getElementById('menu-toggle').click();
+                setTimeout(resolve, 550);
+                return;
+              }
+            }
+            resolve();
+          });
+        },
         buttons: [
           { text: 'Back', action: tour.back.bind(tour) },
           { text: 'Finish', action: tour.complete.bind(tour) }

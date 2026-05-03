@@ -272,22 +272,12 @@ Mahim West, Mumbai, Maharashtra - 400016
         buttons: [{ text: 'Next', action: tour.next.bind(tour) }]
       });
 
-      tour.addStep({
-        id: 'leaderboard',
-        title: 'Leaderboard',
-        text: 'Leaderboard shows the event scores and standings.',
-        attachTo: { element: targets.leaderboard, on: 'bottom' },
-        buttons: [
-          { text: 'Back', action: tour.back.bind(tour) },
-          { text: 'Next', action: tour.next.bind(tour) }
-        ]
-      });
 
       tour.addStep({
         id: 'events',
         title: 'Events',
         text: 'Events contains the full list of Perseverantia competitions and activities.',
-        attachTo: { element: targets.events, on: 'bottom' },
+        attachTo: { element: "#button1", on: 'bottom' },
         buttons: [
           { text: 'Back', action: tour.back.bind(tour) },
           { text: 'Next', action: tour.next.bind(tour) }
@@ -298,7 +288,7 @@ Mahim West, Mumbai, Maharashtra - 400016
         id: 'organizing-committee',
         title: 'Organizing Committee',
         text: 'OC introduces the people behind the fest and the teams running it.',
-        attachTo: { element: targets.oc, on: 'bottom' },
+        attachTo: { element: "#button2", on: 'bottom' },
         buttons: [
           { text: 'Back', action: tour.back.bind(tour) },
           { text: 'Next', action: tour.next.bind(tour) }

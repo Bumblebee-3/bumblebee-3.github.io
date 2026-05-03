@@ -540,7 +540,6 @@
         tour.addStep({
           title: "Welcome to Dashboard",
           text: "This page gives a quick view of status, bot details, and actions.",
-          attachTo: { element: ".welcom.reminders", on: "bottom" },
           buttons: [{ text: "Next", action: tour.next }]
         });
 
@@ -556,8 +555,7 @@
 
         tour.addStep({
           title: "Quick Navigation",
-          text: "Use sidebar shortcuts to jump to Editor, Eval, Terminal, or Logs.",
-          attachTo: { element: ".sidebar .side-menu", on: "right" },
+          text: "Use sidebar/navbar shortcuts to jump to Editor, Eval, Terminal, or Logs.",
           buttons: [
             { text: "Back", action: tour.back },
             { text: "Next", action: tour.next }

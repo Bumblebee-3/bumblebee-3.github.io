@@ -1,12 +1,16 @@
 (function () {
   function routePath(pathname) {
-    if (pathname === "/persev") {
+    if (pathname === "/persev" || pathname === "/persev/") {
       return "/";
     }
-    if (pathname.startsWith("/persev/")) {
-      return pathname.slice(7);
+    let path = pathname;
+    if (path.startsWith("/persev/")) {
+      path = path.slice(7);
     }
-    return pathname;
+    if (path.length > 1 && path.endsWith('/')) {
+      path = path.slice(0, -1);
+    }
+    return path;
   }
 
   function toPersev(path) {
@@ -85,7 +89,7 @@
           redirect("/panel/");
           return;
         }
-        redirect("/login/?error=invalid");
+        redirect(path + "/?error=invalid");
         return;
       }
     }

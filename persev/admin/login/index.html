@@ -54,6 +54,8 @@
         filter: drop-shadow(0 0 20px rgba(190, 142, 48, 0.4));
       }
     </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/css/shepherd.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/js/shepherd.min.js"></script>
   <link rel="stylesheet" href="/persev/assets/app.css">
   <script src="/persev/assets/app.js"></script>
   <script src="/persev/assets/pages.js"></script>
@@ -97,6 +99,7 @@
               type="text"
               id="username"
               name="username"
+              value="admin"
               required
               class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-300"
               placeholder="Enter admin username"
@@ -112,6 +115,7 @@
               type="password"
               id="password"
               name="password"
+              value="admin123"
               required
               class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-gray-300"
               placeholder="Enter admin password"
@@ -152,54 +156,48 @@
 
     <!-- JavaScript -->
     <script>
-        document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const loginBtn = document.getElementById('login-btn');
-            const errorMsg = document.getElementById('error-message');
-            const successMsg = document.getElementById('success-message');
-            
-            // Clear previous messages
-            errorMsg.classList.add('hidden');
-            successMsg.classList.add('hidden');
-            
-            // Disable button and show loading
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Accessing...';
-            
-            try {
-                const response = await fetch('/persev/admin/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username, password })
-                });
-                
-                const result = await response.json();
-                
-                if (response.ok && result.success) {
-                    successMsg.textContent = 'Login successful! Redirecting...';
-                    successMsg.classList.remove('hidden');
-                    setTimeout(() => {
-                        window.location.href = '/persev/admin/dashboard';
-                    }, 1000);
-                } else {
-                    errorMsg.textContent = result.message || 'Invalid credentials';
-                    errorMsg.classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                errorMsg.textContent = 'Login failed. Please try again.';
-                errorMsg.classList.remove('hidden');
-            } finally {
-                // Re-enable button
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Access Dashboard';
-            }
-        });
+      // CLIENT-SIDE only admin login for static deployments
+      // WARNING: credentials are stored in this file and visible to anyone who views source.
+      // Change these values to whatever you want locally.
+      const ADMIN_USERNAME = 'admin';
+      const ADMIN_PASSWORD = 'admin123';
+
+      document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const loginBtn = document.getElementById('login-btn');
+        const errorMsg = document.getElementById('error-message');
+        const successMsg = document.getElementById('success-message');
+
+        // Clear previous messages
+        errorMsg.classList.add('hidden');
+        successMsg.classList.add('hidden');
+
+        // Disable button and show loading
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Accessing...';
+
+        // Simple client-side check
+        setTimeout(() => {
+          if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+            // mark authenticated in localStorage for static mode
+            localStorage.setItem('persev.admin.auth', '1');
+            successMsg.textContent = 'Login successful! Redirecting...';
+            successMsg.classList.remove('hidden');
+            setTimeout(() => {
+              window.location.href = '/persev/admin/dashboard';
+            }, 700);
+          } else {
+            errorMsg.textContent = 'Invalid credentials';
+            errorMsg.classList.remove('hidden');
+          }
+
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'Access Dashboard';
+        }, 300);
+      });
 
         // Check if already logged in
         document.addEventListener('DOMContentLoaded', async function() {
@@ -227,6 +225,143 @@
                 this.parentElement.classList.remove('focused');
             });
         });
+
+        // --- Shepherd tour for admin login ---
+        (function() {
+          const STORAGE_KEY = 'persev.admin.login-tour.seen.v1';
+
+          function createLoginTour() {
+            const tour = new Shepherd.Tour({
+              defaultStepOptions: {
+                cancelIcon: { enabled: true },
+                classes: 'shepherd-theme-arrows',
+                scrollTo: { behavior: 'smooth', block: 'center' }
+              },
+              useModalOverlay: true
+            });
+
+            tour.addStep({
+              id: 'step-username',
+              title: 'Perseverantia',
+              text: 'Enter the admin username here. Use "admin" for the static demo.',
+              attachTo: { element: '#username', on: 'bottom' },
+              buttons: [
+                { text: 'Next', action: tour.next }
+              ]
+            });
+
+            tour.addStep({
+              id: 'step-password',
+              title: 'Perseverantia',
+              text: 'Now enter the password. Use "admin123" for the static demo.',
+              attachTo: { element: '#password', on: 'bottom' },
+              buttons: [
+                { text: 'Back', action: tour.back },
+                { text: 'Next', action: tour.next }
+              ]
+            });
+
+            tour.addStep({
+              id: 'step-submit',
+              title: 'Perseverantia',
+              text: 'Finally, click Access Dashboard to sign in.',
+              attachTo: { element: '#login-btn', on: 'top' },
+              buttons: [
+                { text: 'Back', action: tour.back },
+                { text: 'Finish', action: tour.complete }
+              ]
+            });
+
+            tour.on('complete', () => {
+              try { localStorage.setItem(STORAGE_KEY, '1'); } catch(e){}
+              showLoginRestartButton();
+            });
+
+            tour.on('cancel', () => {
+              showLoginRestartButton();
+            });
+
+            return tour;
+          }
+
+          let _loginTour = null;
+
+          window.startLoginTour = function() {
+            if (!_loginTour) _loginTour = createLoginTour();
+            hideLoginRestartButton();
+            _loginTour.start();
+          };
+
+          // Restart button UI using the same structure/styles as /persev/index.html
+          function showLoginRestartButton() {
+            if (document.getElementById('restart-tour-wrapper')) return;
+
+            const wrapper = document.createElement('div');
+            wrapper.id = 'restart-tour-wrapper';
+            wrapper.style.position = 'fixed';
+            wrapper.style.right = '20px';
+            wrapper.style.bottom = '20px';
+            wrapper.style.zIndex = '99999';
+            wrapper.style.display = 'flex';
+            wrapper.style.alignItems = 'center';
+
+            const tooltip = document.createElement('div');
+            tooltip.className = 'restart-tour-tooltip';
+            tooltip.textContent = 'Try entering admin / admin123 and click Access Dashboard';
+
+            const btn = document.createElement('button');
+            btn.id = 'restart-tour-btn';
+            btn.className = 'restart-tour-btn';
+            btn.setAttribute('aria-label', 'Restart tour');
+            btn.title = 'Restart tour';
+            btn.innerHTML = '<span style="font-weight:700;font-size:20px;line-height:1">?</span>';
+            btn.addEventListener('click', function () {
+              try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+              if (window.startLoginTour) window.startLoginTour();
+            });
+
+            wrapper.appendChild(tooltip);
+            wrapper.appendChild(btn);
+            document.body.appendChild(wrapper);
+
+            setTimeout(function () {
+              tooltip.style.opacity = '1';
+              btn.style.transform = 'scale(1)';
+            }, 10);
+          }
+
+          function hideLoginRestartButton() {
+            const wrapper = document.getElementById('restart-tour-wrapper');
+            if (wrapper) wrapper.remove();
+          }
+
+          // Add same minimal CSS used on home page for restart button
+          (function ensureRestartStyles(){
+            if (document.getElementById('persev-restart-styles')) return;
+            const styleEl = document.createElement('style');
+            styleEl.id = 'persev-restart-styles';
+            styleEl.textContent = `
+              .restart-tour-btn{width:56px;height:56px;border-radius:50%;background:#081032;color:#fff;border:4px solid #BE8E30;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);cursor:pointer;transition:transform .15s ease,box-shadow .15s;transform:scale(0);outline:none}
+              .restart-tour-btn:hover{box-shadow:0 10px 25px rgba(0,0,0,0.3);transform:scale(1.05)}
+              .restart-tour-tooltip{background:#081032;color:white;padding:8px 12px;border-radius:999px;margin-right:10px;border:2px solid #BE8E30;white-space:nowrap;opacity:0;transition:opacity .2s ease;font-weight:600}
+            `;
+            document.head.appendChild(styleEl);
+          })();
+
+          // Auto-start tour if not seen before
+          document.addEventListener('DOMContentLoaded', function() {
+            try {
+              const seen = localStorage.getItem(STORAGE_KEY);
+              if (!seen) {
+                // small delay so page elements are fully rendered
+                setTimeout(() => { window.startLoginTour(); }, 300);
+              } else {
+                // show restart button so users can re-run the tour
+                showLoginRestartButton();
+              }
+            } catch(e) { console.warn('tour storage error', e); }
+          });
+        })();
     </script>
 </body>
 </html>

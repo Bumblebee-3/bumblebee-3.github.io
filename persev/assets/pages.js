@@ -102,8 +102,12 @@
       return;
     }
 
-    if (path === "/admin/dashboard" && !auth.isAdminLoggedIn()) {
-      redirect("/admin/login/");
+    if (path === "/admin/dashboard") {
+      var adminFlag = false;
+      try { adminFlag = localStorage && localStorage.getItem && localStorage.getItem('persev.admin.auth') === '1'; } catch (e) { adminFlag = false; }
+      if (!auth.isAdminLoggedIn() && !adminFlag) {
+        redirect("/admin/login/");
+      }
     }
   }
 

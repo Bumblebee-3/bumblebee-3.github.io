@@ -334,6 +334,9 @@
     },
     isAdminLoggedIn: function () {
       const state = loadState();
+      try {
+        if (localStorage && localStorage.getItem && localStorage.getItem('persev.admin.auth') === '1') return true;
+      } catch (e) {}
       return !!state.admin.authenticated;
     }
   };

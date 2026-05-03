@@ -444,7 +444,7 @@
             </div>
             <div class="header-actions">
                 <button class="refresh-btn" onclick="refreshAllData()">🔄 Refresh</button>
-                <a href="/persev/admin/logout" class="logout-btn">Logout</a>
+                <a href="#" id="static-logout" class="logout-btn">Logout</a>
             </div>
         </div>
     </div>
@@ -529,28 +529,39 @@
             classroom: []
         };
 
-        // Check authentication on page load
+        // Check authentication on page load (supports static-only mode)
         document.addEventListener('DOMContentLoaded', async function() {
             try {
-                const response = await fetch('/persev/admin/check-auth');
-                if (!response.ok) {
-                    window.location.href = '/persev/admin/login';
-                    return;
+                const staticAuth = localStorage.getItem('persev.admin.auth');
+                if (staticAuth === '1') {
+                    // static mode authenticated
+                } else {
+                    // try backend check; if it fails redirect to static login
+                    try {
+                        const response = await fetch('/persev/admin/check-auth');
+                        if (!response.ok) {
+                            window.location.href = '/persev/admin/login';
+                            return;
+                        }
+                        const result = await response.json();
+                        if (!result.authenticated) {
+                            window.location.href = '/persev/admin/login';
+                            return;
+                        }
+                    } catch (err) {
+                        window.location.href = '/persev/admin/login';
+                        return;
+                    }
                 }
-                const result = await response.json();
-                if (!result.authenticated) {
-                    window.location.href = '/persev/admin/login';
-                    return;
-                }
+
+                // Load data if authenticated (backend APIs may still be unavailable)
+                loadStatistics();
+                loadAllRegistrations();
             } catch (error) {
                 console.error('Auth check failed:', error);
                 window.location.href = '/persev/admin/login';
                 return;
             }
-
-            // Load data if authenticated
-            loadStatistics();
-            loadAllRegistrations();
         });
 
         async function loadStatistics() {
@@ -894,6 +905,12 @@
             loadStatistics();
             loadAllRegistrations();
         }
+        // Static logout handler (clears client-side auth)
+        document.getElementById('static-logout').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('persev.admin.auth');
+            window.location.href = '/persev/admin/login';
+        });
     </script>
 </body>
 </html>

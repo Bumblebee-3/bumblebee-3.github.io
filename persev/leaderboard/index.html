@@ -357,9 +357,11 @@
         }
       }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/css/shepherd.css">
     <link rel="stylesheet" href="/persev/assets/app.css">
   <script src="/persev/assets/app.js"></script>
   <script src="/persev/assets/pages.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shepherd.js/7.1.2/js/shepherd.min.js"></script>
 </head>
 <body style="background: linear-gradient(135deg, #0a0f2c, #1a2949);" class="text-white">
     <!-- Background Decorations -->
@@ -465,7 +467,7 @@
 
         document.getElementById("leaderboard-container").classList.add("mr-96");
         document.getElementById("leaderboard-container").classList.add("w-2/3");
-        const response = await fetch("/persev/api/lb/full");
+        const response = await fetch("/persev/leaderboard/db.json");
         const data = await response.json();
         //sidepanel
         const scd = data.schools.filter((e) => e.name === school.name)[0];
@@ -585,7 +587,7 @@
 
       async function fetchAndRender() {
         try {
-          const response = await fetch("/persev/api/lb/info");
+          const response = await fetch("/persev/leaderboard/db.json");
           const data = await response.json();
           if(data.eventEnd) onEventsEnd();
           console.log(data.eventEnd)
@@ -593,12 +595,9 @@
           if(!data.eventEnd && ee) window.location.reload()
 
 
-          const schools = data.schools;
-          const points = data.points;
-
-          const leaderboardData = schools.map((school, index) => ({
-            name: school,
-            points: points[index],
+          const leaderboardData = data.schools.map((school) => ({
+            name: school.name,
+            points: school.points,
           }));
 
           renderLeaderboard(leaderboardData);
@@ -625,16 +624,14 @@
         ee=true;
         if (podiumCreated) return; // Prevent recreating podium multiple times
         
-        fetch("/persev/api/lb/info")
+        fetch("/persev/leaderboard/db.json")
           .then((res) => res.json())
           .then((data) => {
-            const schools = data.schools;
-            const points = data.points;
             if(data.eventEnd && !ee) window.location.reload()
 
-            let leaderboard = schools.map((school, index) => ({
-              name: school,
-              points: points[index],
+            let leaderboard = data.schools.map((school) => ({
+              name: school.name,
+              points: school.points,
             }));
 
             leaderboard.sort((a, b) => b.points - a.points);
@@ -760,5 +757,151 @@
         }
       });
     </script>
-  </body>
-</html>
+
+<script>
+  (function () {
+    const seenKey = 'persev.lb-tour.seen.v1';
+
+    function waitForTargets() {
+      return new Promise(function (resolve) {
+        const startedAt = Date.now();
+        const timer = setInterval(function () {
+          const targets = {
+            table: document.querySelector('#leaderboard'),
+            row: document.querySelector('#leaderboard-body tr'),
+          };
+
+          if (targets.table && targets.row) {
+            clearInterval(timer);
+            resolve(targets);
+            return;
+          }
+
+          if (Date.now() - startedAt > 10000) {
+            clearInterval(timer);
+            resolve(targets);
+          }
+        }, 100);
+      });
+    }
+
+    function showRestartButton() {
+      if (document.getElementById('restart-tour-wrapper')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.id = 'restart-tour-wrapper';
+      wrapper.style.position = 'fixed';
+      wrapper.style.right = '20px';
+      wrapper.style.bottom = '20px';
+      wrapper.style.zIndex = '99999';
+      wrapper.style.display = 'flex';
+      wrapper.style.alignItems = 'center';
+
+      const tooltip = document.createElement('div');
+      tooltip.className = 'restart-tour-tooltip';
+      tooltip.textContent = 'Restart Tour';
+
+      const btn = document.createElement('button');
+      btn.id = 'restart-tour-btn';
+      btn.className = 'restart-tour-btn';
+      btn.setAttribute('aria-label', 'Restart tour');
+      btn.title = 'Restart tour';
+      btn.innerHTML = '<span style="font-weight:700;font-size:20px;line-height:1">?</span>';
+      btn.addEventListener('click', function () {
+        localStorage.removeItem(seenKey);
+        if (window.startLBTour) window.startLBTour();
+      });
+
+      wrapper.appendChild(tooltip);
+      wrapper.appendChild(btn);
+      document.body.appendChild(wrapper);
+
+      setTimeout(function () {
+        tooltip.style.opacity = '1';
+        btn.style.transform = 'scale(1)';
+      }, 10);
+    }
+
+    function createTour(targets) {
+      const tour = new Shepherd.Tour({
+        defaultStepOptions: {
+          cancelIcon: { enabled: true },
+          classes: 'shepherd-theme-arrows',
+          scrollTo: { behavior: 'smooth', block: 'center' }
+        },
+        useModalOverlay: true
+      });
+
+      tour.addStep({
+        id: 'intro',
+        title: 'Perseverantia',
+        text: 'This leaderboard was used by schools during the two days of event to tally their scores and keep a track of their standings.',
+        buttons: [{ text: 'Next', action: tour.next.bind(tour) }]
+      });
+
+      tour.addStep({
+        id: 'school-click',
+        title: 'Perseverantia',
+        text: 'Click on a school to show the points earn in each event.',
+        attachTo: { element: targets.row, on: 'bottom' },
+        buttons: [
+          { text: 'Back', action: tour.back.bind(tour) },
+          { text: 'Next', action: tour.next.bind(tour) }
+        ]
+      });
+
+      tour.addStep({
+        id: 'admin-update',
+        title: 'Perseverantia',
+        text: 'The points were updated by the awards and scoring committee via a separate admin portal.',
+        buttons: [
+          { text: 'Back', action: tour.back.bind(tour) },
+          { text: 'Finish', action: tour.complete.bind(tour) }
+        ]
+      });
+
+      tour.on('complete', function () {
+        localStorage.setItem(seenKey, '1');
+        showRestartButton();
+      });
+
+      tour.on('cancel', function () {
+        localStorage.setItem(seenKey, '1');
+        showRestartButton();
+      });
+
+      return tour;
+    }
+
+    function startLBTour() {
+      waitForTargets().then(function (targets) {
+        if (!targets.table || !targets.row) return;
+        const tour = createTour(targets);
+        tour.start();
+      });
+    }
+
+    window.startLBTour = startLBTour;
+
+    window.addEventListener('load', function () {
+      if (!window.Shepherd) return;
+
+      if (localStorage.getItem(seenKey) === '1') {
+        showRestartButton();
+        return;
+      }
+
+      waitForTargets().then(function (targets) {
+        if (!targets.table || !targets.row) return;
+        const tour = createTour(targets);
+        tour.start();
+      });
+    });
+  })();
+</script>
+<style>
+/* Restart tour button styles */
+.restart-tour-btn{width:56px;height:56px;border-radius:50%;background:#081032;color:#fff;border:4px solid #BE8E30;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.2);cursor:pointer;transition:transform .15s ease,box-shadow .15s;transform:scale(0);outline:none}
+.restart-tour-btn:hover{box-shadow:0 10px 25px rgba(0,0,0,0.3);transform:scale(1.05)}
+.restart-tour-tooltip{background:#081032;color:white;padding:8px 12px;border-radius:999px;margin-right:10px;border:2px solid #BE8E30;white-space:nowrap;opacity:0;transition:opacity .2s ease;font-weight:600}
+</style>
